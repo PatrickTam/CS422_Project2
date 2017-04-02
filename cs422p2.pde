@@ -41,6 +41,8 @@ String dateString = "";
 int militaryFlag = 0;
 int mdy = 1;
 
+int dayOfWeek;
+
 //background boxes
 BackgroundBox appBox = new BackgroundBox(125, 1325, 775, 200);
 BackgroundBox settingBox = new BackgroundBox(2307, 825, 400, 600);
@@ -91,6 +93,10 @@ void setup() {
   //https://www.iconfinder.com/icons/317415/blue_sky_clear_forecast_sun_sunny_weather_icon
   sunny.loadPixels();
   
+  cloudy = loadImage("cloudy.png", "png");
+  //https://www.iconfinder.com/icons/214293/cloud_clouds_cloudy_saas_weather_icon
+  cloudy.loadPixels();
+  
   appArr = new AppButton[]{weatherIcon, musicIcon};
   
   f = createFont("SansSerif.plain", 24, true);
@@ -109,6 +115,8 @@ void draw() {
   mo = month();
   d = day();
   y = year();
+  
+  dayOfWeek = dow(d, mo, y);
   
   textFont(f);
   textAlign(CENTER);
@@ -151,6 +159,7 @@ void draw() {
   //left 3 widgets
   fill(0, 255, 123);
   for (int loopCounter=0; loopCounter < widgetLeft.length; loopCounter++){
+    //this means that there is an app attached to the widget
     if(widgetLeft[loopCounter].name != null){
       if(widgetLeft[loopCounter].strokeColor[2] == 0)
        strokeWeight(8);
@@ -160,8 +169,10 @@ void draw() {
       fill(140);
       rect(widgetLeft[loopCounter].x, widgetLeft[loopCounter].y, 
          widgetLeft[loopCounter].sizeX, widgetLeft[loopCounter].sizeY, 10);
+      //process the app info
       processWidgetInfo(widgetLeft[loopCounter]);
     }
+    //the widgets are shown because we are either placing an app, or we are moving widgets
     else if(appSelected != -1 || moveButton.clicked == 1){
      if(widgetLeft[loopCounter].strokeColor[2] == 0)
        strokeWeight(8);
@@ -172,6 +183,7 @@ void draw() {
      rect(widgetLeft[loopCounter].x, widgetLeft[loopCounter].y, 
          widgetLeft[loopCounter].sizeX, widgetLeft[loopCounter].sizeY, 10);
     }
+    //basically draw nothing otherwise
     else{
       stroke(255,0);
       fill(140,140,140,0);
@@ -183,6 +195,7 @@ void draw() {
   //right 3 widgets
   fill(0, 255, 123);
     for (int loopCounter=0; loopCounter < widgetRight.length; loopCounter++){
+      //this means that there is an app attached to the widget
       if(widgetRight[loopCounter].name != null){
         if(widgetRight[loopCounter].strokeColor[2] == 0)
          strokeWeight(8);
@@ -195,6 +208,7 @@ void draw() {
         processWidgetInfo(widgetRight[loopCounter]);
         stroke(255,0);
       }
+      //the widgets are shown because we are either placing an app, or we are moving widgets
       else if(appSelected != -1 || moveButton.clicked == 1){
        if(widgetRight[loopCounter].strokeColor[2] == 0)
          strokeWeight(8);
