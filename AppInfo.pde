@@ -1,6 +1,7 @@
 String[] appNames = {"weather", "music"};
 
 void processWidgetInfo(Widget w){
+  //expand weather
   if(w.name.equals("weather")){
     //not expanded
     if(w.sizeY == 150){
@@ -42,9 +43,51 @@ void processWidgetInfo(Widget w){
       fill(0, 255, 123);
     }
   }
+  
+  else if(w.name.equals("music")){
+    musicFlag = 1;
+    if(w.sizeY == 150){
+      fill(0);
+      textSize(40);
+      textAlign(LEFT);
+      
+      backward.resize(60,60);
+      image(backward, w.x+20, w.y+50);
+      
+      if(playFlag == 0){
+        play.resize(60,60);
+        image(play, w.x+100, w.y+50);
+      }
+      else{
+        pause.resize(60,60);
+        image(pause, w.x+100, w.y+50);
+      }
+      
+      forward.resize(60,60);
+      image(forward, w.x+180, w.y+50);
+      
+      text(musicNames[musicIndex], w.x+300, w.y+90);
+    }
+    else{
+      
+    }
+  }
 }
 
 String[][] currentWeatherInfo = {{"Hi: 50°F", "Hi: 10°C"}, {"Low: 32°F", "Low: 0°C"}, {"Current: 45°F", "Current: 7.2°C"}};
 String[][] expandedWeatherInfo = {{"Hi: 50°F\nLow:32°F"}, {"Hi: 50°F\nLow:32°F"}, {"Hi: 50°F\nLow:32°F"}, {"Hi: 50°F\nLow:32°F"}};
 PImage sunny;
 PImage cloudy;
+
+
+String[] musicNames = {"Varisty - Amanda", "Varisty - So Sad, So Sad"};
+PImage play;
+//https://thenounproject.com/term/play/10681/
+PImage forward;
+PImage backward;
+//http://www.flaticon.com/free-icon/step-forward-control-button-symbol-of-triangular-right-arrow-pointing-a-vertical-line_37075
+PImage pause;
+//https://www.iconfinder.com/search/?q=pause
+int playFlag = 0;
+int playSecond = millis();
+int musicIndex = 0;

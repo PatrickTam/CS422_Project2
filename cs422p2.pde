@@ -50,6 +50,7 @@ BackgroundBox settingBox = new BackgroundBox(2307, 825, 400, 600);
 //icons
 AppButton weatherIcon = new AppButton(135, 1330, 90, 90, "weather");
 AppButton musicIcon = new AppButton(135, 1430, 90, 90, "music");
+int musicFlag = 0;
 int appSelected = -1;
 
 AppButton[] appArr;
@@ -97,6 +98,18 @@ void setup() {
   //https://www.iconfinder.com/icons/214293/cloud_clouds_cloudy_saas_weather_icon
   cloudy.loadPixels();
   
+  play = loadImage("play.png", "png");
+  play.loadPixels();
+  
+  forward = loadImage("forward.png", "png");
+  forward.loadPixels();
+  
+  backward = loadImage("backward.png", "png");
+  backward.loadPixels();
+  
+  pause = loadImage("pause.png", "png");
+  pause.loadPixels();
+  
   appArr = new AppButton[]{weatherIcon, musicIcon};
   
   f = createFont("SansSerif.plain", 24, true);
@@ -108,7 +121,7 @@ void draw() {
   noStroke();
   
   //setup date time on the top center
-  h = hour();
+  /*h = hour();
   m = minute();
   s = second();
   
@@ -122,6 +135,9 @@ void draw() {
   textAlign(CENTER);
   textSize(80);
   fill(0);
+  
+  musicFlag = 0;
+  
   if(militaryFlag == 0){
     String min;
     if(h > 12){
@@ -153,7 +169,14 @@ void draw() {
   text(timeString, 2732/2, 80);
   
   textSize(50);
-  text(dateString, 2732/2, 150);
+  text(dateString, 2732/2, 150);*/
+  
+  Point locTime = new Point(width/2, 80);
+  Point locDate = new Point(width/2, 150);
+  DateTimeItem dti = new DateTimeItem(locTime, locDate);
+  dti.drawDateTime();
+  
+  dayOfWeek = dow(day(), month(), year());
   
   strokeWeight(4);
   //left 3 widgets
@@ -278,6 +301,46 @@ void draw() {
 }
 
 void mouseReleased() {
+   if(musicFlag == 1){
+     Widget w = null;
+     for(int i = 0; i < 3; i++){
+      if(widgetLeft[i].name != null && widgetLeft[i].name.equals("music")){
+        w = widgetLeft[i];
+        break;
+      }
+      if(widgetRight[i].name != null && widgetRight[i].name.equals("music")){
+       w = widgetRight[i];
+       break;
+      }
+     }
+     if(w != null){
+       for(int i = 0; i < 3; i++){
+         float[][] musVerts = rectVerts(new int[]{w.x+20+(i*80), w.y+50}, new int[]{60,60});
+         float[] musX = musVerts[0];
+         float[] musY = musVerts[1];
+         if(pnpoly(4, musX, musY, mouseX, mouseY) == 1){
+           //clicked either play or pause
+           if(i == 1){
+            if(playFlag == 1){
+              playFlag = 0;
+              playSecond = millis();
+            }
+            else{
+              playFlag = 1;
+            }
+           }
+           else{
+             if(musicIndex == 0)
+               musicIndex = 1;
+             else
+               musicIndex = 0;
+           }
+           return;
+         }
+       }
+     }
+   }
+   
   for (int loopCounter=0; loopCounter < widgetLeft.length; loopCounter++) {
     float[][] verts = rectVerts(widgetLeft[loopCounter].getCoords(), widgetLeft[loopCounter].getSize());
     float[] widgetX = verts[0];
@@ -513,7 +576,6 @@ void mouseReleased() {
       return;
     }
    }
-   
 }
 
 //returns verticies of a rectangle, given the top left coordinate and the size
