@@ -30,17 +30,6 @@ Clickable moveButton = new Clickable(135, 1425, 100, 100);
 PImage moveImg;
 PImage moveImgSelected; 
 
-int h, m, s;
-int mo, d, y;
-
-String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-
-String timeString = "";
-String dateString = "";
-
-int militaryFlag = 0;
-int mdy = 1;
-
 int dayOfWeek;
 
 //background boxes
@@ -51,6 +40,10 @@ BackgroundBox settingBox = new BackgroundBox(2307, 825, 400, 600);
 AppButton weatherIcon = new AppButton(135, 1330, 90, 90, "weather");
 AppButton musicIcon = new AppButton(135, 1430, 90, 90, "music");
 int musicFlag = 0;
+int pauseTime = 0;
+Audio amanda = new Audio();
+Audio sad = new Audio();
+
 int appSelected = -1;
 
 AppButton[] appArr;
@@ -112,8 +105,41 @@ void setup() {
   
   appArr = new AppButton[]{weatherIcon, musicIcon};
   
+  amanda.setAttribute("src", "amanda.mp3");
+  sad.setAttribute("src", "sad.mp3");
+  
+  amandaCover = loadImage("amandaCover.jpg", "jpg");
+  amandaCover.loadPixels();
+  
+  sadCover = loadImage("sadCover.jpg", "jpg");
+  sadCover.loadPixels();
+  
   f = createFont("SansSerif.plain", 24, true);
   
+}
+
+//we set the attribute again to avoid the html5 pause() error (I know this is bad)
+void playAmanda(){
+    amanda.setAttribute("src", "amanda.mp3");
+    amanda.play();
+}
+
+//we set the attribute again to avoid the html5 pause() error (I know this is bad)
+void playSad(){
+    sad.setAttribute("src", "sad.mp3");
+    sad.play(); 
+}
+
+void stopAmanda(){
+ amanda.pause();
+ amanda.currentTime = 0;
+ while(amanda.getAttribute("paused") == false){}
+}
+
+void stopSad(){
+  sad.pause();
+ sad.currentTime = 0;
+ while(sad.getAttribute("paused") == false){}
 }
 
 void draw() {
@@ -121,56 +147,6 @@ void draw() {
   noStroke();
   
   //setup date time on the top center
-  /*h = hour();
-  m = minute();
-  s = second();
-  
-  mo = month();
-  d = day();
-  y = year();
-  
-  dayOfWeek = dow(d, mo, y);
-  
-  textFont(f);
-  textAlign(CENTER);
-  textSize(80);
-  fill(0);
-  
-  musicFlag = 0;
-  
-  if(militaryFlag == 0){
-    String min;
-    if(h > 12){
-      h -= 12;
-      if(m < 10)
-        min = "0" + str(m);
-      else
-        min = str(m);
-      timeString = h + ":" + min + " PM";
-    }
-    else{
-      if(m < 10)
-        min = "0" + str(m);
-      else
-        min = str(m);
-      timeString = h + ":" + m + "AM"; 
-    }
-  }
-  else
-    timeString = h + ":" + m + ":" + s;
-  
-  if(mdy == 1){
-   dateString = months[mo-1] + " " + d + ", " + y; 
-  }
-  else{
-   dateString = d + " " + months[mo] + ", " + y; 
-  }
-  
-  text(timeString, 2732/2, 80);
-  
-  textSize(50);
-  text(dateString, 2732/2, 150);*/
-  
   Point locTime = new Point(width/2, 80);
   Point locDate = new Point(width/2, 150);
   DateTimeItem dti = new DateTimeItem(locTime, locDate);
@@ -298,6 +274,24 @@ void draw() {
     fill(140);
     rect(settingBox.x, settingBox.y, settingBox.sizeX, settingBox.sizeY, 10);
   }
+  
+  if(musicFlag == 1 && playFlag == 1){
+   if(millis() - playSecond < musicMillis[musicIndex]){
+   }     
+   else{
+     if(musicIndex == 0){
+       stopAmanda();
+       musicIndex = 1;
+       playSad();
+     }
+     else{
+       stopSad();
+       musicIndex = 0;
+       playAmanda();
+     }
+     playSecond = millis();
+   }
+  }
 }
 
 void mouseReleased() {
@@ -323,17 +317,38 @@ void mouseReleased() {
            if(i == 1){
             if(playFlag == 1){
               playFlag = 0;
-              playSecond = millis();
+              if(musicIndex == 0){
+               stopAmanda(); 
+              }
+              else
+                stopSad();
             }
             else{
               playFlag = 1;
+              if(musicIndex == 0)
+                playAmanda();
+              else
+                playSad();
+              playSecond = millis();            
             }
            }
            else{
-             if(musicIndex == 0)
+             if(musicIndex == 0){
                musicIndex = 1;
-             else
+               if(playFlag == 1){
+                 stopAmanda();
+                 playSad();
+                 playSecond = millis();
+               }
+             }
+             else{
                musicIndex = 0;
+               if(playFlag == 1){
+                 stopSad();
+                 playAmanda();
+                 playSecond = millis();
+               }
+             }
            }
            return;
          }

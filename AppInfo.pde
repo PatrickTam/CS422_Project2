@@ -69,7 +69,77 @@ void processWidgetInfo(Widget w){
       text(musicNames[musicIndex], w.x+300, w.y+90);
     }
     else{
+      fill(0);
+      textSize(40);
+      textAlign(LEFT);
       
+      backward.resize(60,60);
+      image(backward, w.x+20, w.y+50);
+      
+      if(playFlag == 0){
+        play.resize(60,60);
+        image(play, w.x+100, w.y+50);
+      }
+      else{
+        pause.resize(60,60);
+        image(pause, w.x+100, w.y+50);
+      }
+      
+      forward.resize(60,60);
+      image(forward, w.x+180, w.y+50);
+      
+      text(musicNames[musicIndex], w.x+300, w.y+90);
+      
+      if(musicIndex == 0){
+       amandaCover.resize(160, 160);
+       image(amandaCover, w.x+50, w.y+130);
+       if(playFlag == 1){
+         String timeString = "";
+         int seconds = (int) ((millis() - playSecond) / 1000) % 60 ;
+         String sec = "";
+         if(seconds < 10)
+           sec += "0";
+         sec += str(seconds);
+         int minutes = (int) (((millis() - playSecond) / (1000*60)) % 60);
+         timeString += str(minutes)+":"+ sec + "/";
+         seconds = (int) ((musicMillis[musicIndex]) / 1000) % 60 ;
+         minutes = (int) (((musicMillis[musicIndex]) / (1000*60)) % 60);
+         timeString += str(minutes)+":"+str(seconds)+"0";
+         text(timeString, w.x+300, w.y+200);
+       }
+       else{
+        String timeString = "0:00/";
+        int seconds = (int) ((musicMillis[musicIndex]) / 1000) % 60 ;
+        int minutes = (int) (((musicMillis[musicIndex]) / (1000*60)) % 60);
+        timeString += str(minutes)+":"+str(seconds)+"0";
+        text(timeString, w.x+300, w.y+200);
+       }
+      }
+      else{
+       sadCover.resize(160, 160);
+       image(sadCover, w.x+50, w.y+130);
+       if(playFlag == 1){
+         String timeString = "";
+         int seconds = (int) ((millis() - playSecond) / 1000) % 60 ;
+         String sec = "";
+         if(seconds < 10)
+           sec += "0";
+         sec += str(seconds);
+         int minutes = (int) (((millis() - playSecond) / (1000*60)) % 60);
+         timeString += str(minutes)+":"+ sec +"/";
+         seconds = (int) ((musicMillis[musicIndex]) / 1000) % 60 ;
+         minutes = (int) (((musicMillis[musicIndex]) / (1000*60)) % 60);
+         timeString += str(minutes)+":"+str(seconds);
+         text(timeString, w.x+300, w.y+200);
+       }
+       else{
+        String timeString = "0:00/";
+        int seconds = (int) ((musicMillis[musicIndex]) / 1000) % 60 ;
+        int minutes = (int) (((musicMillis[musicIndex]) / (1000*60)) % 60);
+        timeString += str(minutes)+":"+str(seconds);
+        text(timeString, w.x+300, w.y+200);
+       }
+      }
     }
   }
 }
@@ -81,6 +151,7 @@ PImage cloudy;
 
 
 String[] musicNames = {"Varisty - Amanda", "Varisty - So Sad, So Sad"};
+int[] musicMillis = {240000, 232000};
 PImage play;
 //https://thenounproject.com/term/play/10681/
 PImage forward;
@@ -88,6 +159,8 @@ PImage backward;
 //http://www.flaticon.com/free-icon/step-forward-control-button-symbol-of-triangular-right-arrow-pointing-a-vertical-line_37075
 PImage pause;
 //https://www.iconfinder.com/search/?q=pause
+PImage amandaCover;
+PImage sadCover;
 int playFlag = 0;
 int playSecond = millis();
 int musicIndex = 0;
