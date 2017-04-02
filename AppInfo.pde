@@ -185,6 +185,23 @@ void processWidgetInfo(Widget w){
      text("7h 20m", w.x+600, w.y+260);
    }
   }
+  //TODO
+  else if(w.name.equals("calendar")){
+    if(w.sizeY == 150){
+      
+    }
+    else{
+    
+    }
+  }
+  else if(w.name.equals("news")){
+    if(w.sizeY == 150){
+    
+    }
+    else{
+    
+    }
+  }
 }
 
 //Weather Info

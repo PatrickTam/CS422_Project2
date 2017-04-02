@@ -203,6 +203,7 @@ void stopSad(){
 }
 
 void draw() {
+  //brightness -> tint()
   background(bg);
   noStroke();
   
@@ -423,6 +424,12 @@ void mouseReleased() {
     
     if(pnpoly(4, widgetX, widgetY, mouseX, mouseY) == 1){
       if(appSelected != -1){
+        //stop the music if we are replacing it
+         if(widgetLeft[loopCounter].name != null && widgetLeft[loopCounter].name.equals("music") && !appArr[appSelected].name.equals("music")){
+           playFlag = 0;
+           stopSad();
+           stopAmanda();
+         }
         for(int i = 0; i < widgetLeft.length; i++){
           if(widgetLeft[i].name != null && widgetLeft[i].name.equals(appArr[appSelected].name))
             widgetLeft[i].name = null;
@@ -511,6 +518,11 @@ void mouseReleased() {
      if(pnpoly(4, widgetX, widgetY, mouseX, mouseY) == 1){
        //we have selected an app, work on it
        if(appSelected != -1){
+         if(widgetRight[loopCounter].name != null && widgetRight[loopCounter].name.equals("music") && !appArr[appSelected].name.equals("music")){
+           playFlag = 0;
+           stopSad();
+           stopAmanda();
+         }
          for(int i = 0; i < widgetLeft.length; i++){
           if(widgetLeft[i].name != null && widgetLeft[i].name.equals(appArr[appSelected].name))
             widgetLeft[i].name = null;
