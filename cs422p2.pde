@@ -136,7 +136,7 @@ void draw() {
     timeString = h + ":" + m + ":" + s;
   
   if(mdy == 1){
-   dateString = months[mo] + " " + d + ", " + y; 
+   dateString = months[mo-1] + " " + d + ", " + y; 
   }
   else{
    dateString = d + " " + months[mo] + ", " + y; 
