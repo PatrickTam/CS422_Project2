@@ -92,6 +92,8 @@ void processWidgetInfo(Widget w){
       
       text(musicNames[musicIndex], w.x+300, w.y+90);
       
+      text("Album:" + albumTitle[musicIndex], w.x+300, w.y+150);
+      
       if(musicIndex == 0){
        amandaCover.resize(160, 160);
        image(amandaCover, w.x+50, w.y+130);
@@ -107,14 +109,14 @@ void processWidgetInfo(Widget w){
          seconds = (int) ((musicMillis[musicIndex]) / 1000) % 60 ;
          minutes = (int) (((musicMillis[musicIndex]) / (1000*60)) % 60);
          timeString += str(minutes)+":"+str(seconds)+"0";
-         text(timeString, w.x+300, w.y+200);
+         text(timeString, w.x+300, w.y+230);
        }
        else{
         String timeString = "0:00/";
         int seconds = (int) ((musicMillis[musicIndex]) / 1000) % 60 ;
         int minutes = (int) (((musicMillis[musicIndex]) / (1000*60)) % 60);
         timeString += str(minutes)+":"+str(seconds)+"0";
-        text(timeString, w.x+300, w.y+200);
+        text(timeString, w.x+300, w.y+230);
        }
       }
       else{
@@ -132,14 +134,14 @@ void processWidgetInfo(Widget w){
          seconds = (int) ((musicMillis[musicIndex]) / 1000) % 60 ;
          minutes = (int) (((musicMillis[musicIndex]) / (1000*60)) % 60);
          timeString += str(minutes)+":"+str(seconds);
-         text(timeString, w.x+300, w.y+200);
+         text(timeString, w.x+300, w.y+230);
        }
        else{
         String timeString = "0:00/";
         int seconds = (int) ((musicMillis[musicIndex]) / 1000) % 60 ;
         int minutes = (int) (((musicMillis[musicIndex]) / (1000*60)) % 60);
         timeString += str(minutes)+":"+str(seconds);
-        text(timeString, w.x+300, w.y+200);
+        text(timeString, w.x+300, w.y+230);
        }
       }
     }
@@ -194,6 +196,7 @@ PImage cloudy;
 
 //Music Info
 String[] musicNames = {"Varisty - Amanda", "Varisty - So Sad, So Sad"};
+String[] albumTitle = {"VARISTY", "Cult of Personality"};
 int[] musicMillis = {240000, 232000};
 PImage play;
 //https://thenounproject.com/term/play/10681/
