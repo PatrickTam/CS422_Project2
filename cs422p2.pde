@@ -43,9 +43,19 @@ int musicFlag = 0;
 int pauseTime = 0;
 Audio amanda = new Audio();
 Audio sad = new Audio();
-
+AppButton healthIcon = new AppButton(235, 1330, 90, 90, "health");
+AppButton calendarIcon = new AppButton(235, 1430, 90, 90, "calendar");
+AppButton newsIcon = new AppButton(335, 1330, 90, 90, "news");
+AppButton timerIcon = new AppButton(335, 1430, 90, 90, "timer");
+AppButton alarmIcon = new AppButton(435, 1330, 90, 90, "alarm");
+AppButton noteIcon = new AppButton(435, 1430, 90, 90, "note");
+AppButton emailIcon = new AppButton(535, 1330, 90, 90, "email");
+AppButton twitterIcon = new AppButton(535, 1430, 90, 90, "twitter");
+AppButton instagramIcon = new AppButton(635, 1330, 90, 90, "instagram");
+AppButton facebookIcon = new AppButton(635, 1430, 90, 90, "facebook");
 int appSelected = -1;
 
+//Put all AppButtons in here
 AppButton[] appArr;
 
 void setup() {
@@ -83,6 +93,46 @@ void setup() {
   //https://www.iconfinder.com/icons/820103/love_love_music_music_music_note_sing_wedding_music_icon
   musicIcon.image.loadPixels();
   
+  healthIcon.image = loadImage("health.png", "png");
+  //https://thenounproject.com/term/health/4215/
+  healthIcon.image.loadPixels();
+  
+  calendarIcon.image = loadImage("calendar.png", "png");
+  //https://thenounproject.com/term/calendar/
+  calendarIcon.image.loadPixels();
+  
+  newsIcon.image = loadImage("news.png", "png");
+  //https://www.iconfinder.com/icons/112154/headlines_news_newspaper_print_text_icon
+  newsIcon.image.loadPixels();
+  
+  timerIcon.image = loadImage("timer.png", "png");
+  //https://icons8.com/web-app/1111/timer
+  timerIcon.image.loadPixels();
+  
+  alarmIcon.image = loadImage("alarm.png", "png");
+  //http://www.freeiconspng.com/icons/alarm-icon
+  alarmIcon.image.loadPixels();
+  
+  noteIcon.image = loadImage("note.png", "png");
+  //https://www.iconfinder.com/icons/261628/document_modify_note_notes_paper_pencil_record_icon
+  noteIcon.image.loadPixels();
+  
+  emailIcon.image = loadImage("email.png", "png");
+  //http://www.freeiconspng.com/icons/email-icon
+  emailIcon.image.loadPixels();
+  
+  twitterIcon.image = loadImage("twitter.png", "png");
+  //http://www.iconarchive.com/show/socialmedia-icons-by-uiconstock/Twitter-icon.html
+  twitterIcon.image.loadPixels();
+  
+  instagramIcon.image = loadImage("instagram.png", "png");
+  //https://www.reddit.com/r/Android/comments/4j7x3w/material_instagram_icons/
+  instagramIcon.image.loadPixels();
+  
+  facebookIcon.image = loadImage("facebook.png", "png");
+  //http://www.business2community.com/small-business/social-media-beneficial-small-business-owners-5-sites-best-ways-use-01772814#bvFfklVSsoJosYYG.97
+  facebookIcon.image.loadPixels();
+  
   sunny = loadImage("sunny.png", "png");
   //https://www.iconfinder.com/icons/317415/blue_sky_clear_forecast_sun_sunny_weather_icon
   sunny.loadPixels();
@@ -103,7 +153,17 @@ void setup() {
   pause = loadImage("pause.png", "png");
   pause.loadPixels();
   
-  appArr = new AppButton[]{weatherIcon, musicIcon};
+  weight = loadImage("weight.png", "png");
+  weight.loadPixels();
+  
+  steps = loadImage("walking.png", "png");
+  steps.loadPixels();
+  
+  sleep = loadImage("sleep.png", "png");
+  sleep.loadPixels();
+  
+  //Add a new app? Put it in here or it wont show up!
+  appArr = new AppButton[]{weatherIcon, musicIcon, healthIcon, calendarIcon, newsIcon, timerIcon, alarmIcon, noteIcon, emailIcon, twitterIcon, instagramIcon, facebookIcon};
   
   amanda.setAttribute("src", "amanda.mp3");
   sad.setAttribute("src", "sad.mp3");

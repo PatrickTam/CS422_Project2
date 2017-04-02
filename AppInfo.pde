@@ -1,7 +1,8 @@
+//This file is for putting the information in the apps for the widget information
 String[] appNames = {"weather", "music"};
 
 void processWidgetInfo(Widget w){
-  //expand weather
+  //weather is on a widget
   if(w.name.equals("weather")){
     //not expanded
     if(w.sizeY == 150){
@@ -16,7 +17,7 @@ void processWidgetInfo(Widget w){
       text(currentWeatherInfo[2][0], w.x+450, w.y+90);
       fill(0, 255, 123);  
     }
-    //expanded
+    //expanded weather widget
     else{
       fill(0);
       textSize(35);
@@ -43,7 +44,7 @@ void processWidgetInfo(Widget w){
       fill(0, 255, 123);
     }
   }
-  
+  //music on widget
   else if(w.name.equals("music")){
     musicFlag = 1;
     if(w.sizeY == 150){
@@ -68,6 +69,7 @@ void processWidgetInfo(Widget w){
       
       text(musicNames[musicIndex], w.x+300, w.y+90);
     }
+    //expand music
     else{
       fill(0);
       textSize(40);
@@ -142,14 +144,55 @@ void processWidgetInfo(Widget w){
       }
     }
   }
+  else if(w.name.equals("health")){
+   if(w.sizeY == 150){
+     fill(0);
+     textSize(40);
+     textAlign(LEFT);
+      
+     weight.resize(120,120);
+     image(weight, w.x+80, w.y+20);
+     
+     text("Today: 130 lbs", w.x+250, w.y+60);
+     text("Last Month: 135 lbs", w.x+250, w.y+120);
+   }
+   else{
+     fill(0);
+     textSize(30);
+     textAlign(LEFT);
+     
+     text("Today:", w.x+20, w.y+200);
+     text("Avg Month:", w.x+20, w.y+260);
+     
+     weight.resize(120,120);
+     image(weight, w.x+400, w.y+20);
+     
+     text("130 lbs", w.x+400, w.y+200);
+     text("135 lbs", w.x+400, w.y+260);
+     
+     steps.resize(120,120);
+     image(steps, w.x+200, w.y+20);
+     
+     text("8123 steps", w.x+200, w.y+200);
+     text("7815 steps", w.x+200, w.y+260);
+     
+     sleep.resize(120,120);
+     image(sleep, w.x+600, w.y+20);
+     
+     text("7h 29m", w.x+600, w.y+200);
+     text("7h 20m", w.x+600, w.y+260);
+   }
+  }
 }
 
+//Weather Info
 String[][] currentWeatherInfo = {{"Hi: 50°F", "Hi: 10°C"}, {"Low: 32°F", "Low: 0°C"}, {"Current: 45°F", "Current: 7.2°C"}};
 String[][] expandedWeatherInfo = {{"Hi: 50°F\nLow:32°F"}, {"Hi: 50°F\nLow:32°F"}, {"Hi: 50°F\nLow:32°F"}, {"Hi: 50°F\nLow:32°F"}};
 PImage sunny;
 PImage cloudy;
 
 
+//Music Info
 String[] musicNames = {"Varisty - Amanda", "Varisty - So Sad, So Sad"};
 int[] musicMillis = {240000, 232000};
 PImage play;
@@ -164,3 +207,15 @@ PImage sadCover;
 int playFlag = 0;
 int playSecond = millis();
 int musicIndex = 0;
+
+
+//Health Info
+PImage weight;
+//http://www.freeiconspng.com/icons/scale-icon
+PImage steps;
+//https://thenounproject.com/term/walking/35091/
+PImage sleep;
+//https://www.iconfinder.com/icons/573088/apple_disturb_good_moon_night_sleep_stars_icon
+
+
+//Calendar info... for later...
