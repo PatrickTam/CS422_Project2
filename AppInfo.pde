@@ -35,11 +35,11 @@ void processWidgetInfo(Widget w){
           dayOfWeek = 0;
         
         cloudy.resize(90,90);
-        image(cloudy, w.x+40+(i*200), w.y+130);
+        image(cloudy, w.x+70+(i*200), w.y+130);
         
-        text(dayName[dayOfWeek], w.x+80+(i*200), w.y+130);
+        text(dayName[dayOfWeek], w.x+110+(i*200), w.y+130);
         
-        text(expandedWeatherInfo[i], w.x+90+(i*200), w.y+240);
+        text(expandedWeatherInfo[i], w.x+120+(i*200), w.y+240);
       }
       fill(0, 255, 123);
     }
