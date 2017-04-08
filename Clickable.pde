@@ -1,5 +1,6 @@
 class Clickable{  
   int x, y, sizeX, sizeY, clicked;
+  int[] fillColor;
   String name;
   Clickable(int topLeftX, int topLeftY, int _sizeX, int _sizeY){
      x = topLeftX;
@@ -8,6 +9,7 @@ class Clickable{
      sizeY = _sizeY;
      clicked = 0;
      name = "";
+     fillColor = new int[]{0,0,0};
   }
   
   int[] getCoords(){
@@ -33,6 +35,15 @@ class Clickable{
   
   void drawLine(){
    line(x, y+sizeY, x+sizeX, y+sizeY); 
+  }
+  
+  void changeFillColor(String str){
+   if(str.equals("yellow")){
+    fillColor = new int[]{255,255,0};
+   }
+   else if(str.equals("black")){
+    fillColor = new int[]{0,0,0}; 
+   }
   }
   
 }

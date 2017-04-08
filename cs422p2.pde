@@ -3,23 +3,25 @@ PImage power;
 boolean on;
 boolean firstLogin;
 
+PImage langIcon;
 String language = "None";
-BackgroundBox langBox = new BackgroundBox(1066, 468, 600, 460);
-Clickable english = new Clickable(1066, 528, 600, 100);
-Clickable spanish = new Clickable(1066, 628, 600, 100);
-Clickable french = new Clickable(1066, 728, 600, 100);
-Clickable lang4 = new Clickable(1066, 828, 600, 100);
+BackgroundBox langBox = new BackgroundBox(1066, 668, 600, 460);
+Clickable english = new Clickable(1066, 728, 600, 100);
+Clickable spanish = new Clickable(1066, 828, 600, 100);
+Clickable french = new Clickable(1066, 928, 600, 100);
+Clickable lang4 = new Clickable(1066, 1028, 600, 100);
 Clickable[] langs;
 
+PImage wifiIcon;
 String wifi = "None";
 PImage wifiMax;
 PImage wifiMed;
 PImage wifiLow;
-BackgroundBox wifiBox = new BackgroundBox(1066, 468, 600, 460);
-Clickable wifi1 = new Clickable(1066, 528, 600, 100);
-Clickable wifi2 = new Clickable(1066, 628, 600, 100);
-Clickable wifi3 = new Clickable(1066, 728, 600, 100);
-Clickable wifi4 = new Clickable(1066, 828, 600, 100);
+BackgroundBox wifiBox = new BackgroundBox(1066, 668, 600, 460);
+Clickable wifi1 = new Clickable(1066, 728, 600, 100);
+Clickable wifi2 = new Clickable(1066, 828, 600, 100);
+Clickable wifi3 = new Clickable(1066, 928, 600, 100);
+Clickable wifi4 = new Clickable(1066, 1028, 600, 100);
 Clickable[] wifiConns;
 
 Clickable skipButton = new Clickable(1166, 1325, 400, 100);
@@ -60,7 +62,12 @@ int dayOfWeek;
 
 //background boxes
 BackgroundBox appBox = new BackgroundBox(125, 1325, 775, 200);
+
 BackgroundBox settingBox = new BackgroundBox(2307, 825, 400, 600);
+Clickable register = new Clickable(2307, 1305, 400, 60);
+Clickable selectProfile = new Clickable(2307, 1365, 400, 60); 
+
+Clickable[] settings;
 
 //icons
 AppButton weatherIcon = new AppButton(135, 1330, 90, 90, "weather");
@@ -91,19 +98,31 @@ void setup() {
   firstLogin = true;
 
   skipButton.setName("Skip");
-
+  
+/********* LANGUAGE ***********/
   english.setName("English");
   spanish.setName("Español");
   french.setName("Français");
   lang4.setName("English2");
   langs = new Clickable[]{english, spanish, french, lang4, skipButton};
   
+  langIcon = loadImage("language.png", "png");
+  //https://cdn2.iconfinder.com/data/icons/social-productivity-line-art-2/128/world-512.png
+  langIcon.loadPixels();
+/********* LANGUAGE ***********/
+
+/********* WIFI ***********/
   wifi1.setName("ATT509");
   wifi2.setName("DogLover");
   wifi3.setName("Home");
   wifi4.setName("Hidden");
   wifiConns = new Clickable[]{wifi1, wifi2, wifi3, wifi4, skipButton};
   
+  wifiIcon = loadImage("wifi.png", "png");
+  //https://icons8.com/web-app/171/wi-fi
+  wifiIcon.loadPixels();
+  
+  //http://simpleicon.com/sets/signal/page/2/
   wifiMax = loadImage("wifi3.png", "png");
   wifiMax.loadPixels();
   
@@ -112,6 +131,7 @@ void setup() {
   
   wifiLow = loadImage("wifi1.png", "png");
   wifiLow.loadPixels();
+/********* WIFI ***********/
 
   power = loadImage("power.png", "png");
   power.loadPixels();
@@ -123,12 +143,20 @@ void setup() {
   appImgSelected = loadImage("appSelected2.png", "png");
   appImgSelected.loadPixels();
 
+/********* SETTING ***********/
   settingImg = loadImage("setting.png", "png");
   //http://iconshow.me/media/images/ui/ios7-icons/png/512/gear.png
   settingImg.loadPixels();
 
   settingImgSelected = loadImage("settingSelected.png", "png");
   settingImgSelected.loadPixels();
+  
+  register.setName("Register");
+  selectProfile.setName("Select Profile");
+  
+  settings = new Clickable[]{register, selectProfile};
+/********* SETTING ***********/
+
 
   moveImg = loadImage("move.png", "png");
   //https://www.iconfinder.com/icons/237454/arrow_cursor_move_icon
@@ -278,12 +306,16 @@ void draw() {
       textSize(80);
       textAlign(CENTER);
       text("Welcome!", 2732/2, 350);
+      
+      langIcon.resize(250,250);
+      image(langIcon, 2732/2 - 125, 375);
 
       fill(180);
       stroke(0);
       strokeWeight(4);
       rect(langBox.x, langBox.y, langBox.sizeX, langBox.sizeY);
       strokeWeight(0);
+      fill(0,0);
       rect(skipButton.x, skipButton.y, skipButton.sizeX, skipButton.sizeY);      
 
       fill(0);
@@ -305,17 +337,22 @@ void draw() {
       text(lang4.name, lang4.x+(lang4.sizeX/2), lang4.y+70);
       lang4.drawLine();
     }
+    //we set the language (or skipped), so now set the wifi
     else if(wifi.equals("None")){
       fill(0);
       textSize(80);
       textAlign(CENTER);
       text("Welcome!", 2732/2, 350);
 
+      wifiIcon.resize(250,250);
+      image(wifiIcon, 2732/2 - 125, 375);
+
       fill(180);
       stroke(0);
       strokeWeight(4);
       rect(wifiBox.x, wifiBox.y, wifiBox.sizeX, wifiBox.sizeY);
       strokeWeight(0);
+      fill(0,0);
       rect(skipButton.x, skipButton.y, skipButton.sizeX, skipButton.sizeY);
       
       fill(0);
@@ -326,6 +363,8 @@ void draw() {
       stroke(0);
       strokeWeight(4);
       line(wifiBox.x, wifiBox.y+60, wifiBox.x+wifiBox.sizeX, wifiBox.y+60);
+      
+      //I know that I can do this smarter, but for now I want to keep it like this in case I change anything
       
       strokeWeight(2);
       text(wifi1.name, wifi1.x+(wifi1.sizeX/2), wifi1.y+70);
@@ -465,6 +504,19 @@ void draw() {
       image(settingImgSelected, settingButton.x, settingButton.y);
       fill(140);
       rect(settingBox.x, settingBox.y, settingBox.sizeX, settingBox.sizeY, 10);
+      
+      fill(0);
+      textSize(40);
+      textAlign(LEFT);
+      /*text(register.name, register.x + 30, register.y + 30);
+      text(selectProfile.name, selectProfile.x + 30, selectProfile.y + 30);*/
+      for(Clickable setting : settings){
+        fill(setting.fillColor[0], setting.fillColor[1], setting.fillColor[2]);
+        text(setting.name, setting.x + 30, setting.y + 30);
+      }
+      strokeWeight(2);
+      stroke(0);
+      line(register.x+10, register.y-10, register.x + register.sizeX-10, register.y-10);
     }
 
     if (musicFlag == 1 && playFlag == 1) {
@@ -523,6 +575,34 @@ void mouseReleased() {
      return;
     }
   }
+  
+  if(settingButton.clicked == 1){
+     for(Clickable setting : settings){
+       float[][] settingVerts = rectVerts(setting.getCoords(), setting.getSize());
+       float[] setX = settingVerts[0];
+       float[] setY = settingVerts[1];
+       
+       if(pnpoly(4, setX, setY, mouseX, mouseY) == 1){
+          if(setting.clicked == 0){
+            //set everything to not be clicked
+            for(Clickable setting2 : settings){
+               setting2.clicked = 0; 
+               setting2.changeFillColor("black");
+            }
+            //then set this to be clicked
+            setting.clicked = 1;
+            setting.changeFillColor("yellow");
+            return;
+          }
+          else{
+            setting.clicked = 0;
+            setting.changeFillColor("black");
+            return;
+          }
+       }
+     }
+  }
+  
   if (musicFlag == 1) {
     Widget w = null;
     for (int i = 0; i < 3; i++) {
