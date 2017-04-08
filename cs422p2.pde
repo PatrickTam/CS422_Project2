@@ -1,3 +1,7 @@
+Clickable  powerButton = new Clickable(2607, 1425, 100, 100);
+PImage power;
+boolean on;
+
 PFont f;
 PImage bg;
 //preload background image (required)
@@ -60,6 +64,11 @@ AppButton[] appArr;
 
 void setup() {
   size(2732, 1536);
+  
+  on = false;
+  
+  power = loadImage("power.png", "png");
+  power.loadPixels();
   
   appImg = loadImage("app.png", "png");
   //http://i.imgsafe.org/bc2015d4a8.png
@@ -193,13 +202,13 @@ void playSad(){
 void stopAmanda(){
  amanda.pause();
  amanda.currentTime = 0;
- while(amanda.getAttribute("paused") == false){}
+ //while(amanda.getAttribute("paused") == false){}
 }
 
 void stopSad(){
-  sad.pause();
+ sad.pause();
  sad.currentTime = 0;
- while(sad.getAttribute("paused") == false){}
+ //while(sad.getAttribute("paused") == false){}
 }
 
 void draw() {
@@ -207,155 +216,169 @@ void draw() {
   background(bg);
   noStroke();
   
-  //setup date time on the top center
+    //setup date time on the top center
   Point locTime = new Point(width/2, 80);
   Point locDate = new Point(width/2, 150);
   DateTimeItem dti = new DateTimeItem(locTime, locDate);
-  dti.drawDateTime();
-  
   dayOfWeek = dow(day(), month(), year());
-  
-  strokeWeight(4);
-  //left 3 widgets
-  fill(0, 255, 123);
-  for (int loopCounter=0; loopCounter < widgetLeft.length; loopCounter++){
-    //this means that there is an app attached to the widget
-    if(widgetLeft[loopCounter].name != null){
-      if(widgetLeft[loopCounter].strokeColor[2] == 0)
-       strokeWeight(8);
-      else
-       strokeWeight(4);
-      stroke(widgetLeft[loopCounter].strokeColor[0], widgetLeft[loopCounter].strokeColor[1], widgetLeft[loopCounter].strokeColor[2]);
-      fill(140);
-      rect(widgetLeft[loopCounter].x, widgetLeft[loopCounter].y, 
-         widgetLeft[loopCounter].sizeX, widgetLeft[loopCounter].sizeY, 10);
-      //process the app info
-      processWidgetInfo(widgetLeft[loopCounter]);
-    }
-    //the widgets are shown because we are either placing an app, or we are moving widgets
-    else if(appSelected != -1 || moveButton.clicked == 1){
-     if(widgetLeft[loopCounter].strokeColor[2] == 0)
-       strokeWeight(8);
-     else
-       strokeWeight(4);
-     stroke(widgetLeft[loopCounter].strokeColor[0], widgetLeft[loopCounter].strokeColor[1], widgetLeft[loopCounter].strokeColor[2]);
-     fill(255, 140, 140); 
-     rect(widgetLeft[loopCounter].x, widgetLeft[loopCounter].y, 
-         widgetLeft[loopCounter].sizeX, widgetLeft[loopCounter].sizeY, 10);
-    }
-    //basically draw nothing otherwise
-    else{
-      stroke(255,0);
-      fill(140,140,140,0);
-      rect(widgetLeft[loopCounter].x, widgetLeft[loopCounter].y, 
-         widgetLeft[loopCounter].sizeX, widgetLeft[loopCounter].sizeY, 10);
-    }
+      
+  if(!on){
+    power.resize(powerButton.sizeX, powerButton.sizeY);
+    image(power, powerButton.x, powerButton.y);
   }
-  
-  //right 3 widgets
-  fill(0, 255, 123);
-    for (int loopCounter=0; loopCounter < widgetRight.length; loopCounter++){
-      //this means that there is an app attached to the widget
-      if(widgetRight[loopCounter].name != null){
-        if(widgetRight[loopCounter].strokeColor[2] == 0)
-         strokeWeight(8);
-        else
-         strokeWeight(4);
-        stroke(widgetRight[loopCounter].strokeColor[0], widgetRight[loopCounter].strokeColor[1], widgetRight[loopCounter].strokeColor[2]);
-        fill(140);
-        rect(widgetRight[loopCounter].x, widgetRight[loopCounter].y, 
-           widgetRight[loopCounter].sizeX, widgetRight[loopCounter].sizeY, 10);
-        processWidgetInfo(widgetRight[loopCounter]);
-        stroke(255,0);
+  else{
+      dti.drawDateTime();
+      strokeWeight(4);
+      //left 3 widgets
+      fill(0, 255, 123);
+      for (int loopCounter=0; loopCounter < widgetLeft.length; loopCounter++){
+        //this means that there is an app attached to the widget
+        if(widgetLeft[loopCounter].name != null){
+          if(widgetLeft[loopCounter].strokeColor[2] == 0)
+           strokeWeight(8);
+          else
+           strokeWeight(4);
+          stroke(widgetLeft[loopCounter].strokeColor[0], widgetLeft[loopCounter].strokeColor[1], widgetLeft[loopCounter].strokeColor[2]);
+          fill(140);
+          rect(widgetLeft[loopCounter].x, widgetLeft[loopCounter].y, 
+             widgetLeft[loopCounter].sizeX, widgetLeft[loopCounter].sizeY, 10);
+          //process the app info
+          processWidgetInfo(widgetLeft[loopCounter]);
+        }
+        //the widgets are shown because we are either placing an app, or we are moving widgets
+        else if(appSelected != -1 || moveButton.clicked == 1){
+         if(widgetLeft[loopCounter].strokeColor[2] == 0)
+           strokeWeight(8);
+         else
+           strokeWeight(4);
+         stroke(widgetLeft[loopCounter].strokeColor[0], widgetLeft[loopCounter].strokeColor[1], widgetLeft[loopCounter].strokeColor[2]);
+         fill(255, 140, 140); 
+         rect(widgetLeft[loopCounter].x, widgetLeft[loopCounter].y, 
+             widgetLeft[loopCounter].sizeX, widgetLeft[loopCounter].sizeY, 10);
+        }
+        //basically draw nothing otherwise
+        else{
+          stroke(255,0);
+          fill(140,140,140,0);
+          rect(widgetLeft[loopCounter].x, widgetLeft[loopCounter].y, 
+             widgetLeft[loopCounter].sizeX, widgetLeft[loopCounter].sizeY, 10);
+        }
       }
-      //the widgets are shown because we are either placing an app, or we are moving widgets
-      else if(appSelected != -1 || moveButton.clicked == 1){
-       if(widgetRight[loopCounter].strokeColor[2] == 0)
-         strokeWeight(8);
-       else
-         strokeWeight(4);
-       stroke(widgetRight[loopCounter].strokeColor[0], widgetRight[loopCounter].strokeColor[1], widgetRight[loopCounter].strokeColor[2]);
-       fill(255, 140, 140); 
-       rect(widgetRight[loopCounter].x, widgetRight[loopCounter].y, 
-           widgetRight[loopCounter].sizeX, widgetRight[loopCounter].sizeY, 10);
-       stroke(255,0);
+      
+      //right 3 widgets
+      fill(0, 255, 123);
+        for (int loopCounter=0; loopCounter < widgetRight.length; loopCounter++){
+          //this means that there is an app attached to the widget
+          if(widgetRight[loopCounter].name != null){
+            if(widgetRight[loopCounter].strokeColor[2] == 0)
+             strokeWeight(8);
+            else
+             strokeWeight(4);
+            stroke(widgetRight[loopCounter].strokeColor[0], widgetRight[loopCounter].strokeColor[1], widgetRight[loopCounter].strokeColor[2]);
+            fill(140);
+            rect(widgetRight[loopCounter].x, widgetRight[loopCounter].y, 
+               widgetRight[loopCounter].sizeX, widgetRight[loopCounter].sizeY, 10);
+            processWidgetInfo(widgetRight[loopCounter]);
+            stroke(255,0);
+          }
+          //the widgets are shown because we are either placing an app, or we are moving widgets
+          else if(appSelected != -1 || moveButton.clicked == 1){
+           if(widgetRight[loopCounter].strokeColor[2] == 0)
+             strokeWeight(8);
+           else
+             strokeWeight(4);
+           stroke(widgetRight[loopCounter].strokeColor[0], widgetRight[loopCounter].strokeColor[1], widgetRight[loopCounter].strokeColor[2]);
+           fill(255, 140, 140); 
+           rect(widgetRight[loopCounter].x, widgetRight[loopCounter].y, 
+               widgetRight[loopCounter].sizeX, widgetRight[loopCounter].sizeY, 10);
+           stroke(255,0);
+          }
+          else{
+            stroke(255,0);
+            fill(140,140,140,0);
+            rect(widgetRight[loopCounter].x, widgetRight[loopCounter].y, 
+               widgetRight[loopCounter].sizeX, widgetRight[loopCounter].sizeY, 10);
+          }
+        }
+        strokeWeight(4);
+      fill(0);
+      //app button
+      if(appButton.clicked == 0){
+        moveButton.x = 135;
+        appSelected = -1;
+        appImg.resize(appButton.sizeX, appButton.sizeY);
+        image(appImg, appButton.x, appButton.y);
       }
       else{
-        stroke(255,0);
-        fill(140,140,140,0);
-        rect(widgetRight[loopCounter].x, widgetRight[loopCounter].y, 
-           widgetRight[loopCounter].sizeX, widgetRight[loopCounter].sizeY, 10);
+        moveButton.x = 925;
+        appImgSelected.resize(appButton.sizeX, appButton.sizeY);
+        image(appImgSelected, appButton.x, appButton.y);
+        fill(140);
+        rect(appBox.x, appBox.y, appBox.sizeX, appBox.sizeY, 10);
+        
+        for(int i = 0; i < appArr.length; i++){
+          if(appArr[i].clicked == 1){
+            fill(255,255,0);
+           rect(appArr[i].x, appArr[i].y, appArr[i].sizeX, appArr[i].sizeY, 10);
+          }
+          fill(140);
+          appArr[i].image.resize(appArr[i].sizeX, appArr[i].sizeY);
+          image(appArr[i].image, appArr[i].x, appArr[i].y);
+        }
       }
-    }
-    strokeWeight(4);
-  fill(0);
-  //app button
-  if(appButton.clicked == 0){
-    moveButton.x = 135;
-    appSelected = -1;
-    appImg.resize(appButton.sizeX, appButton.sizeY);
-    image(appImg, appButton.x, appButton.y);
-  }
-  else{
-    moveButton.x = 925;
-    appImgSelected.resize(appButton.sizeX, appButton.sizeY);
-    image(appImgSelected, appButton.x, appButton.y);
-    fill(140);
-    rect(appBox.x, appBox.y, appBox.sizeX, appBox.sizeY, 10);
-    
-    for(int i = 0; i < appArr.length; i++){
-      if(appArr[i].clicked == 1){
-        fill(255,255,0);
-       rect(appArr[i].x, appArr[i].y, appArr[i].sizeX, appArr[i].sizeY, 10);
+      
+      //move widget button
+      if(moveButton.clicked == 0){
+        moveImg.resize(moveButton.sizeX, moveButton.sizeY);
+        image(moveImg, moveButton.x, moveButton.y);
       }
-      fill(140);
-      appArr[i].image.resize(appArr[i].sizeX, appArr[i].sizeY);
-      image(appArr[i].image, appArr[i].x, appArr[i].y);
-    }
-  }
-  
-  //move widget button
-  if(moveButton.clicked == 0){
-    moveImg.resize(moveButton.sizeX, moveButton.sizeY);
-    image(moveImg, moveButton.x, moveButton.y);
-  }
-  else{
-    moveImgSelected.resize(moveButton.sizeX, moveButton.sizeY);
-    image(moveImgSelected, moveButton.x, moveButton.y);
-  }
-  
-  //setting button
-  if(settingButton.clicked == 0){
-    settingImg.resize(settingButton.sizeX, settingButton.sizeY);
-    image(settingImg,  settingButton.x, settingButton.y);
-  }
-  else{
-    settingImgSelected.resize(settingButton.sizeX, settingButton.sizeY);
-    image(settingImgSelected,  settingButton.x, settingButton.y);
-    fill(140);
-    rect(settingBox.x, settingBox.y, settingBox.sizeX, settingBox.sizeY, 10);
-  }
-  
-  if(musicFlag == 1 && playFlag == 1){
-   if(millis() - playSecond < musicMillis[musicIndex]){
-   }     
-   else{
-     if(musicIndex == 0){
-       stopAmanda();
-       musicIndex = 1;
-       playSad();
-     }
-     else{
-       stopSad();
-       musicIndex = 0;
-       playAmanda();
-     }
-     playSecond = millis();
-   }
+      else{
+        moveImgSelected.resize(moveButton.sizeX, moveButton.sizeY);
+        image(moveImgSelected, moveButton.x, moveButton.y);
+      }
+      
+      //setting button
+      if(settingButton.clicked == 0){
+        settingImg.resize(settingButton.sizeX, settingButton.sizeY);
+        image(settingImg,  settingButton.x, settingButton.y);
+      }
+      else{
+        settingImgSelected.resize(settingButton.sizeX, settingButton.sizeY);
+        image(settingImgSelected,  settingButton.x, settingButton.y);
+        fill(140);
+        rect(settingBox.x, settingBox.y, settingBox.sizeX, settingBox.sizeY, 10);
+      }
+      
+      if(musicFlag == 1 && playFlag == 1){
+       if(millis() - playSecond < musicMillis[musicIndex]){
+       }     
+       else{
+         if(musicIndex == 0){
+           stopAmanda();
+           musicIndex = 1;
+           playSad();
+         }
+         else{
+           stopSad();
+           musicIndex = 0;
+           playAmanda();
+         }
+         playSecond = millis();
+       }
+      }
   }
 }
 
 void mouseReleased() {
+   if(!on){
+      float[][] powerVerts = rectVerts(powerButton.getCoords(), powerButton.getSize());
+      float[] powerX = powerVerts[0];
+      float[] powerY = powerVerts[1];
+      if(pnpoly(4, powerX, powerY, mouseX, mouseY) == 1){
+       on = true;
+      }
+      return;
+   }
    if(musicFlag == 1){
      Widget w = null;
      for(int i = 0; i < 3; i++){
