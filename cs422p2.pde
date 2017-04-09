@@ -3,6 +3,8 @@ PImage power;
 boolean on;
 boolean firstLogin;
 
+Audio wrongSound = new Audio();
+
 PImage langIcon;
 String language = "None";
 BackgroundBox langBox = new BackgroundBox(1066, 668, 600, 460);
@@ -24,6 +26,9 @@ Clickable wifi2 = new Clickable(1066, 828, 600, 100);
 Clickable wifi3 = new Clickable(1066, 928, 600, 100);
 Clickable wifi4 = new Clickable(1066, 1028, 600, 100);
 Clickable[] wifiConns;
+
+BackgroundBox profileBox = new BackgroundBox(1066, 668, 600, 460);
+boolean profileSelect = false;
 
 Clickable skipButton = new Clickable(1166, 1325, 400, 100);
 Clickable cancelButton = new Clickable(1166, 1425, 400, 100);
@@ -168,10 +173,8 @@ void setup() {
   selectProfile.setName("Select Profile");
   
   settings = new Clickable[]{register, selectProfile};
-  
-  profile = new ArrayList();
-  
-  guestProfile = new Profile("Guest", new int[]{0,0,0,0});
+    
+  guestProfile = new Profile("Guest", "0000");
   currentProfile = guestProfile;
   
   registerImg = loadImage("register.png", "png");
@@ -312,6 +315,15 @@ void setup() {
   
   currentText = "";
 /********* KEYBOARD ***********/
+  profileList = new ArrayList();
+  profileIndex = 0;
+  
+  wrongSound.setAttribute("src", "wrong.wav");
+
+}
+
+void playWrong(){
+  wrongSound.play(); 
 }
 
 //we set the attribute again to avoid the html5 pause() error (I know this is bad)
@@ -387,6 +399,12 @@ void draw() {
       textSize(80);
       textAlign(CENTER);
       text("Please Your Desired Password:", 2732/2, 550);
+    }
+    else if(reason.equals("profilePassword")){
+      fill(0);
+      textSize(80);
+      textAlign(CENTER);
+      text("Please Enter " + loggingIn.name + "'s Password:", 2732/2, 550);
     }
   }
 
@@ -638,6 +656,51 @@ void draw() {
     fill(0);
     text("Welcome, " + currentProfile.name + "!", settingButton.x - 30, settingButton.y+60);
 
+    if(profileSelect){
+      strokeWeight(4);
+      fill(0,0);
+      rect(skipButton.x, skipButton.y, skipButton.sizeX, skipButton.sizeY);      
+      textAlign(CENTER);
+      fill(0);
+      textSize(50);
+      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      
+      fill(180);
+      stroke(0);
+      strokeWeight(4);
+      rect(profileBox.x, profileBox.y, profileBox.sizeX, profileBox.sizeY);
+
+      fill(0);
+      text("Profiles", profileBox.x+(profileBox.sizeX/2), profileBox.y+50);
+
+      line(profileBox.x, profileBox.y+60, profileBox.x+profileBox.sizeX, profileBox.y+60);
+
+      strokeWeight(2);
+      textAlign(LEFT);
+      int i = 0;
+      for(Clickable pButton : profileButtons){
+        if(!pButton.hasProfile())
+          break;
+        fill(0);
+        textSize(40);
+        text(pButton.profile.name, pButton.x + 50, pButton.y+70);
+        pButton.drawLine();
+        
+        fill(180,0);
+        rect(acutalProfileButtons[i].x, acutalProfileButtons[i].y, acutalProfileButtons[i].sizeX, acutalProfileButtons[i].sizeY, 10);
+        fill(0);
+        textSize(30);
+        if(currentProfile.name.equals(pButton.profile.name)){
+         fill(255, 0, 140); 
+         text("Delete", acutalProfileButtons[i].x+15, acutalProfileButtons[i].y+40);
+        }
+        else{
+          text("Select", acutalProfileButtons[i].x+15, acutalProfileButtons[i].y+40);
+        }
+        i++;
+      }
+    }
+
     //tracking music play time
     if (musicFlag == 1 && playFlag == 1) {
       if (millis() - playSecond < musicMillis[musicIndex]) {
@@ -671,6 +734,10 @@ void mouseReleased() {
             currentText = currentText.substring(0, currentText.length() - 1);
          }
          else if(k.name.equals("Enter")){
+           if(currentText.length() == 0){
+            playWrong(); 
+            return;
+           }
            //IMPORTANT:: You need the reason or else we don't know what we are using the keyboard for!
            if(reason.equals("wifi")){
             wifiPwSet = true;
@@ -678,6 +745,13 @@ void mouseReleased() {
             keyboardShow = false;
            }
            else if(reason.equals("registerUsername")){
+            for(int i = 0; i < profileList.size(); i++){
+              Profile p = (Profile)profileList.get(i);
+              if(p.name.equals(currentText)){
+                playWrong();
+                return;
+              }
+            }
             reason = "registerPassword";
             currentUsername = currentText;
             currentText = "";
@@ -686,7 +760,7 @@ void mouseReleased() {
             reason = "none";
             
             Profile p = new Profile(currentUsername, currentText);
-            profile.add(p);
+            profileList.add(p);
             currentProfile.saveInfo(language, widgetLeft, widgetRight);
             currentProfile = p;
             
@@ -698,6 +772,28 @@ void mouseReleased() {
             register.changeFillColor("black");
             
             register.name = "Logout";
+           }
+           else if(reason.equals("profilePassword")){
+             if(currentText.equals(loggingIn.pin)){
+               register.name = "Logout";
+               
+               currentProfile.saveInfo(language, widgetLeft, widgetRight);
+               
+               currentProfile = loggingIn;
+         
+               widgetLeft = loggingIn.widgetLeft;
+               widgetRight = loggingIn.widgetRight;
+               
+               selectProfile.clicked = 0;
+               selectProfile.changeFillColor("black");
+                              
+               profileSelect = false;
+               keyboardShow = false;
+             }
+             else{
+               playWrong();
+               currentText = "";
+             }
            }
          }
          else if(k.name.equals("Shift")){
@@ -728,13 +824,66 @@ void mouseReleased() {
         reason = "none";
         keyboardShow = false;
       }
-      else if(reason.equals("registerUsername")){
+      else if(reason.equals("registerUsername") || reason.equals("registerPassword")){
         reason = "none";
         keyboardShow = false;
         register.clicked = 0;
         register.changeFillColor("black");
       }
+      else if(reason.equals("profilePassword")){
+        reason = "none";
+        keyboardShow = false;
+        profileSelect = true;
+      }
     }
+  }
+  
+  if(profileSelect){
+   for(int i = 0; i < acutalProfileButtons.length; i++){
+    Clickable c = acutalProfileButtons[i];
+    float[][] profileVerts = rectVerts(c.getCoords(), c.getSize());
+    float[] profileX = profileVerts[0];
+    float[] profileY = profileVerts[1];
+    
+    if(pnpoly(4, profileX, profileY, mouseX, mouseY) == 1){
+      if(!c.hasProfile())
+        return;
+      
+      //we are deleting
+      if(c.profile.name.equals(currentProfile.name)){
+         register.name = "Register";
+         
+         currentProfile = guestProfile;
+         
+         widgetLeft = guestProfile.widgetLeft;
+         widgetRight = guestProfile.widgetRight;
+         
+         selectProfile.clicked = 0;
+         selectProfile.changeFillColor("black");
+         
+         profileList.remove(i+profileIndex);
+         
+         profileSelect = false;
+         return;
+      }
+      else{
+        keyboardShow = true;
+        reason = "profilePassword";
+        currentText = "";
+        loggingIn = (Profile)profileList.get(i+profileIndex);
+        profileSelect = false;
+        return;
+      }
+    }
+   }
+   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
+   float[] skipX = skipVert[0];
+   float[] skipY = skipVert[1];
+   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
+     profileSelect = false;
+     selectProfile.clicked = 0;
+     selectProfile.changeFillColor("black");
+   }
   }
   if (!on) {
     float[][] powerVerts = rectVerts(powerButton.getCoords(), powerButton.getSize());
@@ -787,6 +936,9 @@ void mouseReleased() {
        
        if(pnpoly(4, setX, setY, mouseX, mouseY) == 1){
           if(setting.clicked == 0){
+            profileSelect = false;
+            keyboardShow = false;
+            reason = "";
             //set everything to not be clicked
             for(Clickable setting2 : settings){
                setting2.clicked = 0; 
@@ -813,7 +965,20 @@ void mouseReleased() {
              setting.clicked = 0;
              setting.changeFillColor("black");
             }
-            
+            else if(setting.name.equals("Select Profile")){
+              profileSelect = true;
+              profileIndex = 0;
+              for(int i = profileIndex; i < profileIndex+4; i++){
+                if(i > profileList.size()-1){
+                   for(int j = i-profileIndex; j < 4; j++){
+                    profileButtons[j].addProfile(null); 
+                   }
+                   break;
+                }
+                profileButtons[i-profileIndex].addProfile((Profile)profileList.get(i));
+                acutalProfileButtons[i-profileIndex].addProfile((Profile)profileList.get(i));
+              }
+            }
             return;
           }
           else{
@@ -822,6 +987,9 @@ void mouseReleased() {
             if(keyboardShow){
               keyboardShow = false;
               reason = "none";
+            }
+            if(profileSelect){
+             profileSelect = false; 
             }
             return;
           }

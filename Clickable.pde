@@ -2,6 +2,7 @@ class Clickable{
   int x, y, sizeX, sizeY, clicked;
   int[] fillColor;
   String name;
+  Profile profile;
   Clickable(int topLeftX, int topLeftY, int _sizeX, int _sizeY){
      x = topLeftX;
      y = topLeftY;
@@ -10,6 +11,7 @@ class Clickable{
      clicked = 0;
      name = "";
      fillColor = new int[]{0,0,0};
+     profile = null;
   }
   
   int[] getCoords(){
@@ -46,4 +48,11 @@ class Clickable{
    }
   }
   
+  void addProfile(Profile p){
+   profile = p; 
+  }
+  
+  boolean hasProfile(){
+   return (profile != null); 
+  }
 }
