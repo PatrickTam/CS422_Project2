@@ -14,6 +14,17 @@ class Clickable{
      profile = null;
   }
   
+  Clickable(int topLeftX, int topLeftY, int _sizeX, int _sizeY, String name){
+     x = topLeftX;
+     y = topLeftY;
+     sizeX = _sizeX;
+     sizeY = _sizeY;
+     clicked = 0;
+     this.name = name;
+     fillColor = new int[]{0,0,0};
+     profile = null;
+  }
+  
   int[] getCoords(){
    int[] arr = {x, y};
    return arr; 

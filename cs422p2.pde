@@ -1,3 +1,5 @@
+DateTimeItem dti;
+
 Clickable  powerButton = new Clickable(2607, 1425, 100, 100);
 PImage power;
 boolean on;
@@ -37,6 +39,12 @@ BackgroundBox blueToothBox = new BackgroundBox(1066, 668, 600, 360);
 boolean blueToothSelect = false;
 boolean blueToothOn = true;
 Clickable blueToothToggle = new Clickable(1426, 748, 120, 60);
+
+BackgroundBox timeDateBox = new BackgroundBox(1066, 668, 600, 360);
+boolean timeDateSelect = false;
+Clickable[] timeToggle = {new Clickable(1226, 748, 120, 60, "AM/PM"), new Clickable(1426, 748, 120, 60, "Military")};
+Clickable[] dateToggle = {new Clickable(1226, 848, 120, 60, "M/D/Y"), new Clickable(1426, 848, 120, 60, "D/M/Y")};
+Clickable[] tempToggle = {new Clickable(1226, 948, 120, 60, "°F"), new Clickable(1426, 948, 120, 60, "°C")};
 
 Clickable skipButton = new Clickable(1166, 1325, 400, 100);
 Clickable cancelButton = new Clickable(1166, 1425, 400, 100);
@@ -90,6 +98,7 @@ Clickable powerOff = new Clickable(2307, 1235, 400, 55);
 Clickable clearScreen = new Clickable(2307, 1170, 400, 55);
 Clickable socialMedia = new Clickable(2307, 1105, 400, 55);
 Clickable blueTooth = new Clickable(2307, 1040, 400, 55);
+Clickable timeDate = new Clickable(2307, 975, 400, 55);
 
 Clickable[] settings;
 
@@ -117,6 +126,8 @@ AppButton[] appArr;
 
 void setup() {
   size(2732, 1536);
+
+  dti = new DateTimeItem(new Point(width/2, 80), new Point(width/2, 150));
 
   on = false;
   firstLogin = true;
@@ -187,14 +198,19 @@ void setup() {
   clearScreen.setName("Clear Screen");
   socialMedia.setName("Social Media");
   blueTooth.setName("Bluetooth");
+  timeDate.setName("Time/Date/Temp");
   
-  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia, blueTooth};
+  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia, blueTooth, timeDate};
     
   guestProfile = new Profile("Guest", "0000");
   currentProfile = guestProfile;
   
   registerImg = loadImage("register.png", "png");
   registerImg.loadPixels();
+  
+  timeToggle[0].clicked = 1;
+  dateToggle[0].clicked = 1;
+  tempToggle[0].clicked = 1;
 /********* SETTING ***********/
 
 
@@ -373,9 +389,6 @@ void draw() {
   noStroke();
 
   //setup date time on the top center
-  Point locTime = new Point(width/2, 80);
-  Point locDate = new Point(width/2, 150);
-  DateTimeItem dti = new DateTimeItem(locTime, locDate);
   dayOfWeek = dow(day(), month(), year());
 
   if(keyboardShow){
@@ -814,6 +827,73 @@ void draw() {
        text("✓ iPhone 6",  blueToothBox.x + 60, blueToothToggle.y+200);
       }
     }
+    
+    
+    if(timeDateSelect){
+      strokeWeight(4);
+      fill(0,0);
+      rect(skipButton.x, skipButton.y, skipButton.sizeX, skipButton.sizeY);      
+      textAlign(CENTER);
+      fill(0);
+      textSize(50);
+      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      
+      fill(180);
+      stroke(0);
+      strokeWeight(4);
+      rect(timeDateBox.x, timeDateBox.y, timeDateBox.sizeX, timeDateBox.sizeY);
+      
+      fill(0);
+      text("Time/Date/Temp", timeDateBox.x+(timeDateBox.sizeX/2), timeDateBox.y+50);
+      line(timeDateBox.x, timeDateBox.y+60, timeDateBox.x+timeDateBox.sizeX, timeDateBox.y+60);
+      
+      fill(180,0);
+      rect(timeToggle[0].x, timeToggle[0].y, timeToggle[0].sizeX, timeToggle[0].sizeY, 10);  
+      rect(timeToggle[1].x, timeToggle[1].y, timeToggle[1].sizeX, timeToggle[1].sizeY, 10);
+      socialMediaClick[0].drawLine();
+      
+      fill(180,0);
+      rect(dateToggle[0].x, dateToggle[0].y, dateToggle[0].sizeX, dateToggle[0].sizeY, 10);  
+      rect(dateToggle[1].x, dateToggle[1].y, dateToggle[1].sizeX, dateToggle[1].sizeY, 10); 
+      socialMediaClick[1].drawLine();
+      
+      fill(180,0);  
+      rect(tempToggle[0].x, tempToggle[0].y, tempToggle[0].sizeX, tempToggle[0].sizeY, 10);  
+      rect(tempToggle[1].x, tempToggle[1].y, tempToggle[1].sizeX, tempToggle[1].sizeY, 10); 
+      socialMediaClick[2].drawLine();
+      
+      fill(0);
+      textAlign(LEFT);
+      textSize(30);
+      text("Time: ", timeToggle[0].x-140,  timeToggle[0].y+40);
+      if(timeToggle[0].clicked == 1)
+        fill(255, 50, 50);
+      text(timeToggle[0].name, timeToggle[0].x+10,  timeToggle[0].y+40);
+      fill(0);
+      if(timeToggle[1].clicked == 1)
+        fill(255, 50, 50);
+      text(timeToggle[1].name, timeToggle[1].x+10,  timeToggle[1].y+40);
+      
+      fill(0);
+      text("Date: ", dateToggle[0].x-140,  dateToggle[0].y+40);
+      if(dateToggle[0].clicked == 1)
+        fill(255, 50, 50);
+      text(dateToggle[0].name, dateToggle[0].x+10,  dateToggle[0].y+40);
+      fill(0);
+      if(dateToggle[1].clicked == 1)
+        fill(255, 50, 50);
+      text(dateToggle[1].name, dateToggle[1].x+10,  dateToggle[1].y+40);
+      
+      fill(0);
+      text("Temp: ", tempToggle[0].x-140,  tempToggle[0].y+40);
+      if(tempToggle[0].clicked == 1)
+        fill(255, 50, 50);
+      text(tempToggle[0].name, tempToggle[0].x+10,  tempToggle[0].y+40);
+      fill(0);
+      if(tempToggle[1].clicked == 1)
+        fill(255, 50, 50);
+      text(tempToggle[1].name, tempToggle[1].x+10,  tempToggle[1].y+40);
+    }
 
     //tracking music play time
     if (musicFlag == 1 && playFlag == 1) {
@@ -1076,6 +1156,83 @@ void mouseReleased() {
    }
   }
   
+  //I'm also a bit ashamed of this code
+  if(timeDateSelect){
+    for(int i = 0; i < 2; i++){
+     Clickable c = timeToggle[i];
+     float[][] vert = rectVerts(c.getCoords(), c.getSize()); 
+     float[] vertX = vert[0];
+     float[] vertY = vert[1];
+     
+     if(pnpoly(4, vertX, vertY, mouseX, mouseY) == 1){
+        if(c.clicked == 0){
+           if(i == 1){
+            timeToggle[0].clicked = 0;
+            c.clicked = 1;
+            dti.militaryTime = true;
+           }
+           else{
+            timeToggle[1].clicked = 0;
+            c.clicked = 1;
+            dti.militaryTime = false;
+           }
+           return;
+        }
+     }
+     
+     c = dateToggle[i];
+     vert = rectVerts(c.getCoords(), c.getSize());
+     vertX = vert[0];
+     vertY = vert[1];
+     
+     if(pnpoly(4, vertX, vertY, mouseX, mouseY) == 1){
+       if(c.clicked == 0){
+        if(i == 1){
+          dti.monthDayYear = false;
+          dateToggle[0].clicked = 0;
+          c.clicked = 1;
+        }
+        else{
+         dti.monthDayYear = true;
+         dateToggle[1].clicked = 0;
+         c.clicked = 1;
+        }
+        return;
+       }
+     }
+     
+     c = tempToggle[i];
+     vert = rectVerts(c.getCoords(), c.getSize());
+     vertX = vert[0];
+     vertY = vert[1];
+     
+     if(pnpoly(4, vertX, vertY, mouseX, mouseY) == 1){
+       if(c.clicked == 0){
+        if(i == 1){
+         farenheit = false;
+         tempToggle[0].clicked = 0;
+         c.clicked = 1;
+        }
+        else{
+         farenheit = true;
+         tempToggle[1].clicked = 0;
+         c.clicked = 1;
+        }
+        return;
+       }
+     }
+    }
+   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
+   float[] skipX = skipVert[0];
+   float[] skipY = skipVert[1];
+   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
+     timeDateSelect = false;
+     timeDate.clicked = 0;
+     timeDate.changeFillColor("black");
+     return;
+   }
+  }
+  
   if (!on) {
     float[][] powerVerts = rectVerts(powerButton.getCoords(), powerButton.getSize());
     float[] powerX = powerVerts[0];
@@ -1131,6 +1288,7 @@ void mouseReleased() {
             keyboardShow = false;
             socialMediaSelect = false;
             blueToothSelect = false;
+            timeDateSelect = false;
             reason = "";
             //set everything to not be clicked
             for(Clickable setting2 : settings){
@@ -1189,6 +1347,9 @@ void mouseReleased() {
             else if(setting.name.equals("Bluetooth")){
                blueToothSelect = true; 
             }
+            else if(setting.name.equals("Time/Date/Temp")){
+               timeDateSelect = true;
+            }
             return;
           }
           else{
@@ -1205,6 +1366,7 @@ void mouseReleased() {
               socialMediaSelect = false;
             }
             blueToothSelect = false;
+            timeDateSelect = false;
             return;
           }
        }

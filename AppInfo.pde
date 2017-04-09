@@ -1,6 +1,8 @@
 //This file is for putting the information in the apps for the widget information
 String[] appNames = {"weather", "music"};
 
+boolean farenheit = true;
+
 void processWidgetInfo(Widget w){
   //weather is on a widget
   if(w.name.equals("weather")){

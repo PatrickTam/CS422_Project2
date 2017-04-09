@@ -15,22 +15,24 @@ class DateTimeItem {
   }
   
   private String constructTimeString() {
+    String timeString = "2";
+    String minuteString = "";
+    String secondString = "";
+    int hour1 = hour();
+    int minute1 = minute();
+    int second1 = second();
+    minuteString = str(minute1);
+    secondString = str(second1);
+    if(minute1 < 10) minuteString = "0" + minuteString;
+    if(second1 < 10) secondString = "0" + secondString;
+    
     if(militaryTime)
-      return hour() + ":" + minute() + ":" + second();
+      return hour() + ":" + minuteString + ":" + secondString;
     else {
-      String timeString = "2";
-      String minuteString = "";
-      String secondString = "";
-      int hour1 = hour();
-      int minute1 = minute();
-      int second1 = second();
       boolean isAM = true;
       if(hour1 > 12) { hour1 -= 12; isAM = false; }
       else if(hour1 == 0) hour1 = 12;
-      minuteString = str(minute1);
-      secondString = str(second1);
-      if(minute1 < 10) minuteString = "0" + minuteString;
-      if(second1 < 10) secondString = "0" + secondString;
+      
       if(isAM)
         timeString = hour1 + ":" + minuteString + ":" + secondString + " AM";
       else
@@ -44,7 +46,7 @@ class DateTimeItem {
       return months[month()-1] + " " + day() + ", " + year(); 
     }
     else{
-      return day() + " " + months[month()] + ", " + year(); 
+      return day() + " " + months[month()-1] + ", " + year(); 
     }
   }
   
