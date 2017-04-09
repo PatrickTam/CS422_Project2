@@ -14,6 +14,7 @@ Clickable[] langs;
 
 PImage wifiIcon;
 String wifi = "None";
+boolean wifiPwSet;
 PImage wifiMax;
 PImage wifiMed;
 PImage wifiLow;
@@ -25,6 +26,7 @@ Clickable wifi4 = new Clickable(1066, 1028, 600, 100);
 Clickable[] wifiConns;
 
 Clickable skipButton = new Clickable(1166, 1325, 400, 100);
+Clickable cancelButton = new Clickable(1166, 1425, 400, 100);
 
 PFont f;
 PImage bg;
@@ -64,8 +66,8 @@ int dayOfWeek;
 BackgroundBox appBox = new BackgroundBox(125, 1325, 775, 200);
 
 BackgroundBox settingBox = new BackgroundBox(2307, 825, 400, 600);
-Clickable register = new Clickable(2307, 1305, 400, 60);
-Clickable selectProfile = new Clickable(2307, 1365, 400, 60); 
+Clickable register = new Clickable(2307, 1300, 400, 55);
+Clickable selectProfile = new Clickable(2307, 1365, 400, 55); 
 
 Clickable[] settings;
 
@@ -97,7 +99,11 @@ void setup() {
   on = false;
   firstLogin = true;
 
+  keyboardShow = false;
+
   skipButton.setName("Skip");
+  
+  reason = "none";
   
 /********* LANGUAGE ***********/
   english.setName("English");
@@ -112,6 +118,8 @@ void setup() {
 /********* LANGUAGE ***********/
 
 /********* WIFI ***********/
+  wifiPwSet = false;
+  
   wifi1.setName("ATT509");
   wifi2.setName("DogLover");
   wifi3.setName("Home");
@@ -155,6 +163,11 @@ void setup() {
   selectProfile.setName("Select Profile");
   
   settings = new Clickable[]{register, selectProfile};
+  
+  profile = new ArrayList();
+  
+  guestProfile = new Profile("Guest", new int[]{0,0,0,0});
+  currentProfile = guestProfile;
 /********* SETTING ***********/
 
 
@@ -248,8 +261,8 @@ void setup() {
   //Add a new app? Put it in here or it wont show up!
   appArr = new AppButton[]{weatherIcon, musicIcon, healthIcon, calendarIcon, newsIcon, timerIcon, alarmIcon, noteIcon, emailIcon, twitterIcon, instagramIcon, facebookIcon};
 
-  amanda.setAttribute("src", "amanda.mp3");
-  sad.setAttribute("src", "sad.mp3");
+  //amanda.setAttribute("src", "amanda.mp3");
+  //sad.setAttribute("src", "sad.mp3");
 
   amandaCover = loadImage("amandaCover.jpg", "jpg");
   amandaCover.loadPixels();
@@ -258,17 +271,64 @@ void setup() {
   sadCover.loadPixels();
 
   f = createFont("SansSerif.plain", 24, true);
+
+/********* KEYBOARD ***********/
+  bksp = loadImage("backspace.png", "png");
+  bksp.loadPixels();
+  
+  int xVal = 946;
+  int yVal = 1085;
+  
+  int masterIndex = 0;
+  
+  fullKeyboard = new Keys[keys.length][];
+  
+  for(String[] strArr : keys){
+   Keys[] k = new Keys[strArr.length];
+   for(int i = 0; i < strArr.length; i++){
+    Keys newKey =  new Keys(xVal+(i * 75), yVal, strArr[i]);
+    if(strArr[i].equals("Shift")){
+       xVal += 75; 
+    }
+    k[i] = newKey;
+   }
+   fullKeyboard[masterIndex] = k;
+   yVal += 75;
+   xVal = 946;
+   masterIndex++;
+  }
+  
+  currentText = "";
+  
+  /*ArrayList<Keys[]> fullKeyboard = new ArrayList<Keys[]>();
+  for(String[] strArr : keys){
+     ArrayList keySection = new ArrayList();
+     int index = 0;
+     for(String s : strArr){
+       Keys newKey = new Keys(xVal+(index * 65), yVal, s);
+       keySection.add(newKey);
+       index++;
+     }
+     yVal += 65;
+     fullKeyboard.add(keySection.toArray(new Keys[keySection.size()]));
+  }
+  Keys[] k = fullKeyboard.get(0);
+  for(Keys[] k : fullKeyboard){
+    
+  }*/
+
+/********* KEYBOARD ***********/
 }
 
 //we set the attribute again to avoid the html5 pause() error (I know this is bad)
 void playAmanda() {
-  amanda.setAttribute("src", "amanda.mp3");
+  //amanda.setAttribute("src", "amanda.mp3");
   amanda.play();
 }
 
 //we set the attribute again to avoid the html5 pause() error (I know this is bad)
 void playSad() {
-  sad.setAttribute("src", "sad.mp3");
+  //sad.setAttribute("src", "sad.mp3");
   sad.play();
 }
 
@@ -294,6 +354,28 @@ void draw() {
   Point locDate = new Point(width/2, 150);
   DateTimeItem dti = new DateTimeItem(locTime, locDate);
   dayOfWeek = dow(day(), month(), year());
+
+  if(keyboardShow){
+    fill(255);
+    rect(946, 985, 825, 60, 10);
+    fill(0);
+    textSize(40);
+    textAlign(LEFT);
+    text(currentText, 946+20, 985+50);
+    for(Keys[] kArr : fullKeyboard){
+     for(Keys k : kArr){
+      k.drawKey(); 
+     }
+    }
+    stroke(0);
+    strokeWeight(4);
+    fill(0,0);
+    rect(cancelButton.x, cancelButton.y, cancelButton.sizeX, cancelButton.sizeY); 
+    
+    fill(0);
+    textSize(50);
+    text("Cancel", cancelButton.x+(cancelButton.sizeX/2), cancelButton.y+(cancelButton.sizeY/2)+20);
+  }
 
   if (!on) {
     power.resize(powerButton.sizeX, powerButton.sizeY);
@@ -387,7 +469,17 @@ void draw() {
       image(wifiLow, wifi4.x+30, wifi4.y+30);
       wifi4.drawLine();
     }
-  } else {
+  }
+  else if(wifiPwSet == false && !wifi.equals("Skip")){
+    wifiIcon.resize(250,250);
+    image(wifiIcon, 2732/2 - 125, 375);
+    
+    fill(0);
+    textSize(80);
+    textAlign(CENTER);
+    text("Please Enter " + wifi + "'s Password:", 2732/2, 350);
+  }
+  else {
     dti.drawDateTime();
     strokeWeight(4);
     //left 3 widgets
@@ -503,6 +595,8 @@ void draw() {
       settingImgSelected.resize(settingButton.sizeX, settingButton.sizeY);
       image(settingImgSelected, settingButton.x, settingButton.y);
       fill(140);
+      stroke(255);
+      strokeWeight(2);
       rect(settingBox.x, settingBox.y, settingBox.sizeX, settingBox.sizeY, 10);
       
       fill(0);
@@ -516,9 +610,15 @@ void draw() {
       }
       strokeWeight(2);
       stroke(0);
-      line(register.x+10, register.y-10, register.x + register.sizeX-10, register.y-10);
+      line(register.x+10, register.y-20, register.x + register.sizeX-10, register.y-20);
     }
 
+    textAlign(RIGHT);
+    textSize(40);
+    fill(0);
+    text("Welcome, " + currentProfile.name + "!", settingButton.x - 30, settingButton.y+60);
+
+    //tracking music play time
     if (musicFlag == 1 && playFlag == 1) {
       if (millis() - playSecond < musicMillis[musicIndex]) {
       } else {
@@ -538,6 +638,56 @@ void draw() {
 }
 
 void mouseReleased() {
+  if(keyboardShow){
+    for(Keys[] kArr : fullKeyboard){
+     for(Keys k : kArr){
+        float[][] keyVerts = rectVerts(k.getCoords(), k.getSize());
+        float[] keyX = keyVerts[0];
+        float[] keyY = keyVerts[1];
+      
+       if (pnpoly(4, keyX, keyY, mouseX, mouseY) == 1) {
+         if(k.name.equals("Backspace")){
+           if(currentText.length() != 0)
+            currentText = currentText.substring(0, currentText.length() - 1);
+         }
+         else if(k.name.equals("Enter")){
+           keyboardShow = false;
+           //IMPORTANT:: You need the reason or else we don't know what we are using the keyboard for!
+           if(reason.equals("wifi")){
+            wifiPwSet = true;
+            reason = "none";
+           }
+         }
+         else if(k.name.equals("Shift")){
+           k.clickedOn();
+           for(Keys[] keyArr : fullKeyboard){
+            for(Keys kk : keyArr){
+             kk.toggleUpper(k.clicked); 
+            }
+           }
+         }
+         else{
+          currentText += k.name; 
+         }
+        
+        return;
+       }
+     }
+    }
+    
+    float[][] cancelVerts = rectVerts(cancelButton.getCoords(), cancelButton.getSize());
+    float[] cancelX = cancelVerts[0];
+    float[] cancelY = cancelVerts[1];
+    
+    if(pnpoly(4, cancelX, cancelY, mouseX, mouseY) == 1){
+      if(reason.equals("wifi")){
+        wifi = "None";
+        firstLogin = true;
+        reason = "none";
+        keyboardShow = false;
+      }
+    }
+  }
   if (!on) {
     float[][] powerVerts = rectVerts(powerButton.getCoords(), powerButton.getSize());
     float[] powerX = powerVerts[0];
@@ -569,6 +719,11 @@ void mouseReleased() {
        if(pnpoly(4, wifiX, wifiY, mouseX, mouseY) == 1) {
           wifi = wifiConn.name;
           firstLogin = false;
+          if(!wifi.equals("Skip")){
+            keyboardShow = true;
+            reason = "wifi";
+            currentText = "";
+          }
           return;
         }
      }
