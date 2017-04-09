@@ -33,6 +33,11 @@ boolean profileSelect = false;
 BackgroundBox socialMediaBox = new BackgroundBox(1066, 668, 600, 360);
 boolean socialMediaSelect = false;
 
+BackgroundBox blueToothBox = new BackgroundBox(1066, 668, 600, 360);
+boolean blueToothSelect = false;
+boolean blueToothOn = true;
+Clickable blueToothToggle = new Clickable(1426, 748, 120, 60);
+
 Clickable skipButton = new Clickable(1166, 1325, 400, 100);
 Clickable cancelButton = new Clickable(1166, 1425, 400, 100);
 
@@ -84,6 +89,7 @@ Clickable selectProfile = new Clickable(2307, 1365, 400, 55);
 Clickable powerOff = new Clickable(2307, 1235, 400, 55);
 Clickable clearScreen = new Clickable(2307, 1170, 400, 55);
 Clickable socialMedia = new Clickable(2307, 1105, 400, 55);
+Clickable blueTooth = new Clickable(2307, 1040, 400, 55);
 
 Clickable[] settings;
 
@@ -180,8 +186,9 @@ void setup() {
   powerOff.setName("Power Off");
   clearScreen.setName("Clear Screen");
   socialMedia.setName("Social Media");
+  blueTooth.setName("Bluetooth");
   
-  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia};
+  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia, blueTooth};
     
   guestProfile = new Profile("Guest", "0000");
   currentProfile = guestProfile;
@@ -759,6 +766,54 @@ void draw() {
       
       currentProfile.drawSocialMedia(socialMediaBox);
     }
+    
+    if(blueToothSelect){
+      strokeWeight(4);
+      fill(0,0);
+      rect(skipButton.x, skipButton.y, skipButton.sizeX, skipButton.sizeY);      
+      textAlign(CENTER);
+      fill(0);
+      textSize(50);
+      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      
+      fill(180);
+      stroke(0);
+      strokeWeight(4);
+      rect(blueToothBox.x, blueToothBox.y, blueToothBox.sizeX, blueToothBox.sizeY);
+      
+      fill(0);
+      text("Bluetooth", blueToothBox.x+(blueToothBox.sizeX/2), blueToothBox.y+50);
+
+      line(blueToothBox.x, blueToothBox.y+60, blueToothBox.x+blueToothBox.sizeX, blueToothBox.y+60);
+      
+      fill(180,0);
+      rect(blueToothToggle.x, blueToothToggle.y, blueToothToggle.sizeX, blueToothToggle.sizeY, 10);
+      
+      fill(0);
+      textSize(30);
+      String textVal = "Turn Off";
+      if(!blueToothOn){
+        textVal = "Turn On";
+      }
+      text(textVal, blueToothToggle.x+60, blueToothToggle.y+40);
+      
+      fill(50, 255, 50);
+      textAlign(LEFT);
+      textVal = "Status: ON";
+      if(!blueToothOn){
+       fill(255, 50, 50);
+       textVal = "Status: OFF"; 
+      }
+
+      textSize(40);
+      text(textVal, blueToothBox.x + 60, blueToothToggle.y+40);
+      
+      fill(0);
+      if(blueToothOn){
+       text("✓ FitBit",   blueToothBox.x + 60, blueToothToggle.y+140);
+       text("✓ iPhone 6",  blueToothBox.x + 60, blueToothToggle.y+200);
+      }
+    }
 
     //tracking music play time
     if (musicFlag == 1 && playFlag == 1) {
@@ -963,25 +1018,27 @@ void mouseReleased() {
    }
   }
   
-  if(socialMediaSelect && !currentProfile.name.equals("Guest")){
-    for(int i = 0; i < socialMediaButtons.length; i++){
-      Clickable c = socialMediaButtons[i];
-      float[][] socialVerts = rectVerts(c.getCoords(), c.getSize());
-      float[] socialX = socialVerts[0];
-      float[] socialY = socialVerts[1];
-      
-      if(pnpoly(4, socialX, socialY, mouseX, mouseY) == 1){
-        if(currentProfile.getMedia(i).equals("None")){
-          keyboardShow = true;
-          socialMediaSelect = false;
-          reason = "socialMediaUsername";
-          currentText = "";
-          mediaIndex = i;
-          return;
-        }
-        else{
-          currentProfile.setMedia("None", i);
-          return;
+  if(socialMediaSelect){
+    if(!currentProfile.name.equals("Guest")){
+      for(int i = 0; i < socialMediaButtons.length; i++){
+        Clickable c = socialMediaButtons[i];
+        float[][] socialVerts = rectVerts(c.getCoords(), c.getSize());
+        float[] socialX = socialVerts[0];
+        float[] socialY = socialVerts[1];
+        
+        if(pnpoly(4, socialX, socialY, mouseX, mouseY) == 1){
+          if(currentProfile.getMedia(i).equals("None")){
+            keyboardShow = true;
+            socialMediaSelect = false;
+            reason = "socialMediaUsername";
+            currentText = "";
+            mediaIndex = i;
+            return;
+          }
+          else{
+            currentProfile.setMedia("None", i);
+            return;
+          }
         }
       }
     }
@@ -992,6 +1049,30 @@ void mouseReleased() {
      socialMediaSelect = false;
      socialMedia.clicked = 0;
      socialMedia.changeFillColor("black");
+   }
+  }
+  
+  if(blueToothSelect){
+   float[][] blueVerts = rectVerts(blueToothToggle.getCoords(), blueToothToggle.getSize());
+   float[] blueX = blueVerts[0];
+   float[] blueY = blueVerts[1];
+   if(pnpoly(4, blueX, blueY, mouseX, mouseY) == 1){
+     if(blueToothOn)
+       blueToothOn = false;
+     else
+       blueToothOn = true;
+     return;
+   }
+   
+   
+   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
+   float[] skipX = skipVert[0];
+   float[] skipY = skipVert[1];
+   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
+     blueToothSelect = false;
+     blueTooth.clicked = 0;
+     blueTooth.changeFillColor("black");
+     return;
    }
   }
   
@@ -1049,6 +1130,7 @@ void mouseReleased() {
             profileSelect = false;
             keyboardShow = false;
             socialMediaSelect = false;
+            blueToothSelect = false;
             reason = "";
             //set everything to not be clicked
             for(Clickable setting2 : settings){
@@ -1104,6 +1186,9 @@ void mouseReleased() {
             else if(setting.name.equals("Social Media")){
               socialMediaSelect = true;
             }
+            else if(setting.name.equals("Bluetooth")){
+               blueToothSelect = true; 
+            }
             return;
           }
           else{
@@ -1119,6 +1204,7 @@ void mouseReleased() {
             if(socialMediaSelect){
               socialMediaSelect = false;
             }
+            blueToothSelect = false;
             return;
           }
        }
