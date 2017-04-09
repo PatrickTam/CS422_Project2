@@ -36,6 +36,7 @@ class Clickable{
   }
   
   void drawLine(){
+   fill(0);
    line(x, y+sizeY, x+sizeX, y+sizeY); 
   }
   

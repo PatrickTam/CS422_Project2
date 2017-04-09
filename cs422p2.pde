@@ -30,6 +30,9 @@ Clickable[] wifiConns;
 BackgroundBox profileBox = new BackgroundBox(1066, 668, 600, 460);
 boolean profileSelect = false;
 
+BackgroundBox socialMediaBox = new BackgroundBox(1066, 668, 600, 360);
+boolean socialMediaSelect = false;
+
 Clickable skipButton = new Clickable(1166, 1325, 400, 100);
 Clickable cancelButton = new Clickable(1166, 1425, 400, 100);
 
@@ -80,6 +83,7 @@ Clickable register = new Clickable(2307, 1300, 400, 55);
 Clickable selectProfile = new Clickable(2307, 1365, 400, 55);
 Clickable powerOff = new Clickable(2307, 1235, 400, 55);
 Clickable clearScreen = new Clickable(2307, 1170, 400, 55);
+Clickable socialMedia = new Clickable(2307, 1105, 400, 55);
 
 Clickable[] settings;
 
@@ -175,8 +179,9 @@ void setup() {
   selectProfile.setName("Select Profile");
   powerOff.setName("Power Off");
   clearScreen.setName("Clear Screen");
+  socialMedia.setName("Social Media");
   
-  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen};
+  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia};
     
   guestProfile = new Profile("Guest", "0000");
   currentProfile = guestProfile;
@@ -324,6 +329,7 @@ void setup() {
   
   wrongSound.setAttribute("src", "wrong.wav");
 
+  currentMediaUsername = "";
 }
 
 void playWrong(){
@@ -409,6 +415,32 @@ void draw() {
       textSize(80);
       textAlign(CENTER);
       text("Please Enter " + loggingIn.name + "'s Password:", 2732/2, 550);
+    }
+    else if(reason.equals("socialMediaUsername")){
+      fill(0);
+      textSize(80);
+      textAlign(CENTER);
+      String s = "";
+      if(mediaIndex == 0)
+        s = "Twitter";
+      else if(mediaIndex == 1)
+        s = "Instagram";
+      else
+        s = "Facebook";
+      text("Please Enter Your " + s + " Username:", 2732/2, 550);
+    }
+    else if(reason.equals("socialMediaPassword")){
+      fill(0);
+      textSize(80);
+      textAlign(CENTER);
+      String s = "";
+      if(mediaIndex == 0)
+        s = "Twitter";
+      else if(mediaIndex == 1)
+        s = "Instagram";
+      else
+        s = "Facebook";
+      text("Please Enter Your " + s + " Password:", 2732/2, 550);
     }
   }
 
@@ -705,6 +737,28 @@ void draw() {
         i++;
       }
     }
+    
+    if(socialMediaSelect){
+      strokeWeight(4);
+      fill(0,0);
+      rect(skipButton.x, skipButton.y, skipButton.sizeX, skipButton.sizeY);      
+      textAlign(CENTER);
+      fill(0);
+      textSize(50);
+      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      
+      fill(180);
+      stroke(0);
+      strokeWeight(4);
+      rect(socialMediaBox.x, socialMediaBox.y, socialMediaBox.sizeX, socialMediaBox.sizeY);
+      
+      fill(0);
+      text("Social Media", socialMediaBox.x+(socialMediaBox.sizeX/2), socialMediaBox.y+50);
+
+      line(socialMediaBox.x, socialMediaBox.y+60, socialMediaBox.x+socialMediaBox.sizeX, socialMediaBox.y+60);
+      
+      currentProfile.drawSocialMedia(socialMediaBox);
+    }
 
     //tracking music play time
     if (musicFlag == 1 && playFlag == 1) {
@@ -800,6 +854,19 @@ void mouseReleased() {
                currentText = "";
              }
            }
+           else if(reason.equals("socialMediaUsername")){
+             reason = "socialMediaPassword";
+             currentMediaUsername = currentText;
+             currentText = "";
+           }
+           else if(reason.equals("socialMediaPassword")){
+             currentProfile.setMedia(currentMediaUsername, mediaIndex);
+             currentMediaUsername = "";
+             mediaIndex = -1;
+             
+             socialMediaSelect = true;
+             keyboardShow = false;
+           }
          }
          else if(k.name.equals("Shift")){
            k.clickedOn();
@@ -839,6 +906,11 @@ void mouseReleased() {
         reason = "none";
         keyboardShow = false;
         profileSelect = true;
+      }
+      else if(reason.equals("socialMediaUsername") || reason.equals("socialMediaPassword")){
+        reason = "none";
+        keyboardShow = false;
+        socialMediaSelect = true;
       }
     }
   }
@@ -890,6 +962,39 @@ void mouseReleased() {
      selectProfile.changeFillColor("black");
    }
   }
+  
+  if(socialMediaSelect && !currentProfile.name.equals("Guest")){
+    for(int i = 0; i < socialMediaButtons.length; i++){
+      Clickable c = socialMediaButtons[i];
+      float[][] socialVerts = rectVerts(c.getCoords(), c.getSize());
+      float[] socialX = socialVerts[0];
+      float[] socialY = socialVerts[1];
+      
+      if(pnpoly(4, socialX, socialY, mouseX, mouseY) == 1){
+        if(currentProfile.getMedia(i).equals("None")){
+          keyboardShow = true;
+          socialMediaSelect = false;
+          reason = "socialMediaUsername";
+          currentText = "";
+          mediaIndex = i;
+          return;
+        }
+        else{
+          currentProfile.setMedia("None", i);
+          return;
+        }
+      }
+    }
+   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
+   float[] skipX = skipVert[0];
+   float[] skipY = skipVert[1];
+   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
+     socialMediaSelect = false;
+     socialMedia.clicked = 0;
+     socialMedia.changeFillColor("black");
+   }
+  }
+  
   if (!on) {
     float[][] powerVerts = rectVerts(powerButton.getCoords(), powerButton.getSize());
     float[] powerX = powerVerts[0];
@@ -943,6 +1048,7 @@ void mouseReleased() {
           if(setting.clicked == 0){
             profileSelect = false;
             keyboardShow = false;
+            socialMediaSelect = false;
             reason = "";
             //set everything to not be clicked
             for(Clickable setting2 : settings){
@@ -995,6 +1101,9 @@ void mouseReleased() {
              setting.clicked = 0;
              setting.changeFillColor("black");
             }
+            else if(setting.name.equals("Social Media")){
+              socialMediaSelect = true;
+            }
             return;
           }
           else{
@@ -1006,6 +1115,9 @@ void mouseReleased() {
             }
             if(profileSelect){
              profileSelect = false; 
+            }
+            if(socialMediaSelect){
+              socialMediaSelect = false;
             }
             return;
           }

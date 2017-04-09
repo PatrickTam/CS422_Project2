@@ -7,6 +7,7 @@ Clickable[] profileButtons = {new Clickable(1066, 728, 600, 100), new Clickable(
 Clickable[] acutalProfileButtons = {new Clickable(1426, 748, 120, 60), new Clickable(1426, 848, 120, 60), new Clickable(1426, 948, 120, 60), new Clickable(1426, 1048, 120, 60)};
 
 class Profile{
+  SocialMedia media;
   String name;
   String pin;
   String language;
@@ -16,6 +17,7 @@ class Profile{
   Profile(String n, String pw){
    name = n;
    pin = pw;
+   media = new SocialMedia();
   }
   
   void saveInfo(String language, Widget[] left, Widget[] right){
@@ -26,6 +28,47 @@ class Profile{
   
   void setLanguage(String language){
    this.language = language; 
+  }
+  
+  void setTwitter(String s){
+   media.twitter = s;
+  }
+  
+  void setInstagram(String s){
+   media.instagram = s;
+  }
+  
+  void setFacebook(String s){
+   media.facebook = s;
+  }
+  
+  void setMedia(String s, int i){
+    if(i == 0)
+     media.twitter = s;
+   else if(i == 2)
+     media.instagram = s;
+   else
+     media.facebook = s;
+  }
+  
+  void drawSocialMedia(BackgroundBox b){
+   if(name.equals("Guest")){
+     textAlign(CENTER);
+     textSize(40);
+      text("Please create a profile first", b.x+(b.sizeX/2), b.y+(b.sizeY/2));
+   }
+   else{
+      media.drawSocialMedia(b); 
+   }
+  }
+  
+  String getMedia(int i){
+   if(i == 0)
+     return media.twitter;
+   else if(i == 2)
+     return media.instagram;
+   else
+     return media.facebook;
   }
 }
 
