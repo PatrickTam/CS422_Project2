@@ -77,7 +77,9 @@ BackgroundBox appBox = new BackgroundBox(125, 1325, 775, 200);
 
 BackgroundBox settingBox = new BackgroundBox(2307, 825, 400, 600);
 Clickable register = new Clickable(2307, 1300, 400, 55);
-Clickable selectProfile = new Clickable(2307, 1365, 400, 55); 
+Clickable selectProfile = new Clickable(2307, 1365, 400, 55);
+Clickable powerOff = new Clickable(2307, 1235, 400, 55);
+Clickable clearScreen = new Clickable(2307, 1170, 400, 55);
 
 Clickable[] settings;
 
@@ -171,8 +173,10 @@ void setup() {
   
   register.setName("Register");
   selectProfile.setName("Select Profile");
+  powerOff.setName("Power Off");
+  clearScreen.setName("Clear Screen");
   
-  settings = new Clickable[]{register, selectProfile};
+  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen};
     
   guestProfile = new Profile("Guest", "0000");
   currentProfile = guestProfile;
@@ -649,6 +653,7 @@ void draw() {
       strokeWeight(2);
       stroke(0);
       line(register.x+10, register.y-20, register.x + register.sizeX-10, register.y-20);
+      line(clearScreen.x+10, clearScreen.y-20, clearScreen.x+clearScreen.sizeX-10, clearScreen.y-20);
     }
 
     textAlign(RIGHT);
@@ -978,6 +983,17 @@ void mouseReleased() {
                 profileButtons[i-profileIndex].addProfile((Profile)profileList.get(i));
                 acutalProfileButtons[i-profileIndex].addProfile((Profile)profileList.get(i));
               }
+            }
+            else if(setting.name.equals("Power Off")){
+             on = false;
+             setting.clicked = 0;
+             setting.changeFillColor("black");
+            }
+            else if(setting.name.equals("Clear Screen")){
+             widgetLeft = new Widget[]{new Widget(100, 500, 800, 150), new Widget(100, 750, 800, 150), new Widget(100, 1000, 800, 150)};
+             widgetRight = new Widget[]{new Widget(1832, 500, 800, 150), new Widget(1832, 750, 800, 150), new Widget(1832, 1000, 800, 150)};
+             setting.clicked = 0;
+             setting.changeFillColor("black");
             }
             return;
           }
