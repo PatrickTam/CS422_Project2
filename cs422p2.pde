@@ -56,6 +56,8 @@ int settingExpanded = 0;
 PImage settingImg;
 PImage settingImgSelected;  
 
+PImage registerImg;
+
 Clickable moveButton = new Clickable(135, 1425, 100, 100);
 PImage moveImg;
 PImage moveImgSelected; 
@@ -171,6 +173,9 @@ void setup() {
   
   guestProfile = new Profile("Guest", new int[]{0,0,0,0});
   currentProfile = guestProfile;
+  
+  registerImg = loadImage("register.png", "png");
+  registerImg.loadPixels();
 /********* SETTING ***********/
 
 
@@ -268,8 +273,8 @@ void setup() {
   //Add a new app? Put it in here or it wont show up!
   appArr = new AppButton[]{weatherIcon, musicIcon, healthIcon, calendarIcon, newsIcon, timerIcon, alarmIcon, noteIcon, emailIcon, twitterIcon, instagramIcon, facebookIcon};
 
-  amanda.setAttribute("src", "amanda.mp3");
-  sad.setAttribute("src", "sad.mp3");
+  //amanda.setAttribute("src", "amanda.mp3");
+  //sad.setAttribute("src", "sad.mp3");
 
   amandaCover = loadImage("amandaCover.jpg", "jpg");
   amandaCover.loadPixels();
@@ -311,13 +316,13 @@ void setup() {
 
 //we set the attribute again to avoid the html5 pause() error (I know this is bad)
 void playAmanda() {
-  amanda.setAttribute("src", "amanda.mp3");
+  //amanda.setAttribute("src", "amanda.mp3");
   amanda.play();
 }
 
 //we set the attribute again to avoid the html5 pause() error (I know this is bad)
 void playSad() {
-  sad.setAttribute("src", "sad.mp3");
+  //sad.setAttribute("src", "sad.mp3");
   sad.play();
 }
 
@@ -364,6 +369,25 @@ void draw() {
     fill(0);
     textSize(50);
     text("Cancel", cancelButton.x+(cancelButton.sizeX/2), cancelButton.y+(cancelButton.sizeY/2)+20);
+    
+    if(reason.equals("registerUsername")){
+      registerImg.resize(250,250);
+      image(registerImg, 2732/2 - 125, 575);
+      
+      fill(0);
+      textSize(80);
+      textAlign(CENTER);
+      text("Please Your Desired Username:", 2732/2, 550);
+    }
+    else if(reason.equals("registerPassword")){
+      registerImg.resize(250,250);
+      image(registerImg, 2732/2 - 125, 575);
+      
+      fill(0);
+      textSize(80);
+      textAlign(CENTER);
+      text("Please Your Desired Password:", 2732/2, 550);
+    }
   }
 
   if (!on) {
@@ -473,6 +497,8 @@ void draw() {
     strokeWeight(4);
     //left 3 widgets
     fill(0, 255, 123);
+    
+    if(!keyboardShow){
     for (int loopCounter=0; loopCounter < widgetLeft.length; loopCounter++) {
       //this means that there is an app attached to the widget
       if (widgetLeft[loopCounter].name != null) {
@@ -541,6 +567,8 @@ void draw() {
           widgetRight[loopCounter].sizeX, widgetRight[loopCounter].sizeY, 10);
       }
     }
+    }
+    
     strokeWeight(4);
     fill(0);
     //app button
@@ -643,11 +671,33 @@ void mouseReleased() {
             currentText = currentText.substring(0, currentText.length() - 1);
          }
          else if(k.name.equals("Enter")){
-           keyboardShow = false;
            //IMPORTANT:: You need the reason or else we don't know what we are using the keyboard for!
            if(reason.equals("wifi")){
             wifiPwSet = true;
             reason = "none";
+            keyboardShow = false;
+           }
+           else if(reason.equals("registerUsername")){
+            reason = "registerPassword";
+            currentUsername = currentText;
+            currentText = "";
+           }
+           else if(reason.equals("registerPassword")){
+            reason = "none";
+            
+            Profile p = new Profile(currentUsername, currentText);
+            profile.add(p);
+            currentProfile.saveInfo(language, widgetLeft, widgetRight);
+            currentProfile = p;
+            
+            widgetLeft = new Widget[]{new Widget(100, 500, 800, 150), new Widget(100, 750, 800, 150), new Widget(100, 1000, 800, 150)};
+            widgetRight = new Widget[]{new Widget(1832, 500, 800, 150), new Widget(1832, 750, 800, 150), new Widget(1832, 1000, 800, 150)};
+            
+            keyboardShow = false;
+            register.clicked = 0;
+            register.changeFillColor("black");
+            
+            register.name = "Logout";
            }
          }
          else if(k.name.equals("Shift")){
@@ -677,6 +727,12 @@ void mouseReleased() {
         firstLogin = true;
         reason = "none";
         keyboardShow = false;
+      }
+      else if(reason.equals("registerUsername")){
+        reason = "none";
+        keyboardShow = false;
+        register.clicked = 0;
+        register.changeFillColor("black");
       }
     }
   }
@@ -739,11 +795,34 @@ void mouseReleased() {
             //then set this to be clicked
             setting.clicked = 1;
             setting.changeFillColor("yellow");
+            
+            if(setting.name.equals("Register")){
+             keyboardShow = true;
+             reason = "registerUsername";
+             currentText = "";
+            }
+            else if(setting.name.equals("Logout")){
+             setting.name = "Register";
+             currentProfile.saveInfo(language, widgetLeft, widgetRight);
+             
+             currentProfile = guestProfile;
+             
+             widgetLeft = guestProfile.widgetLeft;
+             widgetRight = guestProfile.widgetRight;
+             
+             setting.clicked = 0;
+             setting.changeFillColor("black");
+            }
+            
             return;
           }
           else{
             setting.clicked = 0;
             setting.changeFillColor("black");
+            if(keyboardShow){
+              keyboardShow = false;
+              reason = "none";
+            }
             return;
           }
        }

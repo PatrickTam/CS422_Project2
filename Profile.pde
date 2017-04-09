@@ -1,13 +1,14 @@
 ArrayList profile;
+String currentUsername;
 
 class Profile{
   String name;
-  int[] pin;
+  String pin;
   String language;
   Widget[] widgetLeft;
   Widget[] widgetRight;
   
-  Profile(String n, int[] pw){
+  Profile(String n, String pw){
    name = n;
    pin = pw;
   }
