@@ -60,6 +60,9 @@ Clickable moveButton = new Clickable(135, 1425, 100, 100);
 PImage moveImg;
 PImage moveImgSelected; 
 
+Clickable trashButton = new Clickable(1316, 1416, 100, 100);
+PImage trashImg;
+
 int dayOfWeek;
 
 //background boxes
@@ -174,6 +177,10 @@ void setup() {
   moveImg = loadImage("move.png", "png");
   //https://www.iconfinder.com/icons/237454/arrow_cursor_move_icon
   moveImg.loadPixels();
+  
+  trashImg = loadImage("trash.png", "png");
+  //https://thenounproject.com/term/trash-can/425731/
+  trashImg.loadPixels();
 
   moveImgSelected = loadImage("moveSelected.png", "png");
   moveImgSelected.loadPixels();
@@ -261,8 +268,8 @@ void setup() {
   //Add a new app? Put it in here or it wont show up!
   appArr = new AppButton[]{weatherIcon, musicIcon, healthIcon, calendarIcon, newsIcon, timerIcon, alarmIcon, noteIcon, emailIcon, twitterIcon, instagramIcon, facebookIcon};
 
-  //amanda.setAttribute("src", "amanda.mp3");
-  //sad.setAttribute("src", "sad.mp3");
+  amanda.setAttribute("src", "amanda.mp3");
+  sad.setAttribute("src", "sad.mp3");
 
   amandaCover = loadImage("amandaCover.jpg", "jpg");
   amandaCover.loadPixels();
@@ -299,36 +306,18 @@ void setup() {
   }
   
   currentText = "";
-  
-  /*ArrayList<Keys[]> fullKeyboard = new ArrayList<Keys[]>();
-  for(String[] strArr : keys){
-     ArrayList keySection = new ArrayList();
-     int index = 0;
-     for(String s : strArr){
-       Keys newKey = new Keys(xVal+(index * 65), yVal, s);
-       keySection.add(newKey);
-       index++;
-     }
-     yVal += 65;
-     fullKeyboard.add(keySection.toArray(new Keys[keySection.size()]));
-  }
-  Keys[] k = fullKeyboard.get(0);
-  for(Keys[] k : fullKeyboard){
-    
-  }*/
-
 /********* KEYBOARD ***********/
 }
 
 //we set the attribute again to avoid the html5 pause() error (I know this is bad)
 void playAmanda() {
-  //amanda.setAttribute("src", "amanda.mp3");
+  amanda.setAttribute("src", "amanda.mp3");
   amanda.play();
 }
 
 //we set the attribute again to avoid the html5 pause() error (I know this is bad)
 void playSad() {
-  //sad.setAttribute("src", "sad.mp3");
+  sad.setAttribute("src", "sad.mp3");
   sad.play();
 }
 
@@ -585,6 +574,9 @@ void draw() {
     } else {
       moveImgSelected.resize(moveButton.sizeX, moveButton.sizeY);
       image(moveImgSelected, moveButton.x, moveButton.y);
+      
+      trashImg.resize(trashButton.sizeX, trashButton.sizeY);
+      image(trashImg, trashButton.x, trashButton.y);
     }
 
     //setting button
@@ -1035,6 +1027,30 @@ void mouseReleased() {
     if (appSelected != -1)
       return;
     moveButton.clickedOn();
+  }
+  
+  float[][] trashVerts = rectVerts(trashButton.getCoords(), trashButton.getSize());
+  float[] trashX = trashVerts[0];
+  float[] trashY = trashVerts[1];
+  if(pnpoly(4, trashX, trashY, mouseX, mouseY) == 1){
+     if(moveButton.clicked == 1){
+      for (int i = 0; i < widgetLeft.length; i++) {
+          if (widgetLeft[i].moveFlag == 1) {
+            widgetLeft[i].name = null;
+            widgetLeft[i].moveFlag = 0;
+            widgetLeft[i].changeStrokeColor("white");
+            moveButton.clicked = 0;
+            return;
+          }
+          if (widgetRight[i].moveFlag == 1) {
+            widgetRight[i].name = null;
+            widgetRight[i].moveFlag = 0;
+            widgetRight[i].changeStrokeColor("white");
+            moveButton.clicked = 0;
+            return;
+          }
+        }
+     }
   }
 
   for (int i = 0; i < appArr.length; i++) {
