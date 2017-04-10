@@ -31,6 +31,7 @@ Clickable[] wifiConns;
 
 BackgroundBox profileBox = new BackgroundBox(1066, 668, 600, 460);
 boolean profileSelect = false;
+int[][] arrows = {{1616, 738, 1596, 778, 1636, 778}, {1616, 1118, 1596, 1078, 1636, 1078}};
 
 BackgroundBox socialMediaBox = new BackgroundBox(1066, 668, 600, 360);
 boolean socialMediaSelect = false;
@@ -732,6 +733,13 @@ void draw() {
 
       line(profileBox.x, profileBox.y+60, profileBox.x+profileBox.sizeX, profileBox.y+60);
 
+      if(profileIndex != 0){
+        triangle(arrows[0][0], arrows[0][1], arrows[0][2], arrows[0][3], arrows[0][4], arrows[0][5]);
+      }
+      if(profileIndex+4 < profileList.size()){
+        triangle(arrows[1][0], arrows[1][1], arrows[1][2], arrows[1][3], arrows[1][4], arrows[1][5]);
+      }
+      
       strokeWeight(2);
       textAlign(LEFT);
       int i = 0;
@@ -982,6 +990,7 @@ void mouseReleased() {
                selectProfile.changeFillColor("black");
                               
                profileSelect = false;
+               profileIndex = 0;
                keyboardShow = false;
              }
              else{
@@ -1051,6 +1060,41 @@ void mouseReleased() {
   }
   
   if(profileSelect){
+   if(profileIndex != 0){
+     float[] arrowX = {arrows[0][0], arrows[0][2], arrows[0][4]};
+     float[] arrowY = {arrows[0][1], arrows[0][3], arrows[0][5]};
+     if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+       profileIndex--;
+       for(int i = profileIndex; i < profileIndex+4; i++){
+        if(i > profileList.size()-1){
+           for(int j = i-profileIndex; j < 4; j++){
+            profileButtons[j].addProfile(null); 
+           }
+           break;
+        }
+        profileButtons[i-profileIndex].addProfile((Profile)profileList.get(i));
+        acutalProfileButtons[i-profileIndex].addProfile((Profile)profileList.get(i));
+       }
+     }
+    }
+    if(profileIndex+4 < profileList.size()){
+     float[] arrowX = {arrows[1][0], arrows[1][2], arrows[1][4]};
+     float[] arrowY = {arrows[1][1], arrows[1][3], arrows[1][5]};
+     if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+       profileIndex++;
+       for(int i = profileIndex; i < profileIndex+4; i++){
+        if(i > profileList.size()-1){
+           for(int j = i-profileIndex; j < 4; j++){
+            profileButtons[j].addProfile(null); 
+           }
+           break;
+        }
+        profileButtons[i-profileIndex].addProfile((Profile)profileList.get(i));
+        acutalProfileButtons[i-profileIndex].addProfile((Profile)profileList.get(i));
+      }
+     }
+    }
+    
    for(int i = 0; i < acutalProfileButtons.length; i++){
     Clickable c = acutalProfileButtons[i];
     float[][] profileVerts = rectVerts(c.getCoords(), c.getSize());
@@ -1076,6 +1120,7 @@ void mouseReleased() {
          profileList.remove(i+profileIndex);
          
          profileSelect = false;
+         profileIndex = 0;
          return;
       }
       else{
@@ -1093,6 +1138,7 @@ void mouseReleased() {
    float[] skipY = skipVert[1];
    if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
      profileSelect = false;
+     profileIndex = 0;
      selectProfile.clicked = 0;
      selectProfile.changeFillColor("black");
    }
@@ -1361,6 +1407,7 @@ void mouseReleased() {
             }
             if(profileSelect){
              profileSelect = false; 
+             profileIndex = 0;
             }
             if(socialMediaSelect){
               socialMediaSelect = false;
