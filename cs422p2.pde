@@ -31,6 +31,7 @@ Clickable[] wifiConns;
 
 BackgroundBox profileBox = new BackgroundBox(1066, 668, 600, 460);
 boolean profileSelect = false;
+//equilateral 40
 int[][] arrows = {{1616, 738, 1596, 778, 1636, 778}, {1616, 1118, 1596, 1078, 1636, 1078}};
 
 BackgroundBox socialMediaBox = new BackgroundBox(1066, 668, 600, 360);
@@ -46,6 +47,11 @@ boolean timeDateSelect = false;
 Clickable[] timeToggle = {new Clickable(1226, 748, 120, 60, "AM/PM"), new Clickable(1426, 748, 120, 60, "Military")};
 Clickable[] dateToggle = {new Clickable(1226, 848, 120, 60, "M/D/Y"), new Clickable(1426, 848, 120, 60, "D/M/Y")};
 Clickable[] tempToggle = {new Clickable(1226, 948, 120, 60, "°F"), new Clickable(1426, 948, 120, 60, "°C")};
+
+BackgroundBox brightnessBox = new BackgroundBox(1066, 668, 600, 360);
+boolean brightnessSelect = false;
+int brightnessValue = 100;
+int[][] brightnessArrow = {{1076, 878, 1116, 898, 1116, 858},{1656, 878, 1616, 898, 1616, 858}};
 
 Clickable skipButton = new Clickable(1166, 1325, 400, 100);
 Clickable cancelButton = new Clickable(1166, 1425, 400, 100);
@@ -100,6 +106,7 @@ Clickable clearScreen = new Clickable(2307, 1170, 400, 55);
 Clickable socialMedia = new Clickable(2307, 1105, 400, 55);
 Clickable blueTooth = new Clickable(2307, 1040, 400, 55);
 Clickable timeDate = new Clickable(2307, 975, 400, 55);
+Clickable brightness = new Clickable(2307, 910, 400, 55);
 
 Clickable[] settings;
 
@@ -200,8 +207,9 @@ void setup() {
   socialMedia.setName("Social Media");
   blueTooth.setName("Bluetooth");
   timeDate.setName("Time/Date/Temp");
+  brightness.setName("Brightness");
   
-  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia, blueTooth, timeDate};
+  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia, blueTooth, timeDate, brightness};
     
   guestProfile = new Profile("Guest", "0000");
   currentProfile = guestProfile;
@@ -386,7 +394,9 @@ void stopSad() {
 
 void draw() {
   //brightness -> tint()
+  tint(255-(100-brightnessValue));
   background(bg);
+  tint(255);
   noStroke();
 
   //setup date time on the top center
@@ -902,6 +912,32 @@ void draw() {
         fill(255, 50, 50);
       text(tempToggle[1].name, tempToggle[1].x+10,  tempToggle[1].y+40);
     }
+    
+    if(brightnessSelect){
+      strokeWeight(4);
+      fill(0,0);
+      rect(skipButton.x, skipButton.y, skipButton.sizeX, skipButton.sizeY);      
+      textAlign(CENTER);
+      fill(0);
+      textSize(50);
+      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      
+      fill(180);
+      stroke(0);
+      strokeWeight(4);
+      rect(brightnessBox.x, brightnessBox.y, brightnessBox.sizeX, brightnessBox.sizeY);
+      
+      fill(0);
+      text("Brightness", brightnessBox.x+(brightnessBox.sizeX/2), brightnessBox.y+50);
+      line(brightnessBox.x, brightnessBox.y+60, brightnessBox.x+brightnessBox.sizeX, brightnessBox.y+60);
+      
+      if(brightnessValue != 0)
+        triangle(brightnessArrow[0][0], brightnessArrow[0][1], brightnessArrow[0][2], brightnessArrow[0][3], brightnessArrow[0][4], brightnessArrow[0][5]);
+      if(brightnessValue != 100)
+        triangle(brightnessArrow[1][0], brightnessArrow[1][1], brightnessArrow[1][2], brightnessArrow[1][3], brightnessArrow[1][4], brightnessArrow[1][5]);
+      
+      text(brightnessValue+"%", 1356, 898);
+    }
 
     //tracking music play time
     if (musicFlag == 1 && playFlag == 1) {
@@ -1279,6 +1315,34 @@ void mouseReleased() {
    }
   }
   
+  if(brightnessSelect){
+    if(brightnessValue != 0){
+      float[] arrowX = {brightnessArrow[0][0], brightnessArrow[0][2], brightnessArrow[0][4]};
+      float[] arrowY = {brightnessArrow[0][1], brightnessArrow[0][3], brightnessArrow[0][5]};
+      if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+        brightnessValue -= 5;
+      }
+    }
+    
+    if(brightnessValue != 100){
+      float[] arrowX = {brightnessArrow[1][0], brightnessArrow[1][2], brightnessArrow[1][4]};
+      float[] arrowY = {brightnessArrow[1][1], brightnessArrow[1][3], brightnessArrow[1][5]};
+      if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+        brightnessValue += 5;
+      }
+    }
+    
+   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
+   float[] skipX = skipVert[0];
+   float[] skipY = skipVert[1];
+   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
+     brightnessSelect = false;
+     brightness.clicked = 0;
+     brightness.changeFillColor("black");
+     return;
+   }
+  }
+  
   if (!on) {
     float[][] powerVerts = rectVerts(powerButton.getCoords(), powerButton.getSize());
     float[] powerX = powerVerts[0];
@@ -1335,6 +1399,7 @@ void mouseReleased() {
             socialMediaSelect = false;
             blueToothSelect = false;
             timeDateSelect = false;
+            brightnessSelect = false;
             reason = "";
             //set everything to not be clicked
             for(Clickable setting2 : settings){
@@ -1396,6 +1461,9 @@ void mouseReleased() {
             else if(setting.name.equals("Time/Date/Temp")){
                timeDateSelect = true;
             }
+            else if(setting.name.equals("Brightness")){
+               brightnessSelect = true; 
+            }
             return;
           }
           else{
@@ -1414,6 +1482,7 @@ void mouseReleased() {
             }
             blueToothSelect = false;
             timeDateSelect = false;
+            brightnessSelect = false;
             return;
           }
        }

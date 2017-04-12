@@ -45,7 +45,7 @@ class Profile{
   void setMedia(String s, int i){
     if(i == 0)
      media.twitter = s;
-   else if(i == 2)
+   else if(i == 1)
      media.instagram = s;
    else
      media.facebook = s;
