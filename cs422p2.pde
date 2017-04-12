@@ -403,9 +403,11 @@ void stopSad() {
 
 void draw() {
   //brightness -> tint()
-  tint(255-(100-brightnessValue));
   background(bg);
-  tint(255);
+  
+  fill(0, 100-brightnessValue);
+  rect(0,0,2732, 1536);
+  
   noStroke();
 
   //setup date time on the top center
@@ -1002,7 +1004,7 @@ void draw() {
       
       fill(0);
       textSize(50);
-      text("Skip", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
       
       text("WiFi", wifiBox.x+(wifiBox.sizeX/2), wifiBox.y+50);
       stroke(0);
@@ -1291,15 +1293,6 @@ void mouseReleased() {
       }
     }
    }
-   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
-   float[] skipX = skipVert[0];
-   float[] skipY = skipVert[1];
-   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
-     profileSelect = false;
-     profileIndex = 0;
-     selectProfile.clicked = 0;
-     selectProfile.changeFillColor("black");
-   }
   }
   
   if(socialMediaSelect){
@@ -1326,14 +1319,6 @@ void mouseReleased() {
         }
       }
     }
-   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
-   float[] skipX = skipVert[0];
-   float[] skipY = skipVert[1];
-   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
-     socialMediaSelect = false;
-     socialMedia.clicked = 0;
-     socialMedia.changeFillColor("black");
-   }
   }
   
   if(blueToothSelect){
@@ -1345,17 +1330,6 @@ void mouseReleased() {
        blueToothOn = false;
      else
        blueToothOn = true;
-     return;
-   }
-   
-   
-   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
-   float[] skipX = skipVert[0];
-   float[] skipY = skipVert[1];
-   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
-     blueToothSelect = false;
-     blueTooth.clicked = 0;
-     blueTooth.changeFillColor("black");
      return;
    }
   }
@@ -1426,15 +1400,6 @@ void mouseReleased() {
        }
      }
     }
-   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
-   float[] skipX = skipVert[0];
-   float[] skipY = skipVert[1];
-   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
-     timeDateSelect = false;
-     timeDate.clicked = 0;
-     timeDate.changeFillColor("black");
-     return;
-   }
   }
   
   if(brightnessSelect){
@@ -1455,16 +1420,6 @@ void mouseReleased() {
         return;
       }
     }
-    
-   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
-   float[] skipX = skipVert[0];
-   float[] skipY = skipVert[1];
-   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
-     brightnessSelect = false;
-     brightness.clicked = 0;
-     brightness.changeFillColor("black");
-     return;
-   }
   }
   
   if(languageSelect){
@@ -1487,15 +1442,6 @@ void mouseReleased() {
           return;
         }
       }
-   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
-   float[] skipX = skipVert[0];
-   float[] skipY = skipVert[1];
-   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
-     wifiSelect = false;
-     wifiSetting.clicked = 0;
-     wifiSetting.changeFillColor("black");
-     return;
-   }
   }
   
   if(wifiSelect){
@@ -1512,31 +1458,23 @@ void mouseReleased() {
             currentText = "";
             currentWifiSet = wifiConn;
             wifiSelect = false;
+            return;
           }
-          return;
         }
-        
-     float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
-     float[] skipX = skipVert[0];
-     float[] skipY = skipVert[1];
-     if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
-       languageSelect = false;
-       languageSetting.clicked = 0;
-       languageSetting.changeFillColor("black");
-       return;
-     }
    }
+   
    float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
    float[] skipX = skipVert[0];
    float[] skipY = skipVert[1];
    if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
-     wifiSelect = false;
-     wifiSetting.clicked = 0;
-     wifiSetting.changeFillColor("black");
-     return;
+       wifiSelect = false;
+       wifiSetting.clicked = 0;
+       wifiSetting.changeFillColor("black");
+       return;
    }
   }
   
+  checkSkip();
   if (!on) {
     float[][] powerVerts = rectVerts(powerButton.getCoords(), powerButton.getSize());
     float[] powerX = powerVerts[0];
@@ -2052,4 +1990,60 @@ int pnpoly(int nvert, float[] vertx, float[] verty, float testx, float testy)
     }
   }
   return c;
+}
+
+void checkSkip(){
+  float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
+   float[] skipX = skipVert[0];
+   float[] skipY = skipVert[1];
+   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
+      if(profileSelect){
+         profileSelect = false;
+         profileIndex = 0;
+         selectProfile.clicked = 0;
+         selectProfile.changeFillColor("black");
+      }
+      
+      if(socialMediaSelect){
+         socialMediaSelect = false;
+         socialMedia.clicked = 0;
+         socialMedia.changeFillColor("black");
+         return;
+      }
+      
+      if(blueToothSelect){
+         blueToothSelect = false;
+         blueTooth.clicked = 0;
+         blueTooth.changeFillColor("black");
+         return;
+      }
+      
+      if(timeDateSelect){
+         timeDateSelect = false;
+         timeDate.clicked = 0;
+         timeDate.changeFillColor("black");
+         return;
+      }
+      
+      if(brightnessSelect){
+         brightnessSelect = false;
+         brightness.clicked = 0;
+         brightness.changeFillColor("black");
+         return;
+      }
+      
+      if(languageSelect){
+         languageSelect = false;
+         languageSetting.clicked = 0;
+         languageSetting.changeFillColor("black");
+         return;
+      }
+      
+      if(wifiSelect){
+         wifiSelect = false;
+         wifiSetting.clicked = 0;
+         wifiSetting.changeFillColor("black");
+         return;
+      }
+  }
 }
