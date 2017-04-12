@@ -53,6 +53,11 @@ boolean brightnessSelect = false;
 int brightnessValue = 100;
 int[][] brightnessArrow = {{1076, 878, 1116, 898, 1116, 858},{1656, 878, 1616, 898, 1616, 858}};
 
+boolean languageSelect = false;
+
+Clickable currentWifiSet = null;
+boolean wifiSelect = false;
+
 Clickable skipButton = new Clickable(1166, 1325, 400, 100);
 Clickable cancelButton = new Clickable(1166, 1425, 400, 100);
 
@@ -98,7 +103,7 @@ int dayOfWeek;
 //background boxes
 BackgroundBox appBox = new BackgroundBox(125, 1325, 775, 200);
 
-BackgroundBox settingBox = new BackgroundBox(2307, 825, 400, 600);
+BackgroundBox settingBox = new BackgroundBox(2307, 760, 400, 665);
 Clickable register = new Clickable(2307, 1300, 400, 55);
 Clickable selectProfile = new Clickable(2307, 1365, 400, 55);
 Clickable powerOff = new Clickable(2307, 1235, 400, 55);
@@ -107,6 +112,8 @@ Clickable socialMedia = new Clickable(2307, 1105, 400, 55);
 Clickable blueTooth = new Clickable(2307, 1040, 400, 55);
 Clickable timeDate = new Clickable(2307, 975, 400, 55);
 Clickable brightness = new Clickable(2307, 910, 400, 55);
+Clickable languageSetting = new Clickable(2307, 845, 400, 55);
+Clickable wifiSetting = new Clickable(2307, 780, 400, 55);
 
 Clickable[] settings;
 
@@ -208,8 +215,10 @@ void setup() {
   blueTooth.setName("Bluetooth");
   timeDate.setName("Time/Date/Temp");
   brightness.setName("Brightness");
+  languageSetting.setName("Language");
+  wifiSetting.setName("WiFi");
   
-  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia, blueTooth, timeDate, brightness};
+  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia, blueTooth, timeDate, brightness, languageSetting, wifiSetting};
     
   guestProfile = new Profile("Guest", "0000");
   currentProfile = guestProfile;
@@ -472,6 +481,12 @@ void draw() {
       else
         s = "Facebook";
       text("Please Enter Your " + s + " Password:", 2732/2, 550);
+    }
+    else if(reason.equals("wifiSetting")){
+    fill(0);
+    textSize(80);
+    textAlign(CENTER);
+    text("Please Enter " + currentWifiSet.name + "'s Password:", 2732/2, 350);
     }
   }
 
@@ -938,6 +953,91 @@ void draw() {
       
       text(brightnessValue+"%", 1356, 898);
     }
+    
+    if(languageSelect){
+      textAlign(CENTER);
+      fill(180);
+      stroke(0);
+      strokeWeight(4);
+      rect(langBox.x, langBox.y, langBox.sizeX, langBox.sizeY);
+      strokeWeight(0);
+      fill(0,0);
+      rect(skipButton.x, skipButton.y, skipButton.sizeX, skipButton.sizeY);      
+
+      fill(0);
+      textSize(50);
+      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+
+      text("Language", langBox.x+(langBox.sizeX/2), langBox.y+50);
+      stroke(0);
+      strokeWeight(4);
+      line(langBox.x, langBox.y+60, langBox.x+langBox.sizeX, langBox.y+60);
+
+      strokeWeight(2);
+      english.getFillColor();
+      text(english.name, english.x+(english.sizeX/2), english.y+70);
+      english.drawLine();
+      spanish.getFillColor();
+      text(spanish.name, spanish.x+(spanish.sizeX/2), spanish.y+70);
+      spanish.drawLine();
+      french.getFillColor();
+      text(french.name, french.x+(french.sizeX/2), french.y+70);
+      french.drawLine();
+      lang4.getFillColor();
+      text(lang4.name, lang4.x+(lang4.sizeX/2), lang4.y+70);
+      lang4.drawLine(); 
+      
+      fill(0);
+    }
+    
+    if(wifiSelect){
+      textAlign(CENTER);
+      fill(180);
+      stroke(0);
+      strokeWeight(4);
+      rect(wifiBox.x, wifiBox.y, wifiBox.sizeX, wifiBox.sizeY);
+      strokeWeight(0);
+      fill(0,0);
+      rect(skipButton.x, skipButton.y, skipButton.sizeX, skipButton.sizeY);
+      
+      fill(0);
+      textSize(50);
+      text("Skip", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      
+      text("WiFi", wifiBox.x+(wifiBox.sizeX/2), wifiBox.y+50);
+      stroke(0);
+      strokeWeight(4);
+      line(wifiBox.x, wifiBox.y+60, wifiBox.x+wifiBox.sizeX, wifiBox.y+60);
+      
+      //I know that I can do this smarter, but for now I want to keep it like this in case I change anything
+      
+      strokeWeight(2);
+      wifi1.getFillColor();
+      text(wifi1.name, wifi1.x+(wifi1.sizeX/2), wifi1.y+70);
+      wifiMax.resize(60,60);
+      image(wifiMax, wifi1.x+30, wifi1.y+30);
+      wifi1.drawLine();
+      
+      wifi2.getFillColor();
+      text(wifi2.name, wifi2.x+(wifi2.sizeX/2), wifi2.y+70);
+      wifiMed.resize(60,60);
+      image(wifiMed, wifi2.x+30, wifi2.y+30);
+      wifi2.drawLine();
+      
+      wifi3.getFillColor();
+      text(wifi3.name, wifi3.x+(wifi3.sizeX/2), wifi3.y+70);
+      wifiMed.resize(60,60);
+      image(wifiMed, wifi3.x+30, wifi3.y+30);
+      wifi3.drawLine();
+      
+      wifi4.getFillColor();
+      text(wifi4.name, wifi4.x+(wifi4.sizeX/2), wifi4.y+70);
+      wifiLow.resize(60,60);
+      image(wifiLow, wifi4.x+30, wifi4.y+30);
+      wifi4.drawLine(); 
+      
+      fill(0);
+    }
 
     //tracking music play time
     if (musicFlag == 1 && playFlag == 1) {
@@ -981,6 +1081,8 @@ void mouseReleased() {
             wifiPwSet = true;
             reason = "none";
             keyboardShow = false;
+            currentWifiSet.clicked = 1;
+            currentWifiSet = null;
            }
            else if(reason.equals("registerUsername")){
             for(int i = 0; i < profileList.size(); i++){
@@ -1047,6 +1149,19 @@ void mouseReleased() {
              socialMediaSelect = true;
              keyboardShow = false;
            }
+           else if(reason.equals("wifiSetting")){
+            wifiPwSet = true;
+            reason = "none";
+            keyboardShow = false;
+            for(Clickable wifiConn : wifiConns){
+              wifiConn.clicked = 0;
+            }
+            wifi = currentWifiSet.name;
+            currentWifiSet.clicked = 1;
+            
+             wifiSetting.clicked = 0;
+             wifiSetting.changeFillColor("black");
+           }
          }
          else if(k.name.equals("Shift")){
            k.clickedOn();
@@ -1075,6 +1190,7 @@ void mouseReleased() {
         firstLogin = true;
         reason = "none";
         keyboardShow = false;
+        currentWifiSet = null;
       }
       else if(reason.equals("registerUsername") || reason.equals("registerPassword")){
         reason = "none";
@@ -1091,6 +1207,12 @@ void mouseReleased() {
         reason = "none";
         keyboardShow = false;
         socialMediaSelect = true;
+      }
+      else if(reason.equals("wifiSetting")){
+        keyboardShow = false;
+        wifiSelect = true;
+        reason = "none";
+        currentWifiSet = null;
       }
     }
   }
@@ -1321,6 +1443,7 @@ void mouseReleased() {
       float[] arrowY = {brightnessArrow[0][1], brightnessArrow[0][3], brightnessArrow[0][5]};
       if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
         brightnessValue -= 5;
+        return;
       }
     }
     
@@ -1329,6 +1452,7 @@ void mouseReleased() {
       float[] arrowY = {brightnessArrow[1][1], brightnessArrow[1][3], brightnessArrow[1][5]};
       if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
         brightnessValue += 5;
+        return;
       }
     }
     
@@ -1339,6 +1463,76 @@ void mouseReleased() {
      brightnessSelect = false;
      brightness.clicked = 0;
      brightness.changeFillColor("black");
+     return;
+   }
+  }
+  
+  if(languageSelect){
+     for(Clickable lang : langs){
+        float[][] langVerts = rectVerts(lang.getCoords(), lang.getSize());
+        float[] langX = langVerts[0];
+        float[] langY = langVerts[1];
+        
+        if(pnpoly(4, langX, langY, mouseX, mouseY) == 1) {
+          language = lang.name;
+          if(lang.clicked != 1){
+            for(Clickable lang2 : langs){
+             lang2.clicked = 0; 
+            }
+            lang.clicked = 1;
+          }
+          languageSelect = false;
+          languageSetting.clicked = 0;
+          languageSetting.changeFillColor("black");
+          return;
+        }
+      }
+   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
+   float[] skipX = skipVert[0];
+   float[] skipY = skipVert[1];
+   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
+     wifiSelect = false;
+     wifiSetting.clicked = 0;
+     wifiSetting.changeFillColor("black");
+     return;
+   }
+  }
+  
+  if(wifiSelect){
+   for(Clickable wifiConn : wifiConns){
+       float[][] wifiVerts = rectVerts(wifiConn.getCoords(), wifiConn.getSize());
+       float[] wifiX = wifiVerts[0];
+       float[] wifiY = wifiVerts[1];
+       
+       if(pnpoly(4, wifiX, wifiY, mouseX, mouseY) == 1) {
+          if(!wifiConn.name.equals("Skip")){
+            wifi = wifiConn.name;
+            keyboardShow = true;
+            reason = "wifiSetting";
+            currentText = "";
+            currentWifiSet = wifiConn;
+            wifiSelect = false;
+          }
+          return;
+        }
+        
+     float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
+     float[] skipX = skipVert[0];
+     float[] skipY = skipVert[1];
+     if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
+       languageSelect = false;
+       languageSetting.clicked = 0;
+       languageSetting.changeFillColor("black");
+       return;
+     }
+   }
+   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
+   float[] skipX = skipVert[0];
+   float[] skipY = skipVert[1];
+   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
+     wifiSelect = false;
+     wifiSetting.clicked = 0;
+     wifiSetting.changeFillColor("black");
      return;
    }
   }
@@ -1360,6 +1554,8 @@ void mouseReleased() {
         
         if(pnpoly(4, langX, langY, mouseX, mouseY) == 1) {
           language = lang.name;
+          lang.clicked = 1;
+          languageSelect = false;
           return;
         }
       }
@@ -1378,6 +1574,7 @@ void mouseReleased() {
             keyboardShow = true;
             reason = "wifi";
             currentText = "";
+            currentWifiSet = wifiConn;
           }
           return;
         }
@@ -1400,6 +1597,8 @@ void mouseReleased() {
             blueToothSelect = false;
             timeDateSelect = false;
             brightnessSelect = false;
+            languageSelect = false;
+            wifiSelect = false;
             reason = "";
             //set everything to not be clicked
             for(Clickable setting2 : settings){
@@ -1464,6 +1663,12 @@ void mouseReleased() {
             else if(setting.name.equals("Brightness")){
                brightnessSelect = true; 
             }
+            else if(setting.name.equals("Language")){
+               languageSelect = true; 
+            }
+            else if(setting.name.equals("WiFi")){
+               wifiSelect = true; 
+            }
             return;
           }
           else{
@@ -1483,6 +1688,8 @@ void mouseReleased() {
             blueToothSelect = false;
             timeDateSelect = false;
             brightnessSelect = false;
+            languageSelect = false;
+            wifiSelect = false;
             return;
           }
        }

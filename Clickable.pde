@@ -67,4 +67,12 @@ class Clickable{
   boolean hasProfile(){
    return (profile != null); 
   }
+  
+  void getFillColor(){
+    if(clicked == 1){
+     fill(255,255,0); 
+    }
+    else
+     fill(0);
+  }
 }
