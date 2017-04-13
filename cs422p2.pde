@@ -392,7 +392,24 @@ void setup() {
   currentMediaUsername = "";
   
   emailImage = loadImage("gmail.png", "png");
+  //https://cdn4.iconfinder.com/data/icons/free-colorful-icons/360/gmail.png
   emailImage.loadPixels();
+  
+  calendarImage = loadImage("april.png", "png");
+  //http://www.free-printable-calendar.com/printable-calendar-images/april-2017-printable-calendar.gif
+  calendarImage.loadPixels();
+  
+  cnnIcon = loadImage("cnn.png", "png");
+  //http://www.siriusxm.com/cmds/displayLogo?key=cnn&imageType=16
+  cnnIcon.loadPixels();
+  
+  reutersIcon = loadImage("reuters.jpg", "jpg");
+  //https://pbs.twimg.com/profile_images/806242452528975872/noWUmHen.jpg
+  reutersIcon.loadPixels();
+  
+  googleNewsIcon = loadImage("google.png", "png");
+  //https://uappexplorer.com/api/icon/320d6f32c23cc7e4197b42df9d625d18/googlenews.mreese.png
+  googleNewsIcon.loadPixels();
 }
 
 void playWrong(){
@@ -1749,6 +1766,72 @@ void mouseReleased() {
        }
      }
   }
+  if(newsExist){
+   /*    cnnIcon.resize(90, 90);
+    image(cnnIcon, w.x+50, w.y+10);
+    
+    reutersIcon.resize(90, 90);
+    image(reutersIcon, w.x+320, w.y+10);
+    
+    googleNewsIcon.resize(90, 90);
+    image(googleNewsIcon, w.x+590, w.y+10);*/
+    
+    Widget w = null;
+    for (int i = 0; i < 3; i++) {
+      if (widgetLeft[i].name != null && widgetLeft[i].name.equals("news")) {
+        w = widgetLeft[i];
+        break;
+      }
+      if (widgetRight[i].name != null && widgetRight[i].name.equals("news")) {
+        w = widgetRight[i];
+        break;
+      }
+    }
+    
+    if(w != null){
+      for (int i = 0; i < 3; i++) {
+        float[][] newsVerts = rectVerts(new int[]{w.x+50+(i*270), w.y+10}, new int[]{90, 90});
+        float[] newsX = newsVerts[0];
+        float[] newsY = newsVerts[1];
+        
+        if (pnpoly(4, newsX, newsY, mouseX, mouseY) == 1) {
+          if(i == 0){
+            currentProfile.processNews("cnn");
+           }
+           else if(i == 1){
+            currentProfile.processNews("reuters"); 
+           }
+           else{
+            currentProfile.processNews("google");  
+           }
+           return;
+          }
+        }
+        
+        /*if(currentProfile.newsIndex != 2)
+          triangle(w.x+760, w.y+(w.sizeY - 10), w.x+740, w.y+(w.sizeY - 50), w.x+780, w.y+(w.sizeY - 50));
+        if(currentProfile.newsIndex != 0)
+          triangle(w.x+760, w.y+130, w.x+740, w.y+170, w.x+780, w.y+170);*/
+        if(currentProfile.newsIndex != 2 && w.sizeY == 300){
+          float[] arrowX = {w.x+760, w.x+740, w.x+780};
+          float[] arrowY = {w.y+(w.sizeY - 10), w.y+(w.sizeY - 50),  w.y+(w.sizeY - 50)};
+          
+          if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+            currentProfile.newsIndex += 1;
+            return;
+          }
+        }
+        if(currentProfile.newsIndex != 0 && w.sizeY == 300){
+          float[] arrowX = {w.x+760, w.x+740, w.x+780};
+          float[] arrowY = {w.y+130, w.y+170, w.y+170};
+          
+          if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+            currentProfile.newsIndex -= 1;
+            return;
+          }
+        }
+      }
+    }
   
   if (musicFlag == 1) {
     Widget w = null;

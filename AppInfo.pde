@@ -190,18 +190,150 @@ void processWidgetInfo(Widget w){
   //TODO
   else if(w.name.equals("calendar")){
     if(w.sizeY == 150){
-      
+      if(currentProfile.emailLog.equals("None")){
+        textSize(40);
+        fill(0);
+        textAlign(CENTER);
+        text("Log into Gmail first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+      }
+      else{
+        textSize(40);
+        fill(0);
+        textAlign(LEFT);
+        text(calendarInfo[0], w.x+50, w.y+40);
+        text(calendarInfo[1], w.x+50, w.y+90);
+        text("...", w.x+50, w.y+130);
+      }
     }
     else{
-    
+      if(currentProfile.emailLog.equals("None")){
+        textSize(40);
+        fill(0);
+        textAlign(CENTER);
+        text("Log into Gmail first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+      }
+      else{
+        textSize(40);
+        fill(0);
+        textAlign(LEFT);
+        text(calendarInfo[0], w.x+50, w.y+40);
+        text(calendarInfo[1], w.x+50, w.y+90);
+        text(calendarInfo[2], w.x+50, w.y+140);
+        text(calendarInfo[3], w.x+50, w.y+190);
+        calendarImage.resize(300,280);
+        image(calendarImage, w.x+(w.sizeX - 310), w.y+10);
+      }
     }
   }
   else if(w.name.equals("news")){
+    strokeWeight(1);
+    stroke(0);
     if(w.sizeY == 150){
-    
+      if(currentProfile.newsSelected.equals("None")){
+        newsExist = true;
+        cnnIcon.resize(90, 90);
+        image(cnnIcon, w.x+50, w.y+10);
+        
+        reutersIcon.resize(90, 90);
+        image(reutersIcon, w.x+320, w.y+10);
+        
+        googleNewsIcon.resize(90, 90);
+        image(googleNewsIcon, w.x+590, w.y+10);
+      }
+      else{
+        fill(255, 255, 0);
+        if(currentProfile.newsSelected.equals("cnn")){
+         rect(w.x+40, w.y, 110, 110); 
+        }
+        else if(currentProfile.newsSelected.equals("reuters")){
+         rect(w.x+310, w.y, 110, 110); 
+        }
+        else if(currentProfile.newsSelected.equals("google")){
+         rect(w.x+580, w.y, 110, 110); 
+        }
+        
+        newsExist = true;
+        cnnIcon.resize(90, 90);
+        image(cnnIcon, w.x+50, w.y+10);
+        
+        reutersIcon.resize(90, 90);
+        image(reutersIcon, w.x+320, w.y+10);
+        
+        googleNewsIcon.resize(90, 90);
+        image(googleNewsIcon, w.x+590, w.y+10);
+      }
     }
     else{
-    
+      if(currentProfile.newsSelected.equals("None")){
+        newsExist = true;
+        cnnIcon.resize(90, 90);
+        image(cnnIcon, w.x+50, w.y+10);
+        
+        reutersIcon.resize(90, 90);
+        image(reutersIcon, w.x+320, w.y+10);
+        
+        googleNewsIcon.resize(90, 90);
+        image(googleNewsIcon, w.x+590, w.y+10);
+        
+      }
+      else{
+        int newsSelected = 0;
+        fill(255, 255, 0);
+        if(currentProfile.newsSelected.equals("cnn")){
+         rect(w.x+40, w.y, 110, 110); 
+        }
+        else if(currentProfile.newsSelected.equals("reuters")){
+         newsSelected = 1;
+         rect(w.x+310, w.y, 110, 110); 
+        }
+        else if(currentProfile.newsSelected.equals("google")){
+         newsSelected = 2;
+         rect(w.x+580, w.y, 110, 110); 
+        }
+        
+        newsExist = true;
+        cnnIcon.resize(90, 90);
+        image(cnnIcon, w.x+50, w.y+10);
+        
+        reutersIcon.resize(90, 90);
+        image(reutersIcon, w.x+320, w.y+10);
+        
+        googleNewsIcon.resize(90, 90);
+        image(googleNewsIcon, w.x+590, w.y+10);
+        
+        fill(0);
+        if(currentProfile.newsIndex != 2)
+          triangle(w.x+760, w.y+(w.sizeY - 10), w.x+740, w.y+(w.sizeY - 50), w.x+780, w.y+(w.sizeY - 50));
+        if(currentProfile.newsIndex != 0)
+          triangle(w.x+760, w.y+130, w.x+740, w.y+170, w.x+780, w.y+170);
+        
+        
+        textSize(35);
+        textAlign(LEFT);
+        text(newsHeadline[newsSelected][currentProfile.newsIndex], w.x+20, w.y+140);
+        
+        textSize(25);
+        
+        int index = 0;
+        if(newsSelected == 0){
+          for(String str : cnnNewsText[currentProfile.newsIndex]){
+            text(str, w.x+20, w.y+180+(25*index));
+            index++;
+          }
+        }
+        else if(newsSelected == 1){
+          for(String str : reutersNewsText[currentProfile.newsIndex]){
+            text(str, w.x+20, w.y+180+(25*index));
+            index++;
+          }
+        }
+        else if(newsSelected == 2){
+          for(String str : googleNewsText[currentProfile.newsIndex]){
+            text(str, w.x+20, w.y+180+(25*index));
+            index++;
+          }
+        }
+      }
     }
   }
 }
@@ -241,3 +373,37 @@ PImage sleep;
 
 
 //Calendar info... for later...
+String[] calendarInfo = {"April 22 - Earth Day", "April 23 - Bob's Birthday", "April 28 - Arbor Day", "April 29 - Party WooO"};
+PImage calendarImage;
+
+//News
+PImage cnnIcon;
+PImage reutersIcon;
+PImage googleNewsIcon;
+boolean newsExist = false;
+String[][] newsHeadline = {{"Kim Jong-un orders 600,000 out of Pyongyang", "His name is Albus, not Young Dumbledore", "Dog found after 20 minutes of being missing"}, 
+                           {"Comedian Charlie Murphy Dies at 57", "Cosmopolitan magazine: ‘Cancer is a diet plan’", "Boy, 8, drives sister, 4, to McDonald's"}, 
+                           {"Trump lifts ban on hunting hibernating bears", "Staff accidentally shoots self at NRA headquarters", "Hacker sets off 156 emergency sirens in Dallas"}};
+String[][] cnnNewsText = {
+                        //http://koreajoongangdaily.joins.com/news/article/article.aspx?aid=3032113
+                        {"North Korean leader Kim Jong-un recently ordered the deportation of", "nearly 600,000 Pyongyang residents to the suburbs, a local source", "told the JoongAng Ilbo Monday. The deportation represents one-", "fourth of Pyongyang’s current population of 2.6 million. It ", "is not known when they will be forced to move or to where. "},
+                        //http://ew.com/movies/2017/04/12/harry-potter-dumbledore-jude-law/
+                        {"By now you’ve heard the news of the ‘Alohomora’ of casting", "decisions— Jude Law is playing a young Albus Dumbledore in the next", "Fantastic Beasts and Where to Find Them film, which presently has", "no name and no plot but two A-list movie stars onboard to play", "juvenile versions of two iconic characters from Harry Potter."}, 
+                        {"A brave dog named Sparks was found 20 minutes after his", "disappearance from a local home in Chicago. The family was very", "gracious that he came back so quickly, \"He's a good boy\"", "stated the owner. Sparks received many treats."}};
+
+String[][] reutersNewsText = {
+                              //http://www.hollywoodreporter.com/news/charlie-murphy-dead-comedian-was-57-993220
+                              {"Charlie Murphy, the former Chappelle's Show star", "and Eddie Murphy's older brother, has died, publicist", "Domenick Nati told The Hollywood Reporter. He was 57.", "Murphy died from leukemia on Wednesday, said Nati. "},
+                              //https://www.washingtonpost.com/news/morning-mix/wp/2017/04/12/dear-cosmopolitan-magazine-cancer-is-not-a-diet-plan/
+                              {"Readers who clicked on the link to find out about", "an astonishing weight loss secret were taken aback by", "the story of a woman who lost 44 pounds after being diagnosed with","a rare cancer. The story’s focus on slimming", "down infuriated them."},
+                              //http://www.sfgate.com/national/article/Boy-8-drives-sister-4-to-McDonald-s-for-a-11068868.php
+                              {"Witnesses in other vehicles spotted the underage driver", "and called police. They reported he obeyed traffic rules, stopped at", "red lights, adhered to the speed limit and didn't sideswipe a single", "garbage can. After reaching the drive-thru at the fast-food restaurant, ", "the boy paid for the cheeseburgers with money from his piggy bank."}};
+                              
+String[][] googleNewsText = {
+                              //https://www.theweathernetwork.com/news/articles/trump-rids-ban-on-hunting-bears-and-wolves-in-alaska-refuges/81051/
+                              {"A joint bill from the U.S. House and Senate, signed off by President", "Donald Trump on Monday, revokes an Obama-era rule that bans ", "'predator control' hunting on Alaska's refuges. The ban protected", "hibernating bears from being hunted, along with wolf cubs in", "dens."},
+                              //https://www.usatoday.com/story/news/2017/04/07/employee-accidentally-shoots-hurts-self-nra-museum/100192128/
+                              {"An employee of a Fairfax, Va., museum representing the nation's", "largest gun rights organization accidentally shot himself on Friday,", "police said. The staffer at the National Firearms Museum, a site run", "by the National Rifle Association out of its headquarters, suffered", "a minor wound to the lower body."},
+                              //https://www.usatoday.com/story/news/2017/04/08/hacker-triggers-all-156-emergency-sirens-dallas/100212412/
+                              {"Dallas city officials said Saturday that a hacker is to blame for", "setting off all the city's 156 emergency outdoor sirens, which wailed", "for an hour and half overnight. Rocky Vaz, director of the city's Office", "of Emergency Management, said engineers determined an", "unidentified hacker somewhere in the Dallas area was responsible."}
+                            };

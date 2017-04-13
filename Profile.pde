@@ -12,6 +12,8 @@ class Profile{
   String pin;
   String language;
   String emailLog;
+  String newsSelected;
+  int newsIndex = 0;
   Widget[] widgetLeft;
   Widget[] widgetRight;
   
@@ -19,7 +21,9 @@ class Profile{
    name = n;
    pin = pw;
    media = new SocialMedia();
-   emailLog = "None";
+   emailLog = "a";
+   newsSelected = "None";
+   newsIndex = 0;
   }
   
   void saveInfo(String language, Widget[] left, Widget[] right){
@@ -71,6 +75,14 @@ class Profile{
      return media.instagram;
    else
      return media.facebook;
+  }
+  
+  void processNews(String news){
+   if(newsSelected.equals(news)){
+    newsSelected = "None"; 
+   }
+   else
+     newsSelected = news;
   }
 }
 
