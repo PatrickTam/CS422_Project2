@@ -132,8 +132,11 @@ AppButton alarmIcon = new AppButton(435, 1330, 90, 90, "alarm");
 AppButton noteIcon = new AppButton(435, 1430, 90, 90, "note");
 AppButton emailIcon = new AppButton(535, 1330, 90, 90, "email");
 AppButton twitterIcon = new AppButton(535, 1430, 90, 90, "twitter");
+PImage twitterImage;
 AppButton instagramIcon = new AppButton(635, 1330, 90, 90, "instagram");
+PImage instagramImage;
 AppButton facebookIcon = new AppButton(635, 1430, 90, 90, "facebook");
+PImage facebookImage;
 int appSelected = -1;
 
 //Put all AppButtons in here
@@ -286,13 +289,22 @@ void setup() {
   //http://www.iconarchive.com/show/socialmedia-icons-by-uiconstock/Twitter-icon.html
   twitterIcon.image.loadPixels();
 
+  twitterImage = loadImage("twitter.png", "png");
+  twitterImage.loadPixels();
+
   instagramIcon.image = loadImage("instagram.png", "png");
   //https://www.reddit.com/r/Android/comments/4j7x3w/material_instagram_icons/
   instagramIcon.image.loadPixels();
 
+  instagramImage = loadImage("instagram.png", "png");
+  instagramImage.loadPixels();
+
   facebookIcon.image = loadImage("facebook.png", "png");
   //http://www.business2community.com/small-business/social-media-beneficial-small-business-owners-5-sites-best-ways-use-01772814#bvFfklVSsoJosYYG.97
   facebookIcon.image.loadPixels();
+  
+  facebookImage = loadImage("facebook.png", "png");
+  facebookImage.loadPixels();
 
   sunny = loadImage("sunny.png", "png");
   //https://www.iconfinder.com/icons/317415/blue_sky_clear_forecast_sun_sunny_weather_icon
@@ -1461,16 +1473,6 @@ void mouseReleased() {
             return;
           }
         }
-   }
-   
-   float[][] skipVert = rectVerts(skipButton.getCoords(), skipButton.getSize());
-   float[] skipX = skipVert[0];
-   float[] skipY = skipVert[1];
-   if(pnpoly(4, skipX, skipY, mouseX, mouseY) == 1){
-       wifiSelect = false;
-       wifiSetting.clicked = 0;
-       wifiSetting.changeFillColor("black");
-       return;
    }
   }
   
