@@ -11,6 +11,7 @@ class Profile{
   String name;
   String pin;
   String language;
+  String emailLog;
   Widget[] widgetLeft;
   Widget[] widgetRight;
   
@@ -18,6 +19,7 @@ class Profile{
    name = n;
    pin = pw;
    media = new SocialMedia();
+   emailLog = "None";
   }
   
   void saveInfo(String language, Widget[] left, Widget[] right){

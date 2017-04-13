@@ -58,6 +58,11 @@ boolean languageSelect = false;
 Clickable currentWifiSet = null;
 boolean wifiSelect = false;
 
+BackgroundBox emailBox = new BackgroundBox(1066, 668, 600, 360);
+boolean emailSelect = false;
+Clickable emailButton = new Clickable(1426, 748, 120, 60);
+PImage emailImage;
+
 Clickable skipButton = new Clickable(1166, 1325, 400, 100);
 Clickable cancelButton = new Clickable(1166, 1425, 400, 100);
 
@@ -103,7 +108,7 @@ int dayOfWeek;
 //background boxes
 BackgroundBox appBox = new BackgroundBox(125, 1325, 775, 200);
 
-BackgroundBox settingBox = new BackgroundBox(2307, 760, 400, 665);
+BackgroundBox settingBox = new BackgroundBox(2307, 695, 400, 730);
 Clickable register = new Clickable(2307, 1300, 400, 55);
 Clickable selectProfile = new Clickable(2307, 1365, 400, 55);
 Clickable powerOff = new Clickable(2307, 1235, 400, 55);
@@ -114,6 +119,7 @@ Clickable timeDate = new Clickable(2307, 975, 400, 55);
 Clickable brightness = new Clickable(2307, 910, 400, 55);
 Clickable languageSetting = new Clickable(2307, 845, 400, 55);
 Clickable wifiSetting = new Clickable(2307, 780, 400, 55);
+Clickable emailSetting = new Clickable(2307, 715, 400, 55);
 
 Clickable[] settings;
 
@@ -220,8 +226,9 @@ void setup() {
   brightness.setName("Brightness");
   languageSetting.setName("Language");
   wifiSetting.setName("WiFi");
+  emailSetting.setName("Email");
   
-  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia, blueTooth, timeDate, brightness, languageSetting, wifiSetting};
+  settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia, blueTooth, timeDate, brightness, languageSetting, wifiSetting, emailSetting};
     
   guestProfile = new Profile("Guest", "0000");
   currentProfile = guestProfile;
@@ -383,6 +390,9 @@ void setup() {
   wrongSound.setAttribute("src", "wrong.wav");
 
   currentMediaUsername = "";
+  
+  emailImage = loadImage("gmail.png", "png");
+  emailImage.loadPixels();
 }
 
 void playWrong(){
@@ -501,6 +511,18 @@ void draw() {
     textSize(80);
     textAlign(CENTER);
     text("Please Enter " + currentWifiSet.name + "'s Password:", 2732/2, 350);
+    }
+    else if(reason.equals("emailUsername")){
+      fill(0);
+      textSize(80);
+      textAlign(CENTER);
+      text("Please Enter Gmail Username:", 2732/2, 550);
+    }
+    else if(reason.equals("emailPassword")){
+      fill(0);
+      textSize(80);
+      textAlign(CENTER);
+      text("Please Enter " + currentProfile.emailLog + "'s Password:", 2732/2, 550);
     }
   }
 
@@ -1052,6 +1074,58 @@ void draw() {
       
       fill(0);
     }
+    
+    if(emailSelect){
+      strokeWeight(4);
+      fill(0,0);
+      rect(skipButton.x, skipButton.y, skipButton.sizeX, skipButton.sizeY);      
+      textAlign(CENTER);
+      fill(0);
+      textSize(50);
+      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      
+      fill(180);
+      stroke(0);
+      strokeWeight(4);
+      rect(emailBox.x, emailBox.y, emailBox.sizeX, emailBox.sizeY);
+      
+      fill(0);
+      text("Email", emailBox.x+(emailBox.sizeX/2), emailBox.y+50);
+
+      line(emailBox.x, emailBox.y+60, emailBox.x+emailBox.sizeX, emailBox.y+60);
+      
+
+      
+      if(currentProfile.name.equals("Guest")){
+         textAlign(CENTER);
+         textSize(40);
+         text("Please create a profile first",emailBox.x+(emailBox.sizeX/2), emailBox.y+(emailBox.sizeY/2));
+      }
+      else{
+        fill(180,0);
+        rect(emailButton.x, emailButton.y, emailButton.sizeX, emailButton.sizeY, 10);
+      
+        fill(0);
+        textSize(30);
+        String textVal = "Log In";
+        if(!currentProfile.emailLog.equals("None")){
+          textVal = "Log Off";
+        }
+        text(textVal, emailButton.x+60, emailButton.y+40);
+        
+        textAlign(LEFT);
+        textVal = "Not Logged In";
+        if(!currentProfile.emailLog.equals("None")){
+         textVal = currentProfile.emailLog; 
+        }
+    
+        textSize(40);
+        text(textVal, emailBox.x + 60, emailButton.y+40);
+        
+        emailImage.resize(100,100);
+        image(emailImage, emailBox.x+(emailBox.sizeX/2)-50,  emailBox.y+(emailBox.sizeY/2));
+      }
+    }
 
     //tracking music play time
     if (musicFlag == 1 && playFlag == 1) {
@@ -1176,6 +1250,15 @@ void mouseReleased() {
              wifiSetting.clicked = 0;
              wifiSetting.changeFillColor("black");
            }
+           else if(reason.equals("emailUsername")){
+            currentProfile.emailLog = currentText;
+            reason = "emailPassword";
+            currentText = "";
+           }
+           else if(reason.equals("emailPassword")){
+            keyboardShow = false;
+            emailSelect = true;
+           }
          }
          else if(k.name.equals("Shift")){
            k.clickedOn();
@@ -1227,6 +1310,11 @@ void mouseReleased() {
         wifiSelect = true;
         reason = "none";
         currentWifiSet = null;
+      }
+      else if(reason.equals("emailUsername") || reason.equals("emailPassword")){
+        currentProfile.emailLog = "None";
+        emailSelect = true;
+        reason = "none";
       }
     }
   }
@@ -1476,6 +1564,27 @@ void mouseReleased() {
    }
   }
   
+  if(emailSelect){
+    float[][] emVerts = rectVerts(emailButton.getCoords(), emailButton.getSize());
+    float[] emailX = emVerts[0];
+    float[] emailY = emVerts[1];
+    
+    if(pnpoly(4, emailX, emailY, mouseX, mouseY) == 1) {
+      if(currentProfile.emailLog.equals("None")){
+        keyboardShow = true;
+        reason = "emailUsername";
+        emailSelect = false;
+        currentText = "";
+        return;
+      }
+      else{
+        currentProfile.emailLog = "None";
+        return;
+      }
+    }
+  }
+  
+  
   checkSkip();
   if (!on) {
     float[][] powerVerts = rectVerts(powerButton.getCoords(), powerButton.getSize());
@@ -1539,6 +1648,7 @@ void mouseReleased() {
             brightnessSelect = false;
             languageSelect = false;
             wifiSelect = false;
+            emailSelect = false;
             reason = "";
             //set everything to not be clicked
             for(Clickable setting2 : settings){
@@ -1609,6 +1719,9 @@ void mouseReleased() {
             else if(setting.name.equals("WiFi")){
                wifiSelect = true; 
             }
+            else if(setting.name.equals("Email")){
+               emailSelect = true; 
+            }
             return;
           }
           else{
@@ -1630,6 +1743,7 @@ void mouseReleased() {
             brightnessSelect = false;
             languageSelect = false;
             wifiSelect = false;
+            emailSelect = false;
             return;
           }
        }
@@ -2045,6 +2159,13 @@ void checkSkip(){
          wifiSelect = false;
          wifiSetting.clicked = 0;
          wifiSetting.changeFillColor("black");
+         return;
+      }
+      
+      if(emailSelect){
+         emailSelect = false;
+         emailSetting.clicked = 0;
+         emailSetting.changeFillColor("black");
          return;
       }
   }
