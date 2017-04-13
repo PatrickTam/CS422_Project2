@@ -107,7 +107,7 @@ PImage trashImg;
 int dayOfWeek;
 
 //background boxes
-BackgroundBox appBox = new BackgroundBox(125, 1325, 775, 200);
+BackgroundBox appBox = new BackgroundBox(125, 1325, 625, 200);
 
 BackgroundBox settingBox = new BackgroundBox(2307, 695, 400, 730);
 Clickable register = new Clickable(2307, 1300, 400, 55);
@@ -417,6 +417,11 @@ void setup() {
   googleNewsIcon = loadImage("google.png", "png");
   //https://uappexplorer.com/api/icon/320d6f32c23cc7e4197b42df9d625d18/googlenews.mreese.png
   googleNewsIcon.loadPixels();
+  
+  instagramImages = new PImage[]{loadImage("instagram1.jpg","jpg"), loadImage("instagram2.jpg","jpg"), loadImage("instagram3.jpg","jpg")};
+  for(PImage image : instagramImages){
+   image.loadPixels(); 
+  }
 }
 
 void playWrong(){
@@ -762,13 +767,25 @@ void draw() {
       appImg.resize(appButton.sizeX, appButton.sizeY);
       image(appImg, appButton.x, appButton.y);
     } else {
-      moveButton.x = 925;
+      if(currentProfile.name.equals("Guest")){
+        moveButton.x = 565;
+      }
+      else{
+        moveButton.x = 765;
+      }
       appImgSelected.resize(appButton.sizeX, appButton.sizeY);
       image(appImgSelected, appButton.x, appButton.y);
       fill(140);
-      rect(appBox.x, appBox.y, appBox.sizeX, appBox.sizeY, 10);
-
-      for (int i = 0; i < appArr.length; i++) {
+      if(currentProfile.name.equals("Guest")){
+        rect(appBox.x, appBox.y, appBox.sizeX-190, appBox.sizeY, 10);
+      }
+      else{
+        rect(appBox.x, appBox.y, appBox.sizeX, appBox.sizeY, 10);
+      }
+      for (int i = 0; i < appArr.length; i++) { 
+        if(currentProfile.name.equals("Guest") && (appArr[i].name.equals("twitter") || appArr[i].name.equals("instagram") || appArr[i].name.equals("facebook") || appArr[i].name.equals("email"))){
+         continue; 
+        }
         if (appArr[i].clicked == 1) {
           fill(255, 255, 0);
           rect(appArr[i].x, appArr[i].y, appArr[i].sizeX, appArr[i].sizeY, 10);
@@ -1889,6 +1906,111 @@ void mouseReleased() {
     }
   }
   
+  if(twitterExist){
+    Widget w = null;
+    for (int i = 0; i < 3; i++) {
+      if (widgetLeft[i].name != null && widgetLeft[i].name.equals("twitter")) {
+        w = widgetLeft[i];
+        break;
+      }
+      if (widgetRight[i].name != null && widgetRight[i].name.equals("twitter")) {
+        w = widgetRight[i];
+        break;
+      }
+    }
+    
+    if(w != null){
+      if(tweetIndex < 2){
+          float[] arrowX = {w.x+760, w.x+740, w.x+780};
+          float[] arrowY = {w.y+(w.sizeY - 10), w.y+(w.sizeY - 50),  w.y+(w.sizeY - 50)};
+          
+          if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+            tweetIndex += 1;
+            return;
+          }
+        }
+        if(tweetIndex != 0){
+          float[] arrowX = {w.x+760, w.x+740, w.x+780};
+          float[] arrowY = {w.y+10, w.y+50, w.y+50};
+          
+          if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+            tweetIndex -= 1;
+            return;
+          }
+        }
+    }
+  }
+  
+  if(instagramExist){
+    Widget w = null;
+    for (int i = 0; i < 3; i++) {
+      if (widgetLeft[i].name != null && widgetLeft[i].name.equals("instagram")) {
+        w = widgetLeft[i];
+        break;
+      }
+      if (widgetRight[i].name != null && widgetRight[i].name.equals("instagram")) {
+        w = widgetRight[i];
+        break;
+      }
+    }
+    
+    if(w != null){
+      if(instaIndex < 2){
+          float[] arrowX = {w.x+760, w.x+740, w.x+780};
+          float[] arrowY = {w.y+(w.sizeY - 10), w.y+(w.sizeY - 50),  w.y+(w.sizeY - 50)};
+          
+          if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+            instaIndex += 1;
+            return;
+          }
+        }
+        if(instaIndex != 0){
+          float[] arrowX = {w.x+760, w.x+740, w.x+780};
+          float[] arrowY = {w.y+10, w.y+50, w.y+50};
+          
+          if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+            instaIndex -= 1;
+            return;
+          }
+        }
+    }
+  }
+  
+  if(facebookExist){
+    Widget w = null;
+    for (int i = 0; i < 3; i++) {
+      if (widgetLeft[i].name != null && widgetLeft[i].name.equals("facebook")) {
+        w = widgetLeft[i];
+        break;
+      }
+      if (widgetRight[i].name != null && widgetRight[i].name.equals("facebook")) {
+        w = widgetRight[i];
+        break;
+      }
+    }
+    
+    if(w != null){
+      if(faceIndex < 2){
+          float[] arrowX = {w.x+760, w.x+740, w.x+780};
+          float[] arrowY = {w.y+(w.sizeY - 10), w.y+(w.sizeY - 50),  w.y+(w.sizeY - 50)};
+          
+          if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+            faceIndex += 1;
+            return;
+          }
+        }
+        if(faceIndex != 0){
+          float[] arrowX = {w.x+760, w.x+740, w.x+780};
+          float[] arrowY = {w.y+10, w.y+50, w.y+50};
+          
+          if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+            faceIndex -= 1;
+            return;
+          }
+        }
+    }
+  }
+  
   if(noteExist){
     Widget w = null;
     for (int i = 0; i < 3; i++) {
@@ -2456,6 +2578,9 @@ void mouseReleased() {
     float[] appsX = app[0];
     float[] appsY = app[1];
     if (pnpoly(4, appsX, appsY, mouseX, mouseY) == 1) {
+      if(currentProfile.name.equals("Guest") && (appArr[i].name.equals("twitter") || appArr[i].name.equals("instagram") || appArr[i].name.equals("facebook") || appArr[i].name.equals("email"))){
+         return; 
+        }
       if (moveButton.clicked == 1)
         return;
       if (appArr[i].clicked == 1) {

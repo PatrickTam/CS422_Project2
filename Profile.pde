@@ -75,7 +75,7 @@ class Profile{
   String getMedia(int i){
    if(i == 0)
      return media.twitter;
-   else if(i == 2)
+   else if(i == 1)
      return media.instagram;
    else
      return media.facebook;

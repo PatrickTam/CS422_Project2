@@ -589,13 +589,112 @@ void processWidgetInfo(Widget w){
     }
   }
   else if(w.name.equals("twitter")){
-    
+    twitterExist = true;
+    if(currentProfile.getMedia(0).equals("None")){
+      textSize(40);
+      fill(0);
+      textAlign(CENTER);
+      text("Log into Twitter first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+    }
+    else{
+      fill(0);
+      stroke(0);
+      if(tweetIndex < 2)
+        triangle(w.x+760, w.y+(w.sizeY - 10), w.x+740, w.y+(w.sizeY - 50), w.x+780, w.y+(w.sizeY - 50));
+      if(tweetIndex != 0)
+        triangle(w.x+760, w.y+10, w.x+740, w.y+50, w.x+780, w.y+50);
+     if(w.sizeY == 150){
+       textSize(40);
+       textAlign(CENTER);
+       text(twitterInfo[tweetIndex][0], w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+     }
+     else{
+       textSize(40);
+       textAlign(CENTER);
+       text(twitterInfo[tweetIndex][0], w.x+(w.sizeX/2), w.y+(150/2));
+       stroke(0);
+       strokeWeight(4);
+       line(w.x+10, w.y+(150/2)+20, w.x+w.sizeX-10, w.y+(150/2)+20);
+       strokeWeight(1);
+       
+       textSize(30);
+       textAlign(CENTER);
+       text(twitterInfo[tweetIndex][1], w.x+(w.sizeX/2), w.y+(150/2)+60);
+     }
+    }
   }
   else if(w.name.equals("instagram")){
-    
+    instagramExist = true;
+    if(currentProfile.getMedia(1).equals("None")){
+      textSize(40);
+      fill(0);
+      textAlign(CENTER);
+      text("Log into Instagram first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+    }
+    else{
+      fill(0);
+      stroke(0);
+      if(instaIndex < 2)
+        triangle(w.x+760, w.y+(w.sizeY - 10), w.x+740, w.y+(w.sizeY - 50), w.x+780, w.y+(w.sizeY - 50));
+      if(instaIndex != 0)
+        triangle(w.x+760, w.y+10, w.x+740, w.y+50, w.x+780, w.y+50);
+     if(w.sizeY == 150){
+       textSize(40);
+       textAlign(CENTER);
+       text(instagramInfo[instaIndex][0], w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+     }
+     else{
+       textSize(40);
+       textAlign(CENTER);
+       text(instagramInfo[instaIndex][0], w.x+(w.sizeX/2), w.y+(150/2));
+       stroke(0);
+       strokeWeight(4);
+       line(w.x+10, w.y+(150/2)+20, w.x+w.sizeX-10, w.y+(150/2)+20);
+       strokeWeight(1);
+       
+       textSize(30);
+       textAlign(LEFT);
+       text(instagramInfo[instaIndex][1], w.x+30, w.y+(150/2)+60);
+       
+       instagramImages[instaIndex].resize(180,180);
+       image(instagramImages[instaIndex], w.x+450, w.y+(150/2)+30);
+     }
+    }
   }
   else if(w.name.equals("facebook")){
-    
+    facebookExist = true;
+    if(currentProfile.getMedia(2).equals("None")){
+      textSize(40);
+      fill(0);
+      textAlign(CENTER);
+      text("Log into Facebook first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+    }
+    else{
+      fill(0);
+      stroke(0);
+      if(faceIndex < 2)
+        triangle(w.x+760, w.y+(w.sizeY - 10), w.x+740, w.y+(w.sizeY - 50), w.x+780, w.y+(w.sizeY - 50));
+      if(faceIndex != 0)
+        triangle(w.x+760, w.y+10, w.x+740, w.y+50, w.x+780, w.y+50);
+     if(w.sizeY == 150){
+       textSize(40);
+       textAlign(CENTER);
+       text(facebookInfo[faceIndex][0], w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+     }
+     else{
+       textSize(40);
+       textAlign(CENTER);
+       text(facebookInfo[faceIndex][0], w.x+(w.sizeX/2), w.y+(150/2));
+       stroke(0);
+       strokeWeight(4);
+       line(w.x+10, w.y+(150/2)+20, w.x+w.sizeX-10, w.y+(150/2)+20);
+       strokeWeight(1);
+       
+       textSize(30);
+       textAlign(LEFT);
+       text(facebookInfo[faceIndex][1], w.x+30, w.y+(150/2)+60);
+     }
+    }
   }
 }
 
@@ -694,3 +793,30 @@ String[][] emails = {
                       {"[MASSMAIL]Email 593 - massmail@uic.edu", "to: MASSMAIL_STUDENT", "Email relevant to you!"},
                       {"Bring cake! - bob@gmail.com", "to: me", "You better bring cake to my party."}
                     };
+
+int tweetIndex = 0;
+boolean twitterExist = false;
+String[][] twitterInfo = {
+                          {"CNN - @CNN", "Know your rights: Here's what to do if your \nflight is overbooked http://cnn.it/2o7yWin "},
+                          {"Bob the Builder - @Builder", "Can we fix it?\nYes we can!"},
+                          {"Ethan Klein - @h3h3productions","thanks for the meme minerdigger from /r/h3h3productions,\n but sadly we will need to re-accommodate you"}
+                        };
+                        
+int instaIndex = 0;
+boolean instagramExist = false;
+String[][] instagramInfo = {
+                            {"foodphotographer512", "Had a great lunch today!<3\n#blessed#yummy"},
+                            {"edmluvr","Zedd concert!!\n#edm"},
+                            {"treelover123","Nature at its finest.\n#peace#love#happiness"}
+                           };
+PImage[] instagramImages;
+//1: http://blog.instagram.com/post/27128108925/the-scoop-on-food-photography-want-to-see-more
+//2: http://68.media.tumblr.com/211ebcb3e7761aa53eb02da02644ac55/tumblr_mrfnzdT6lI1qj08ewo1_1280.jpg
+//3: http://blog.instagram.com/post/79690139772/locallensbelohorizonte
+int faceIndex = 0;
+boolean facebookExist = false;
+String[][] facebookInfo = {
+                            {"Bob Joe", "I love the spring!\nIt is so warm out right now!"},
+                            {"Billy Bob", "I love my dogs, my cats, and\nmy hamster"},
+                            {"Bob Joey", "Party at my place on April 28th! Don't miss it!"}
+                           };
