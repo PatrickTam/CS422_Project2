@@ -12,11 +12,18 @@ void processWidgetInfo(Widget w){
       textSize(40);
       textAlign(LEFT);
       //TODO: Account for Celsius or Farenheit choice!!
-      text(currentWeatherInfo[0][0], w.x+50, w.y+70);
-      text(currentWeatherInfo[1][0], w.x+50, w.y+110);
+      if(farenheit){
+        text(currentWeatherInfo[0][0], w.x+50, w.y+70);
+        text(currentWeatherInfo[1][0], w.x+50, w.y+110);
+        text(currentWeatherInfo[2][0], w.x+450, w.y+90);
+      }
+      else{
+        text(currentWeatherInfo[0][1], w.x+50, w.y+70);
+        text(currentWeatherInfo[1][1], w.x+50, w.y+110);
+        text(currentWeatherInfo[2][1], w.x+450, w.y+90);
+      }
       sunny.resize(120,120);
       image(sunny, w.x+300, w.y+20);
-      text(currentWeatherInfo[2][0], w.x+450, w.y+90);
       fill(0, 255, 123);  
     }
     //expanded weather widget
@@ -25,11 +32,18 @@ void processWidgetInfo(Widget w){
       textSize(35);
       textAlign(LEFT);
       //TODO: Account for Celsius or Farenheit choice!!
-      text(currentWeatherInfo[0][0], w.x+50, w.y+40);
-      text(currentWeatherInfo[1][0], w.x+50, w.y+80);
+      if(farenheit){
+        text(currentWeatherInfo[0][0], w.x+50, w.y+40);
+        text(currentWeatherInfo[1][0], w.x+50, w.y+80);
+        text(currentWeatherInfo[2][0], w.x+450, w.y+60);
+      }
+      else{
+        text(currentWeatherInfo[0][1], w.x+50, w.y+40);
+        text(currentWeatherInfo[1][1], w.x+50, w.y+80);
+        text(currentWeatherInfo[2][1], w.x+450, w.y+60);
+      }
       sunny.resize(100,100);
       image(sunny, w.x+300, w.y);
-      text(currentWeatherInfo[2][0], w.x+450, w.y+60);
       textAlign(CENTER);
       for(int i = 0; i < 4; i++){
         dayOfWeek++;
@@ -39,9 +53,12 @@ void processWidgetInfo(Widget w){
         cloudy.resize(90,90);
         image(cloudy, w.x+70+(i*200), w.y+130);
         
-        text(dayName[dayOfWeek], w.x+110+(i*200), w.y+130);
-        
-        text(expandedWeatherInfo[i], w.x+120+(i*200), w.y+240);
+        text(dayName[dayOfWeek], w.x+100+(i*200), w.y+130);
+       
+        if(farenheit)
+          text(expandedWeatherInfo[i][0], w.x+110+(i*200), w.y+240);
+        else
+          text(expandedWeatherInfo[i][1], w.x+110+(i*200), w.y+240);
       }
       fill(0, 255, 123);
     }
@@ -532,11 +549,51 @@ void processWidgetInfo(Widget w){
       }
     }
   }
+  else if(w.name.equals("email")){
+    emailExist = true;
+    if(currentProfile.emailLog.equals("None")){
+      textSize(40);
+      fill(0);
+      textAlign(CENTER);
+      text("Log into Gmail first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+    }
+    else{
+      fill(0);
+      stroke(0);
+      if(emailIndex < 3)
+        triangle(w.x+760, w.y+(w.sizeY - 10), w.x+740, w.y+(w.sizeY - 50), w.x+780, w.y+(w.sizeY - 50));
+      if(emailIndex != 0)
+        triangle(w.x+760, w.y+10, w.x+740, w.y+50, w.x+780, w.y+50);
+       if(w.sizeY == 150){
+         textSize(40);
+         textAlign(CENTER);
+         text(emails[emailIndex][0], w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+       }
+       else{
+         textSize(40);
+         textAlign(CENTER);
+         text(emails[emailIndex][0], w.x+(w.sizeX/2), w.y+(150/2));
+         stroke(0);
+         strokeWeight(4);
+         line(w.x+10, w.y+(150/2)+20, w.x+w.sizeX-10, w.y+(150/2)+20);
+         strokeWeight(1);
+         
+         textSize(30);
+         textAlign(LEFT);
+         text(emails[emailIndex][1], w.x+30, w.y+(150/2)+60);
+         
+         text(emails[emailIndex][2], w.x+30, w.y+(150/2)+120);
+       }
+    }
+  }
+  else if(w.name.equals("twitter")){
+    
+  }
 }
 
 //Weather Info
 String[][] currentWeatherInfo = {{"Hi: 50°F", "Hi: 10°C"}, {"Low: 32°F", "Low: 0°C"}, {"Current: 45°F", "Current: 7.2°C"}};
-String[][] expandedWeatherInfo = {{"Hi: 50°F\nLow:32°F"}, {"Hi: 50°F\nLow:32°F"}, {"Hi: 50°F\nLow:32°F"}, {"Hi: 50°F\nLow:32°F"}};
+String[][] expandedWeatherInfo = {{"Hi: 52°F\nLow:32°F", "Hi: 11.1°C\nLow:0°C"}, {"Hi: 54°F\nLow:34°F", "Hi: 12.2°C\nLow:1.1°C"}, {"Hi: 61°F\nLow:45°F", "Hi: 16.1°C\nLow:7.2°C"}, {"Hi: 63°F\nLow:50°F", "Hi: 17.2°C\nLow:10°C"}};
 PImage sunny;
 PImage cloudy;
 
@@ -620,5 +677,12 @@ int stopwatchSec = 0;
 int stopwatchMin = 0;
 boolean stopwatchExist = false;
 
-int noteIndex = 0;
 boolean noteExist = false;
+
+boolean emailExist = false;
+int emailIndex = 0;
+String[][] emails = {
+                      {"Call me NOW - mom@gmail.com", "to: me", "You haven't spoke to me in half a day. \nAre you alive???"},
+                      {"[MASSMAIL]Email 593 - massmail@uic.edu", "to: MASSMAIL_STUDENT", "Email relevant to you!"},
+                      {"Bring cake! - bob@gmail.com", "to: me", "You better bring cake to my party."}
+                    };

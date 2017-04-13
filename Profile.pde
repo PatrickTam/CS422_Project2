@@ -23,7 +23,7 @@ class Profile{
    name = n;
    pin = pw;
    media = new SocialMedia();
-   emailLog = "a";
+   emailLog = "None";
    newsSelected = "None";
    newsIndex = 0;
    noteList = new ArrayList();

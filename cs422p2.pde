@@ -1,4 +1,5 @@
 DateTimeItem dti;
+PImage currentWeather;
 
 Clickable  powerButton = new Clickable(2607, 1425, 100, 100);
 PImage power;
@@ -317,6 +318,9 @@ void setup() {
   //https://www.iconfinder.com/icons/317415/blue_sky_clear_forecast_sun_sunny_weather_icon
   sunny.loadPixels();
 
+  currentWeather = loadImage("sunny.png", "png");
+  currentWeather.loadPixels();
+  
   cloudy = loadImage("cloudy.png", "png");
   //https://www.iconfinder.com/icons/214293/cloud_clouds_cloudy_saas_weather_icon
   cloudy.loadPixels();
@@ -647,6 +651,18 @@ void draw() {
   }
   else {
     dti.drawDateTime();
+    
+    currentWeather.resize(200,200);
+    image(currentWeather, 2532, 10);
+    
+    fill(0);
+    textAlign(LEFT);
+    if(farenheit){
+      text("45°F", 2477, 50);
+    }
+    else{
+      text("7.2°C", 2477, 50);
+    }
     strokeWeight(4);
     //left 3 widgets
     fill(0, 255, 123);
@@ -1787,6 +1803,41 @@ void mouseReleased() {
        }
      }
   }
+  if(emailExist){
+    Widget w = null;
+    for (int i = 0; i < 3; i++) {
+      if (widgetLeft[i].name != null && widgetLeft[i].name.equals("email")) {
+        w = widgetLeft[i];
+        break;
+      }
+      if (widgetRight[i].name != null && widgetRight[i].name.equals("email")) {
+        w = widgetRight[i];
+        break;
+      }
+    }
+    
+    if(w != null){
+      if(emailIndex < 3){
+          float[] arrowX = {w.x+760, w.x+740, w.x+780};
+          float[] arrowY = {w.y+(w.sizeY - 10), w.y+(w.sizeY - 50),  w.y+(w.sizeY - 50)};
+          
+          if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+            emailIndex += 1;
+            return;
+          }
+        }
+        if(emailIndex != 0){
+          float[] arrowX = {w.x+760, w.x+740, w.x+780};
+          float[] arrowY = {w.y+10, w.y+50, w.y+50};
+          
+          if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+            emailIndex -= 1;
+            return;
+          }
+        }
+    }
+  }
+  
   if(noteExist){
     Widget w = null;
     for (int i = 0; i < 3; i++) {
