@@ -134,7 +134,7 @@ AppButton healthIcon = new AppButton(235, 1330, 90, 90, "health");
 AppButton calendarIcon = new AppButton(235, 1430, 90, 90, "calendar");
 AppButton newsIcon = new AppButton(335, 1330, 90, 90, "news");
 AppButton timerIcon = new AppButton(335, 1430, 90, 90, "timer");
-AppButton alarmIcon = new AppButton(435, 1330, 90, 90, "alarm");
+AppButton stopwatchIcon = new AppButton(435, 1330, 90, 90, "stopwatch");
 AppButton noteIcon = new AppButton(435, 1430, 90, 90, "note");
 AppButton emailIcon = new AppButton(535, 1330, 90, 90, "email");
 AppButton twitterIcon = new AppButton(535, 1430, 90, 90, "twitter");
@@ -280,9 +280,9 @@ void setup() {
   //https://icons8.com/web-app/1111/timer
   timerIcon.image.loadPixels();
 
-  alarmIcon.image = loadImage("alarm.png", "png");
-  //http://www.freeiconspng.com/icons/alarm-icon
-  alarmIcon.image.loadPixels();
+  stopwatchIcon.image = loadImage("stopwatch.png", "png");
+  //https://thenounproject.com/term/stopwatch/141007/
+  stopwatchIcon.image.loadPixels();
 
   noteIcon.image = loadImage("note.png", "png");
   //https://www.iconfinder.com/icons/261628/document_modify_note_notes_paper_pencil_record_icon
@@ -343,7 +343,7 @@ void setup() {
   sleep.loadPixels();
 
   //Add a new app? Put it in here or it wont show up!
-  appArr = new AppButton[]{weatherIcon, musicIcon, healthIcon, calendarIcon, newsIcon, timerIcon, alarmIcon, noteIcon, emailIcon, twitterIcon, instagramIcon, facebookIcon};
+  appArr = new AppButton[]{weatherIcon, musicIcon, healthIcon, calendarIcon, newsIcon, timerIcon, stopwatchIcon, noteIcon, emailIcon, twitterIcon, instagramIcon, facebookIcon};
 
   //amanda.setAttribute("src", "amanda.mp3");
   //sad.setAttribute("src", "sad.mp3");
@@ -1160,6 +1160,16 @@ void draw() {
         playSecond = millis();
       }
     }
+    
+    if(timerStart){
+     if(millis() - timerBegin < timerMillisTotal){
+     }
+     else{
+       //play alarm
+       timerStart = false;
+       timerSec = 0;
+     }
+    }
   }
 }
 
@@ -1766,6 +1776,135 @@ void mouseReleased() {
        }
      }
   }
+  if(stopwatchExist){
+    Widget w = null;
+    for (int i = 0; i < 3; i++) {
+      if (widgetLeft[i].name != null && widgetLeft[i].name.equals("stopwatch")) {
+        w = widgetLeft[i];
+        break;
+      }
+      if (widgetRight[i].name != null && widgetRight[i].name.equals("stopwatch")) {
+        w = widgetRight[i];
+        break;
+      }
+    }
+    
+    if(w != null){
+     //rect(w.x+370, w.y+(w.sizeY/2)-40, rectSize[0], rectSize[1], 10);
+     //rect(w.x+580,  w.y+(w.sizeY/2)-40, rectSize[0], rectSize[1], 10);
+     
+     float[][] rVerts = rectVerts(new int[]{w.x+370, w.y+(w.sizeY/2)-40}, rectSize);
+     float[] rX = rVerts[0];
+     float[] rY = rVerts[1];
+     
+     if(pnpoly(4, rX, rY, mouseX, mouseY) == 1){
+      if(stopwatchStart)
+        stopwatchStart = false;
+      else{
+        stopwatchStart = true;
+        stopwatchBegin = millis();
+      }
+      return;
+     }
+     
+     rVerts = rectVerts(new int[]{w.x+580, w.y+(w.sizeY/2)-40}, rectSize);
+     rX = rVerts[0];
+     rY = rVerts[1];
+     if(pnpoly(4, rX, rY, mouseX, mouseY) == 1){
+      stopwatchStart = false;
+      stopwatchSec = 0;
+      stopwatchMin = 0;
+      return;
+     }
+    }
+  }
+  
+  if(timerExist){
+    /*triangle(w.x+50, w.y+30, w.x+30, w.y+70, w.x+70, w.y+70);
+      triangle(w.x+50, w.y+(w.sizeY - 30), w.x+30, w.y+(w.sizeY - 70), w.x+70, w.y+(w.sizeY - 70));
+
+      triangle(w.x+280, w.y+30, w.x+260, w.y+70, w.x+300, w.y+70);
+      triangle(w.x+280, w.y+(w.sizeY - 30), w.x+260, w.y+(w.sizeY - 70), w.x+300, w.y+(w.sizeY - 70));
+      
+      rect(w.x+540, w.y+40, rectSize[0], rectSize[1], 10);
+      */
+    Widget w = null;
+    for (int i = 0; i < 3; i++) {
+      if (widgetLeft[i].name != null && widgetLeft[i].name.equals("timer")) {
+        w = widgetLeft[i];
+        break;
+      }
+      if (widgetRight[i].name != null && widgetRight[i].name.equals("timer")) {
+        w = widgetRight[i];
+        break;
+      }
+    }
+    
+    if(w != null){
+     float[] triX = {w.x+50, w.x+30, w.x+70};
+     float[] triY = {w.y+30, w.y+70, w.y+70};
+     if(pnpoly(3, triX, triY, mouseX, mouseY) == 1){
+       if(timerMin != 99)
+       timerMin+=1; 
+       return;
+     }
+     
+     triX = new float[]{w.x+50, w.x+30, w.x+70};
+     triY = new float[]{w.y+(w.sizeY - 30), w.y+(w.sizeY - 70), w.y+(w.sizeY - 70)};
+     if(pnpoly(3, triX, triY, mouseX, mouseY) == 1){
+       if(timerMin != 0)
+       timerMin-=1; 
+       return;
+     }
+     
+     triX = new float[]{w.x+280, w.x+260, w.x+300};
+     triY = new float[]{w.y+30, w.y+70, w.y+70};
+     if(pnpoly(3, triX, triY, mouseX, mouseY) == 1){
+       if(timerSec != 99)
+       timerSec+=1; 
+       return;
+     }
+     
+     triX = new float[]{w.x+280, w.x+260, w.x+300};
+     triY = new float[]{w.y+(w.sizeY - 30), w.y+(w.sizeY - 70), w.y+(w.sizeY - 70)};
+     if(pnpoly(3, triX, triY, mouseX, mouseY) == 1){
+       if(timerSec != 0)
+       timerSec-=1;
+       return;
+     }
+     
+     float[][] rVerts = rectVerts(new int[]{w.x+540, w.y+40}, rectSize);
+     float[] rX = rVerts[0];
+     float[] rY = rVerts[1];
+     if(pnpoly(4, rX, rY, mouseX, mouseY) == 1){
+      if(timerStart)
+        timerStart = false;
+      else{
+        timerStart = true;
+        timerBegin = millis();
+        timerSecond = millis();
+        timerMillisTotal = (timerMin * 60000) + (timerSec * 1000);
+      }
+      return;
+     }
+     
+     if(w.sizeY == 300){
+       //rect(w.x+540, w.y+140, rectSize[0], rectSize[1], 10);
+       rVerts = rectVerts(new int[]{w.x+540, w.y+140}, rectSize);
+       rX = rVerts[0];
+       rY = rVerts[1];
+       if(pnpoly(4, rX, rY, mouseX, mouseY) == 1){
+        if(timerStart)
+          timerStart = false;
+        timerSec = 0;
+        timerMin = 0;
+        timerMillisTotal = 0;
+        return;
+       }
+     }
+    }
+  }
+  
   if(newsExist){
    /*    cnnIcon.resize(90, 90);
     image(cnnIcon, w.x+50, w.y+10);

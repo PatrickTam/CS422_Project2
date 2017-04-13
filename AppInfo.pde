@@ -336,6 +336,150 @@ void processWidgetInfo(Widget w){
       }
     }
   }
+  else if(w.name.equals("timer")){
+    if(timerStart){
+      if((millis() - timerSecond) > 1000){
+        timerSecond = millis();
+        if(timerSec == 0){
+         timerMin-=1;
+         timerSec = 59;
+        }
+        else
+          timerSec -= 1;
+       } 
+    }
+    timerExist = true;
+    if(w.sizeY == 150){
+      fill(0);
+      stroke(0);
+      triangle(w.x+50, w.y+30, w.x+30, w.y+70, w.x+70, w.y+70);
+      triangle(w.x+50, w.y+(w.sizeY - 30), w.x+30, w.y+(w.sizeY - 70), w.x+70, w.y+(w.sizeY - 70));
+      
+      String timerVal = str(timerMin);
+      if(timerMin < 10)
+        timerVal = "0" + timerVal;
+      textSize(50);
+      textAlign(LEFT);
+      text(timerVal + " min", w.x+90, w.y+(w.sizeY/2)+20);
+      
+      
+      triangle(w.x+280, w.y+30, w.x+260, w.y+70, w.x+300, w.y+70);
+      triangle(w.x+280, w.y+(w.sizeY - 30), w.x+260, w.y+(w.sizeY - 70), w.x+300, w.y+(w.sizeY - 70));
+      
+      timerVal = str(timerSec);
+      if(timerSec < 10)
+        timerVal = "0" + timerVal;
+      
+      text(timerVal + " sec", w.x+320, w.y+(w.sizeY/2)+20);
+      
+      fill(0,0);
+      rect(w.x+540, w.y+40, rectSize[0], rectSize[1], 10);
+      fill(0);
+      textAlign(CENTER);
+      if(timerStart){
+        fill(255, 50, 50);
+        text("Pause", w.x+630, w.y+90);
+      }
+      else{
+        fill(50, 255, 50);
+        text("Start", w.x+630, w.y+90);
+      }
+    }
+    else{
+      fill(0);
+      stroke(0);
+      triangle(w.x+50, w.y+30, w.x+30, w.y+70, w.x+70, w.y+70);
+      triangle(w.x+50, w.y+(w.sizeY - 30), w.x+30, w.y+(w.sizeY - 70), w.x+70, w.y+(w.sizeY - 70));
+      
+      String timerVal = str(timerMin);
+      if(timerMin < 10)
+        timerVal = "0" + timerVal;
+      textSize(50);
+      textAlign(LEFT);
+      text(timerVal + " min", w.x+10, w.y+(w.sizeY/2)+20);
+      
+      
+      triangle(w.x+280, w.y+30, w.x+260, w.y+70, w.x+300, w.y+70);
+      triangle(w.x+280, w.y+(w.sizeY - 30), w.x+260, w.y+(w.sizeY - 70), w.x+300, w.y+(w.sizeY - 70));
+      
+      timerVal = str(timerSec);
+      if(timerSec < 10)
+        timerVal = "0" + timerVal;
+      
+      text(timerVal + " sec", w.x+240, w.y+(w.sizeY/2)+20);
+      
+      fill(0,0);
+      rect(w.x+540, w.y+40, rectSize[0], rectSize[1], 10);
+
+      textAlign(CENTER);
+      if(timerStart){
+        fill(255, 50, 50);
+        text("Pause", w.x+630, w.y+90);
+      }
+      else{
+        fill(50, 255, 50);
+        text("Start", w.x+630, w.y+90);
+      }
+      
+      fill(0,0);
+      rect(w.x+540, w.y+140, rectSize[0], rectSize[1], 10);
+      fill(0);
+      text("Cancel", w.x+630, w.y+190);
+      
+      
+    }
+  }
+  
+  else if(w.name.equals("stopwatch")){
+    if(stopwatchStart){
+      if((millis() - stopwatchBegin) > 1000){
+        stopwatchBegin = millis();
+        if(timerSec == 59){
+         stopwatchMin+=1;
+         stopwatchSec = 0;
+        }
+        else
+          stopwatchSec += 1;
+       } 
+    }
+    stopwatchExist = true;
+    String stopwatchVal = str(stopwatchMin);
+    if(stopwatchMin < 10)
+      stopwatchVal = "0" + stopwatchVal;
+    textSize(50);
+    fill(0);
+    textAlign(LEFT);
+    text(stopwatchVal + " min", w.x+30, w.y+(w.sizeY/2)+20);
+    
+    stopwatchVal = str(stopwatchSec);
+    if(stopwatchSec < 10)
+      stopwatchVal = "0" + stopwatchVal;
+      
+    text(stopwatchVal + " sec", w.x+200, w.y+(w.sizeY/2)+20);
+    
+     stroke(0);
+    fill(0,0);
+    rect(w.x+370, w.y+(w.sizeY/2)-40, rectSize[0], rectSize[1], 10);
+    textAlign(CENTER);
+    if(stopwatchStart){
+      fill(255, 50, 50);
+      text("Pause", w.x+460,  w.y+(w.sizeY/2)+20);
+    }
+    else{
+      fill(50, 255, 50);
+      text("Start", w.x+460, w.y+(w.sizeY/2)+20);
+    }
+    
+    fill(0,0);
+    rect(w.x+580,  w.y+(w.sizeY/2)-40, rectSize[0], rectSize[1], 10);
+    fill(0);
+    text("Clear", w.x+670,  w.y+(w.sizeY/2)+20);
+    
+    if(w.sizeY == 150){
+    }
+    else{
+    }
+  }
 }
 
 //Weather Info
@@ -407,3 +551,19 @@ String[][] googleNewsText = {
                               //https://www.usatoday.com/story/news/2017/04/08/hacker-triggers-all-156-emergency-sirens-dallas/100212412/
                               {"Dallas city officials said Saturday that a hacker is to blame for", "setting off all the city's 156 emergency outdoor sirens, which wailed", "for an hour and half overnight. Rocky Vaz, director of the city's Office", "of Emergency Management, said engineers determined an", "unidentified hacker somewhere in the Dallas area was responsible."}
                             };
+                            
+                            
+boolean timerStart = false;
+int timerBegin = 0;
+int timerSec = 0;
+int timerMin = 0;
+int timerSecond = 0;
+int timerMillisTotal = 0;
+int[] rectSize = {190, 80};
+boolean timerExist = false;
+
+boolean stopwatchStart = false;
+int stopwatchBegin = 0;
+int stopwatchSec = 0;
+int stopwatchMin = 0;
+boolean stopwatchExist = false;
