@@ -1285,6 +1285,13 @@ void mouseReleased() {
            else if(reason.equals("emailPassword")){
             keyboardShow = false;
             emailSelect = true;
+            reason = "none";
+           }
+           else if(reason.equals("createNote")){
+            keyboardShow = false; 
+            reason = "none";
+            currentProfile.noteList.add(currentText);
+            currentText = "";
            }
          }
          else if(k.name.equals("Shift")){
@@ -1341,6 +1348,10 @@ void mouseReleased() {
       else if(reason.equals("emailUsername") || reason.equals("emailPassword")){
         currentProfile.emailLog = "None";
         emailSelect = true;
+        reason = "none";
+      }
+      else if(reason.equals("createNote")){
+        keyboardShow = false;
         reason = "none";
       }
     }
@@ -1776,6 +1787,58 @@ void mouseReleased() {
        }
      }
   }
+  if(noteExist){
+    Widget w = null;
+    for (int i = 0; i < 3; i++) {
+      if (widgetLeft[i].name != null && widgetLeft[i].name.equals("note")) {
+        w = widgetLeft[i];
+        break;
+      }
+      if (widgetRight[i].name != null && widgetRight[i].name.equals("note")) {
+        w = widgetRight[i];
+        break;
+      }
+    }
+    
+    if(w != null){
+      if(currentProfile.noteIndex < currentProfile.noteList.size()){
+          float[] arrowX = {w.x+760, w.x+740, w.x+780};
+          float[] arrowY = {w.y+(w.sizeY - 10), w.y+(w.sizeY - 50),  w.y+(w.sizeY - 50)};
+          
+          if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+            currentProfile.noteIndex += 1;
+            return;
+          }
+        }
+        if(currentProfile.noteIndex != 0){
+          float[] arrowX = {w.x+760, w.x+740, w.x+780};
+          float[] arrowY = {w.y+10, w.y+50, w.y+50};
+          
+          if(pnpoly(3, arrowX, arrowY, mouseX, mouseY) == 1){
+            currentProfile.noteIndex -= 1;
+            return;
+          }
+        }
+        //rect(w.x+540,  w.y+(w.sizeY/2)-40, rectSize[0], rectSize[1], 10);
+        float[][] rVerts = rectVerts(new int[]{w.x+540, w.y+(w.sizeY/2)-40}, rectSize);
+        float[] rX = rVerts[0];
+        float[] rY = rVerts[1];
+        
+        if(pnpoly(4, rX, rY, mouseX, mouseY) == 1){
+         if(currentProfile.noteList.size() <= currentProfile.noteIndex){
+           keyboardShow = true;
+           reason = "createNote";
+           currentText = "";
+           return;
+         }
+         else{
+           currentProfile.noteList.remove(currentProfile.noteIndex); 
+           return;
+         }
+        }
+    }
+  }
+  
   if(stopwatchExist){
     Widget w = null;
     for (int i = 0; i < 3; i++) {

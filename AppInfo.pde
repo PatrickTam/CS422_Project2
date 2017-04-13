@@ -480,6 +480,58 @@ void processWidgetInfo(Widget w){
     else{
     }
   }
+  else if(w.name.equals("note")){
+    noteExist = true;
+    fill(0);
+    textAlign(LEFT);
+    textSize(50);
+    if(currentProfile.noteList.size() <= currentProfile.noteIndex){
+      text("No note", w.x+60, w.y+(w.sizeY/2)+20);
+      
+      stroke(0);
+      fill(0,0);
+      rect(w.x+540,  w.y+(w.sizeY/2)-40, rectSize[0], rectSize[1], 10);
+      fill(0);
+      textAlign(CENTER);
+      textSize(40);
+      text("Add Note", w.x+635, w.y+(w.sizeY/2)+20);
+      
+      if(currentProfile.noteIndex < currentProfile.noteList.size())
+        triangle(w.x+760, w.y+(w.sizeY - 10), w.x+740, w.y+(w.sizeY - 50), w.x+780, w.y+(w.sizeY - 50));
+      if(currentProfile.noteIndex != 0)
+        triangle(w.x+760, w.y+10, w.x+740, w.y+50, w.x+780, w.y+50);
+    }
+    else{
+      stroke(0);
+      fill(0,0);
+      rect(w.x+540,  w.y+(w.sizeY/2)-40, rectSize[0], rectSize[1], 10);
+      fill(0);
+      textAlign(CENTER);
+      textSize(40);
+      text("Delete", w.x+635, w.y+(w.sizeY/2)+20);
+      fill(0);
+      textAlign(LEFT);
+      textSize(40);
+      
+      if(currentProfile.noteIndex < currentProfile.noteList.size())
+        triangle(w.x+760, w.y+(w.sizeY - 10), w.x+740, w.y+(w.sizeY - 50), w.x+780, w.y+(w.sizeY - 50));
+      if(currentProfile.noteIndex != 0)
+        triangle(w.x+760, w.y+10, w.x+740, w.y+50, w.x+780, w.y+50);
+      
+      if(w.sizeY == 150){
+        String str = currentProfile.getNote();
+        if(str.length() > 15)
+          str = str.substring(0, 15) + "...";
+        text(str, w.x+60, w.y+(w.sizeY/2)+20);
+      }
+      else{
+        String str = currentProfile.getNote();
+        str = str.replaceAll("(.{15})", "$1\n");
+        int lines = str.split("\n").length;
+        text(str, w.x+60, w.y+(w.sizeY/2)-(10*lines)+20);
+      }
+    }
+  }
 }
 
 //Weather Info
@@ -567,3 +619,6 @@ int stopwatchBegin = 0;
 int stopwatchSec = 0;
 int stopwatchMin = 0;
 boolean stopwatchExist = false;
+
+int noteIndex = 0;
+boolean noteExist = false;

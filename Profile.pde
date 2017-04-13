@@ -8,6 +8,8 @@ Clickable[] acutalProfileButtons = {new Clickable(1426, 748, 120, 60), new Click
 
 class Profile{
   SocialMedia media;
+  ArrayList noteList;
+  int noteIndex;
   String name;
   String pin;
   String language;
@@ -24,6 +26,8 @@ class Profile{
    emailLog = "a";
    newsSelected = "None";
    newsIndex = 0;
+   noteList = new ArrayList();
+   noteIndex = 0;
   }
   
   void saveInfo(String language, Widget[] left, Widget[] right){
@@ -83,6 +87,10 @@ class Profile{
    }
    else
      newsSelected = news;
+  }
+  
+  String getNote(){
+   return (String)noteList.get(noteIndex); 
   }
 }
 
