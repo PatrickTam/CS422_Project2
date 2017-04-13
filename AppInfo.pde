@@ -562,7 +562,7 @@ void processWidgetInfo(Widget w){
     else{
       fill(0);
       stroke(0);
-      if(emailIndex < 3)
+      if(emailIndex < 2)
         triangle(w.x+760, w.y+(w.sizeY - 10), w.x+740, w.y+(w.sizeY - 50), w.x+780, w.y+(w.sizeY - 50));
       if(emailIndex != 0)
         triangle(w.x+760, w.y+10, w.x+740, w.y+50, w.x+780, w.y+50);

@@ -7,7 +7,8 @@ String[][] keys = {
                   {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Backspace"},
                   {"q", "w", "e", "r", "t", "y", "u", "i", "o", "p"},
                   {"a", "s", "d", "f", "g", "h", "j", "k", "l"},
-                  {"Shift", "z", "x", "c", "v", "b", "n", "m", "Enter"}
+                  {"Shift", "z", "x", "c", "v", "b", "n", "m", "Enter"},
+                  {" "}
                   };
 
 Keys[][] fullKeyboard;
@@ -26,6 +27,9 @@ class Keys{
     this.name = name;
     if(this.name.equals("Backspace") || this.name.equals("Shift") || this.name.equals("Enter")){
      sizeX = 140; 
+    }
+    else if(this.name.equals(" ")){
+     sizeX = 350; 
     }
     else{
       sizeX = 70;

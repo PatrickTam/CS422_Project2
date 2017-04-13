@@ -365,7 +365,7 @@ void setup() {
   bksp.loadPixels();
   
   int xVal = 946;
-  int yVal = 1085;
+  int yVal = 1035;
   
   int masterIndex = 0;
   
@@ -377,6 +377,9 @@ void setup() {
     Keys newKey =  new Keys(xVal+(i * 75), yVal, strArr[i]);
     if(strArr[i].equals("Shift")){
        xVal += 75; 
+    }
+    if(strArr[i].equals(" ")){
+     newKey = new Keys(xVal+(75*3), yVal, strArr[i]);
     }
     k[i] = newKey;
    }
@@ -458,11 +461,11 @@ void draw() {
 
   if(keyboardShow){
     fill(255);
-    rect(946, 985, 825, 60, 10);
+    rect(946, 935, 825, 60, 10);
     fill(0);
     textSize(40);
     textAlign(LEFT);
-    text(currentText, 946+20, 985+50);
+    text(currentText, 946+20, 935+50);
     for(Keys[] kArr : fullKeyboard){
      for(Keys k : kArr){
       k.drawKey(); 
@@ -1835,7 +1838,7 @@ void mouseReleased() {
     }
     
     if(w != null){
-      if(emailIndex < 3){
+      if(emailIndex < 2){
           float[] arrowX = {w.x+760, w.x+740, w.x+780};
           float[] arrowY = {w.y+(w.sizeY - 10), w.y+(w.sizeY - 50),  w.y+(w.sizeY - 50)};
           
@@ -1909,10 +1912,12 @@ void mouseReleased() {
         rX = rVerts[0];
         rY = rVerts[1];
         if(pnpoly(4, rX, rY, mouseX, mouseY) == 1){
+          if(currentProfile.noteList.size() < currentProfile.noteIndex){
            keyboardShow = true;
            reason = "editNote";
            currentText = currentProfile.getNote();
            return;
+          }
         }
     }
   }
