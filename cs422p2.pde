@@ -1246,6 +1246,7 @@ void mouseReleased() {
             reason = "none";
             
             Profile p = new Profile(currentUsername, currentText);
+            p.language = language;
             profileList.add(p);
             currentProfile.saveInfo(language, widgetLeft, widgetRight);
             currentProfile = p;
@@ -1266,6 +1267,15 @@ void mouseReleased() {
                currentProfile.saveInfo(language, widgetLeft, widgetRight);
                
                currentProfile = loggingIn;
+               
+               language = currentProfile.language;
+               
+               for(Clickable lang : langs){
+                if(lang.name.equals(language))
+                  lang.clicked = 1;
+                else
+                  lang.clicked = 0;
+               }
          
                widgetLeft = loggingIn.widgetLeft;
                widgetRight = loggingIn.widgetRight;
@@ -1605,6 +1615,7 @@ void mouseReleased() {
         
         if(pnpoly(4, langX, langY, mouseX, mouseY) == 1) {
           language = lang.name;
+          currentProfile.language = lang.name;
           if(lang.clicked != 1){
             for(Clickable lang2 : langs){
              lang2.clicked = 0; 
@@ -1677,9 +1688,19 @@ void mouseReleased() {
         float[] langY = langVerts[1];
         
         if(pnpoly(4, langX, langY, mouseX, mouseY) == 1) {
-          language = lang.name;
+          if(lang.name.equals("Skip")){
+           language = "English";
+           currentProfile.language = "English";
+           english.clicked = 1;
+          }
+          else{
+           currentProfile.language = lang.name;
+           language = lang.name;
+           lang.clicked = 1;
+          }
           lang.clicked = 1;
           languageSelect = false;
+
           return;
         }
       }
@@ -1744,6 +1765,15 @@ void mouseReleased() {
              currentProfile.saveInfo(language, widgetLeft, widgetRight);
              
              currentProfile = guestProfile;
+             
+             language = currentProfile.language;
+             
+             for(Clickable lang : langs){
+                if(lang.name.equals(language))
+                  lang.clicked = 1;
+                else
+                  lang.clicked = 0;
+             }
              
              widgetLeft = guestProfile.widgetLeft;
              widgetRight = guestProfile.widgetRight;

@@ -591,6 +591,12 @@ void processWidgetInfo(Widget w){
   else if(w.name.equals("twitter")){
     
   }
+  else if(w.name.equals("instagram")){
+    
+  }
+  else if(w.name.equals("facebook")){
+    
+  }
 }
 
 //Weather Info
