@@ -521,10 +521,12 @@ void processWidgetInfo(Widget w){
     else{
       stroke(0);
       fill(0,0);
+      rect(w.x+340,  w.y+(w.sizeY/2)-40, rectSize[0], rectSize[1], 10);
       rect(w.x+540,  w.y+(w.sizeY/2)-40, rectSize[0], rectSize[1], 10);
       fill(0);
       textAlign(CENTER);
       textSize(40);
+      text("Edit", w.x+435, w.y+(w.sizeY/2)+20);
       text("Delete", w.x+635, w.y+(w.sizeY/2)+20);
       fill(0);
       textAlign(LEFT);
@@ -537,13 +539,13 @@ void processWidgetInfo(Widget w){
       
       if(w.sizeY == 150){
         String str = currentProfile.getNote();
-        if(str.length() > 15)
-          str = str.substring(0, 15) + "...";
+        if(str.length() > 10)
+          str = str.substring(0, 10) + "...";
         text(str, w.x+60, w.y+(w.sizeY/2)+20);
       }
       else{
         String str = currentProfile.getNote();
-        str = str.replaceAll("(.{15})", "$1\n");
+        str = str.replaceAll("(.{10})", "$1\n");
         int lines = str.split("\n").length;
         text(str, w.x+60, w.y+(w.sizeY/2)-(10*lines)+20);
       }

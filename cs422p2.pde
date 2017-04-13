@@ -545,6 +545,18 @@ void draw() {
       textAlign(CENTER);
       text("Please Enter " + currentProfile.emailLog + "'s Password:", 2732/2, 550);
     }
+    else if(reason.equals("createNote")){
+      fill(0);
+      textSize(80);
+      textAlign(CENTER);
+      text("Writing Note:", 2732/2, 550);
+    }
+    else if(reason.equals("editNote")){
+      fill(0);
+      textSize(80);
+      textAlign(CENTER);
+      text("Editing Note:", 2732/2, 550);
+    }
   }
 
   if (!on) {
@@ -1309,6 +1321,12 @@ void mouseReleased() {
             currentProfile.noteList.add(currentText);
             currentText = "";
            }
+           else if(reason.equals("editNote")){
+            keyboardShow = false;
+            reason = "none";
+            currentProfile.noteList.set(currentProfile.noteIndex, currentText);
+            currentText = "";
+           }
          }
          else if(k.name.equals("Shift")){
            k.clickedOn();
@@ -1366,7 +1384,7 @@ void mouseReleased() {
         emailSelect = true;
         reason = "none";
       }
-      else if(reason.equals("createNote")){
+      else if(reason.equals("createNote") || reason.equals("editNote")){
         keyboardShow = false;
         reason = "none";
       }
@@ -1874,7 +1892,6 @@ void mouseReleased() {
         float[][] rVerts = rectVerts(new int[]{w.x+540, w.y+(w.sizeY/2)-40}, rectSize);
         float[] rX = rVerts[0];
         float[] rY = rVerts[1];
-        
         if(pnpoly(4, rX, rY, mouseX, mouseY) == 1){
          if(currentProfile.noteList.size() <= currentProfile.noteIndex){
            keyboardShow = true;
@@ -1886,6 +1903,16 @@ void mouseReleased() {
            currentProfile.noteList.remove(currentProfile.noteIndex); 
            return;
          }
+        }
+        
+        rVerts = rectVerts(new int[]{w.x+340,  w.y+(w.sizeY/2)-40}, rectSize);
+        rX = rVerts[0];
+        rY = rVerts[1];
+        if(pnpoly(4, rX, rY, mouseX, mouseY) == 1){
+           keyboardShow = true;
+           reason = "editNote";
+           currentText = currentProfile.getNote();
+           return;
         }
     }
   }
