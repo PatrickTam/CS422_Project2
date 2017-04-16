@@ -225,6 +225,7 @@ void setup() {
   {
     register.setName("Register");
   }
+  
   if (language.equals("Español"))
   {
     selectProfile.setName("Seleccionar perfil");
@@ -233,15 +234,72 @@ void setup() {
   {
     selectProfile.setName("Select Profile");
   }
-  powerOff.setName("Power Off");
-  clearScreen.setName("Clear Screen");
-  socialMedia.setName("Social Media");
+  
+  if (language.equals("Español"))
+  {
+    powerOff.setName("Apagar");
+  }
+  else
+  {
+    powerOff.setName("Power Off");
+  }
+  
+  if (language.equals("Español"))
+  {
+    clearScreen.setName("Borrar Pantalla");
+  }
+  else
+  {
+    clearScreen.setName("Clear Screen");
+  }
+  
+  if (language.equals("Español"))
+  {
+    socialMedia.setName("Comunicación social");
+  }
+  else
+  {
+    socialMedia.setName("Social Media");
+  }
+  
   blueTooth.setName("Bluetooth");
-  timeDate.setName("Time/Date/Temp");
-  brightness.setName("Brightness");
-  languageSetting.setName("Language");
+  
+  if (language.equals("Español"))
+  {
+    timeDate.setName("Hora/Fecha/Temp");
+  }
+  else
+  {
+    timeDate.setName("Time/Date/Temp");
+  }
+  
+  if (language.equals("Español"))
+  {
+    brightness.setName("Brillo");
+  }
+  else
+  {
+    brightness.setName("Brightness");
+  }
+  
+  if (language.equals("Español"))
+  {
+    languageSetting.setName("Idioma");
+  }
+  else
+  {
+    languageSetting.setName("Language");
+  }
+  
   wifiSetting.setName("WiFi");
-  emailSetting.setName("Email");
+  if (language.equals("Español"))
+  {
+    emailSetting.setName("Correo");
+  }
+  else
+  {
+    emailSetting.setName("Email");
+  }
   
   settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia, blueTooth, timeDate, brightness, languageSetting, wifiSetting, emailSetting};
     
