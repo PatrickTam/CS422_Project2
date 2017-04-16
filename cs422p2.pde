@@ -217,89 +217,17 @@ void setup() {
   settingImgSelected = loadImage("settingSelected.png", "png");
   settingImgSelected.loadPixels();
   
-  if (language.equals("Español"))
-  {
-     register.setName("Registro");
-  }
-  else
-  {
-    register.setName("Register");
-  }
-  
-  if (language.equals("Español"))
-  {
-    selectProfile.setName("Seleccionar perfil");
-  }
-  else
-  {
-    selectProfile.setName("Select Profile");
-  }
-  
-  if (language.equals("Español"))
-  {
-    powerOff.setName("Apagar");
-  }
-  else
-  {
-    powerOff.setName("Power Off");
-  }
-  
-  if (language.equals("Español"))
-  {
-    clearScreen.setName("Borrar Pantalla");
-  }
-  else
-  {
-    clearScreen.setName("Clear Screen");
-  }
-  
-  if (language.equals("Español"))
-  {
-    socialMedia.setName("Comunicación social");
-  }
-  else
-  {
-    socialMedia.setName("Social Media");
-  }
-  
+  register.setName("Register");
+  selectProfile.setName("Select Profile");
+  powerOff.setName("Power Off");
+  clearScreen.setName("Clear Screen");
+  socialMedia.setName("Social Media");
   blueTooth.setName("Bluetooth");
-  
-  if (language.equals("Español"))
-  {
-    timeDate.setName("Hora/Fecha/Temp");
-  }
-  else
-  {
-    timeDate.setName("Time/Date/Temp");
-  }
-  
-  if (language.equals("Español"))
-  {
-    brightness.setName("Brillo");
-  }
-  else
-  {
-    brightness.setName("Brightness");
-  }
-  
-  if (language.equals("Español"))
-  {
-    languageSetting.setName("Idioma");
-  }
-  else
-  {
-    languageSetting.setName("Language");
-  }
-  
+  timeDate.setName("Time/Date/Temp");
+  brightness.setName("Brightness");
+  languageSetting.setName("Language");
   wifiSetting.setName("WiFi");
-  if (language.equals("Español"))
-  {
-    emailSetting.setName("Correo");
-  }
-  else
-  {
-    emailSetting.setName("Email");
-  }
+  emailSetting.setName("Email");
   
   settings = new Clickable[]{register, selectProfile, powerOff, clearScreen, socialMedia, blueTooth, timeDate, brightness, languageSetting, wifiSetting, emailSetting};
     
@@ -1019,7 +947,59 @@ void draw() {
       text(selectProfile.name, selectProfile.x + 30, selectProfile.y + 30);*/
       for(Clickable setting : settings){
         fill(setting.fillColor[0], setting.fillColor[1], setting.fillColor[2]);
-        text(setting.name, setting.x + 30, setting.y + 30);
+        
+          if (language.equals("Español"))
+          {
+              if (setting.name.equals("Register"))
+              {
+              text("Registro", setting.x + 30, setting.y + 30);
+              }
+              if (setting.name.equals("Select Profile"))
+              {
+              text("Seleccionar perfil", setting.x + 30, setting.y + 30);
+              }
+              if (setting.name.equals("Power Off"))
+              {
+              text("Apagar", setting.x + 30, setting.y + 30);
+              }
+              if (setting.name.equals("Clear Screen"))
+              {
+              text("Borrar Pantalla", setting.x + 30, setting.y + 30);
+              }
+              if (setting.name.equals("Social Media"))
+              {
+              text("Comunicación social", setting.x + 30, setting.y + 30);
+              }
+              if (setting.name.equals("Bluetooth"))
+              {
+              text("Bluetooh", setting.x + 30, setting.y + 30);
+              }
+              if (setting.name.equals("Time/Date/Temp"))
+              {
+              text("Tiempo/Fecha/Temp", setting.x + 30, setting.y + 30);
+              }
+              if (setting.name.equals("Brightness"))
+              {
+              text("Brillo", setting.x + 30, setting.y + 30);
+              }
+              if (setting.name.equals("Language"))
+              {
+              text("Idioma", setting.x + 30, setting.y + 30);
+              }
+              if (setting.name.equals("WiFi"))
+              {
+              text("Registrar", setting.x + 30, setting.y + 30);
+              }
+              if (setting.name.equals("Email"))
+              {
+              text("Correo", setting.x + 30, setting.y + 30);
+              }
+              
+          }
+          else
+          {
+            text(setting.name, setting.x + 30, setting.y + 30);
+          }
       }
       strokeWeight(2);
       stroke(0);
@@ -1310,11 +1290,11 @@ void draw() {
       fill(0);
       if (language.equals("Español"))
       {
-        text("Fecha: ", dateToggle[0].x-140,  dateToggle[0].y+40)
+        text("Fecha: ", dateToggle[0].x-140,  dateToggle[0].y+40);
       }
       else
       {
-        text("Date: ", dateToggle[0].x-140,  dateToggle[0].y+40)
+        text("Date: ", dateToggle[0].x-140,  dateToggle[0].y+40);
       }
       if(dateToggle[0].clicked == 1)
         fill(255, 50, 50);
