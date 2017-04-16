@@ -46,7 +46,7 @@ class SocialMedia{
    if(twitter.equals("None"))
      if (language.equals("Español"))
         {
-          textVal = "Ingresar";
+          textVal = "Ingres";
         }
         else
         {
@@ -66,7 +66,7 @@ class SocialMedia{
    if(instagram.equals("None"))
      if (language.equals("Español"))
         {
-          textVal = "Ingresar";
+          textVal = "Ingres";
         }
         else
         {
@@ -86,7 +86,7 @@ class SocialMedia{
    if(facebook.equals("None"))
      if (language.equals("Español"))
         {
-          textVal = "Ingresar";
+          textVal = "Ingres";
         }
         else
         {
