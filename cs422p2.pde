@@ -1213,7 +1213,7 @@ void draw() {
       textAlign(LEFT);
       if (language.equals("Español"))
       {
-        textVal = "Estado: Prendido";
+        textVal = "Estado: Listo";
       }
       else
       {
@@ -1527,7 +1527,7 @@ void draw() {
       if(currentProfile.name.equals("Guest")){
          textAlign(CENTER);
          textSize(40);
-               if (language.equals("Español"))
+              if (language.equals("Español"))
               {
                 text("Por favor cree un perfil",emailBox.x+(emailBox.sizeX/2), emailBox.y+(emailBox.sizeY/2));
               }
