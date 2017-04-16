@@ -516,13 +516,27 @@ void draw() {
       fill(0);
       textSize(80);
       textAlign(CENTER);
+      if (language.equals("Español"))
+      {
+      text("Por favor entre su clave:", 2732/2, 550);
+      }
+      else
+      {
       text("Please Your Desired Password:", 2732/2, 550);
+      }
     }
     else if(reason.equals("profilePassword")){
       fill(0);
       textSize(80);
       textAlign(CENTER);
-      text("Please Enter " + loggingIn.name + "'s Password:", 2732/2, 550);
+      if (language.equals("Español"))
+      {
+        text("Por favor entre " + loggingIn.name + "'s clave:", 2732/2, 550);
+      }
+      else
+      {
+        text("Please Enter " + loggingIn.name + "'s Password:", 2732/2, 550);
+      }
     }
     else if(reason.equals("socialMediaUsername")){
       fill(0);
@@ -535,7 +549,14 @@ void draw() {
         s = "Instagram";
       else
         s = "Facebook";
-      text("Please Enter Your " + s + " Username:", 2732/2, 550);
+      if (language.equals("Español"))
+      {
+        text("Por favor entre su " + s + " usario:", 2732/2, 550);
+      }
+      else
+      {
+        text("Please Enter Your " + s + " Username:", 2732/2, 550);
+      }
     }
     else if(reason.equals("socialMediaPassword")){
       fill(0);
@@ -548,37 +569,79 @@ void draw() {
         s = "Instagram";
       else
         s = "Facebook";
-      text("Please Enter Your " + s + " Password:", 2732/2, 550);
+      if (language.equals("Español"))
+      {
+        text("Por favor entre su " + s + " clave:", 2732/2, 550);
+      }
+      else
+      {
+        text("Please Enter Your " + s + " Password:", 2732/2, 550);
+      }
     }
     else if(reason.equals("wifiSetting")){
     fill(0);
     textSize(80);
     textAlign(CENTER);
-    text("Please Enter " + currentWifiSet.name + "'s Password:", 2732/2, 350);
+      if (language.equals("Español"))
+      {
+        text("Por favor entre " + currentWifiSet.name + "'s clave:", 2732/2, 350);
+      }
+      else
+      {
+        text("Please Enter " + currentWifiSet.name + "'s Password:", 2732/2, 350);
+      }
     }
     else if(reason.equals("emailUsername")){
       fill(0);
       textSize(80);
       textAlign(CENTER);
-      text("Please Enter Gmail Username:", 2732/2, 550);
+      if (language.equals("Español"))
+      {
+        text("Por favor entre Gmail usario:", 2732/2, 550);
+      }
+      else
+      {
+        text("Please Enter Gmail Username:", 2732/2, 550);
+      }
     }
     else if(reason.equals("emailPassword")){
       fill(0);
       textSize(80);
       textAlign(CENTER);
-      text("Please Enter " + currentProfile.emailLog + "'s Password:", 2732/2, 550);
+      if (language.equals("Español"))
+      {
+        text("Por favor enter " + currentProfile.emailLog + "'s clave:", 2732/2, 550);
+      }
+      else
+      {
+        text("Please Enter " + currentProfile.emailLog + "'s Password:", 2732/2, 550);
+      }
     }
     else if(reason.equals("createNote")){
       fill(0);
       textSize(80);
       textAlign(CENTER);
-      text("Writing Note:", 2732/2, 550);
+      if (language.equals("Español"))
+      {
+        text("Escribiendo nota:", 2732/2, 550);
+      }
+      else
+      {
+        text("Writing Note:", 2732/2, 550);
+      }
     }
     else if(reason.equals("editNote")){
       fill(0);
       textSize(80);
       textAlign(CENTER);
-      text("Editing Note:", 2732/2, 550);
+      if (language.equals("Español"))
+      {
+        text("Actualizando nota:", 2732/2, 550);
+      }
+      else
+      {
+        text("Editing Note:", 2732/2, 550);
+      }
     }
   }
 
@@ -592,7 +655,14 @@ void draw() {
       fill(0);
       textSize(80);
       textAlign(CENTER);
-      text("Welcome!", 2732/2, 350);
+      if (language.equals("Español"))
+      {
+        text("Bienvenidos!", 2732/2, 350);
+      }
+      else
+      {
+        text("Welcome!", 2732/2, 350);
+      }
       
       langIcon.resize(250,250);
       image(langIcon, 2732/2 - 125, 375);
