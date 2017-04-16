@@ -65,7 +65,14 @@ class Profile{
    if(name.equals("Guest")){
      textAlign(CENTER);
      textSize(40);
-      text("Please create a profile first", b.x+(b.sizeX/2), b.y+(b.sizeY/2));
+      if (language.equals("Español"))
+      {
+        text("Por favor cree un perfil", b.x+(b.sizeX/2), b.y+(b.sizeY/2));
+      }
+      else
+      {
+        text("Please create a profile first", b.x+(b.sizeX/2), b.y+(b.sizeY/2));
+      }
    }
    else{
       media.drawSocialMedia(b); 
