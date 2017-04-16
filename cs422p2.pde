@@ -483,8 +483,14 @@ void draw() {
     
     fill(0);
     textSize(50);
-    text("Cancel", cancelButton.x+(cancelButton.sizeX/2), cancelButton.y+(cancelButton.sizeY/2)+20);
-    
+    if (language.equals("Español"))
+    {
+      text("Cancelar", cancelButton.x+(cancelButton.sizeX/2), cancelButton.y+(cancelButton.sizeY/2)+20);
+    }
+    else
+    {
+      text("Cancel", cancelButton.x+(cancelButton.sizeX/2), cancelButton.y+(cancelButton.sizeY/2)+20);
+    }
     if(reason.equals("registerUsername")){
       registerImg.resize(250,250);
       image(registerImg, 2732/2 - 125, 575);
@@ -492,7 +498,16 @@ void draw() {
       fill(0);
       textSize(80);
       textAlign(CENTER);
-      text("Please Your Desired Username:", 2732/2, 550);
+      
+      if (language.equals("Español"))
+      {
+        text("Por favor escribe su nombre de usuario deseado:", 2732/2, 550);
+      }
+      else
+      {
+        text("Please Your Desired Username:", 2732/2, 550);
+      }
+      
     }
     else if(reason.equals("registerPassword")){
       registerImg.resize(250,250);
