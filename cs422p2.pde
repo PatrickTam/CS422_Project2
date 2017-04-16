@@ -964,7 +964,7 @@ void draw() {
               }
               if (setting.name.equals("Clear Screen"))
               {
-              text("Borrar Pantalla", setting.x + 30, setting.y + 30);
+              text("Borrar pantalla", setting.x + 30, setting.y + 30);
               }
               if (setting.name.equals("Social Media"))
               {
@@ -996,7 +996,7 @@ void draw() {
               }
               if (setting.name.equals("Logout"))
               {
-              text("Salir Perfil", setting.x + 30, setting.y + 30);
+              text("Salir perfil", setting.x + 30, setting.y + 30);
               }
               
           }
