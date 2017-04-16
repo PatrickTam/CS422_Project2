@@ -217,8 +217,22 @@ void setup() {
   settingImgSelected = loadImage("settingSelected.png", "png");
   settingImgSelected.loadPixels();
   
-  register.setName("Register");
-  selectProfile.setName("Select Profile");
+  if (language.equals("Español"))
+  {
+     register.setName("Registro");
+  }
+  else
+  {
+    register.setName("Register");
+  }
+  if (language.equals("Español"))
+  {
+    selectProfile.setName("Seleccionar perfil");
+  }
+  else
+  {
+    selectProfile.setName("Select Profile");
+  }
   powerOff.setName("Power Off");
   clearScreen.setName("Clear Screen");
   socialMedia.setName("Social Media");
