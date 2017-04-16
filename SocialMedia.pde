@@ -44,21 +44,63 @@ class SocialMedia{
    textSize(30);
    String textVal = "";
    if(twitter.equals("None"))
-     textVal = "Login";
+     if (language.equals("Español"))
+        {
+          textVal = "Ingresar";
+        }
+        else
+        {
+          textVal = "Log In";
+        }
    else
-     textVal = "Logout";
+     if (language.equals("Español"))
+                {
+                  textVal = "Salir";
+                }
+                else
+                {
+                  textVal = "Log Off";
+                }
    text(textVal, socialMediaButtons[0].x+20, socialMediaButtons[0].y+40);
    
    if(instagram.equals("None"))
-     textVal = "Login";
+     if (language.equals("Español"))
+        {
+          textVal = "Ingresar";
+        }
+        else
+        {
+          textVal = "Log In";
+        }
    else
-     textVal = "Logout";
+     if (language.equals("Español"))
+                {
+                  textVal = "Salir";
+                }
+                else
+                {
+                  textVal = "Log Off";
+                }
    text(textVal, socialMediaButtons[1].x+20, socialMediaButtons[1].y+40);
    
    if(facebook.equals("None"))
-     textVal = "Login";
+     if (language.equals("Español"))
+        {
+          textVal = "Ingresar";
+        }
+        else
+        {
+          textVal = "Log In";
+        }
    else
-     textVal = "Logout";
+     if (language.equals("Español"))
+                {
+                  textVal = "Salir";
+                }
+                else
+                {
+                  textVal = "Log Off";
+                }
    text(textVal, socialMediaButtons[2].x+20, socialMediaButtons[2].y+40);
  }
 }
