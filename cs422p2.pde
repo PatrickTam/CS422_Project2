@@ -505,7 +505,7 @@ void draw() {
       }
       else
       {
-        text("Please Your Desired Username:", 2732/2, 550);
+        text("Please enter your Desired Username:", 2732/2, 550);
       }
       
     }
@@ -1724,6 +1724,11 @@ void mouseReleased() {
            language = "English";
            currentProfile.language = "English";
            english.clicked = 1;
+          }
+          if(lang.name.equals("Español")){
+           language = "Español";
+           currentProfile.language = "Español";
+           spanish.clicked = 1;
           }
           else{
            currentProfile.language = lang.name;
