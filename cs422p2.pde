@@ -167,7 +167,7 @@ void setup() {
   english.setName("English");
   spanish.setName("Español");
   french.setName("Français");
-  lang4.setName("English2");
+  lang4.setName("Japanese");
   langs = new Clickable[]{english, spanish, french, lang4, skipButton};
   
   langIcon = loadImage("language.png", "png");
@@ -1126,7 +1126,14 @@ void draw() {
       textAlign(CENTER);
       fill(0);
       textSize(50);
-      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      if (language.equals("Español"))
+      {
+        text("Salir", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
+      else
+      {
+        text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
       
       fill(180);
       stroke(0);
@@ -1258,7 +1265,7 @@ void draw() {
       fill(0);
       if (language.equals("Español"))
       {
-        text("Hora/Fecha/Temperatura", timeDateBox.x+(timeDateBox.sizeX/2), timeDateBox.y+50);
+        text("Hora/Fecha/Temp", timeDateBox.x+(timeDateBox.sizeX/2), timeDateBox.y+50);
       }
       else
       {
@@ -1320,7 +1327,7 @@ void draw() {
       fill(0);
       if (language.equals("Español"))
       {
-        text("Temperatura: ", tempToggle[0].x-140,  tempToggle[0].y+40);
+        text("Temp: ", tempToggle[0].x-140,  tempToggle[0].y+40);
       }
       else
       {
@@ -1342,7 +1349,15 @@ void draw() {
       textAlign(CENTER);
       fill(0);
       textSize(50);
-      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      
+        if (language.equals("Español"))
+        {
+          text("Salir", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+        }
+        else
+        {
+          text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+        }
       
       fill(180);
       stroke(0);
