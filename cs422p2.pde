@@ -610,7 +610,7 @@ void draw() {
       textAlign(CENTER);
       if (language.equals("Español"))
       {
-        text("Por favor enter " + currentProfile.emailLog + "'s clave:", 2732/2, 550);
+        text("Por favor entre " + currentProfile.emailLog + "'s clave:", 2732/2, 550);
       }
       else
       {
@@ -1169,7 +1169,14 @@ void draw() {
       textAlign(CENTER);
       fill(0);
       textSize(50);
-      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      if (language.equals("Español"))
+      {
+        text("Salir", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
+      else
+      {
+        text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
       
       fill(180);
       stroke(0);
@@ -1177,7 +1184,14 @@ void draw() {
       rect(timeDateBox.x, timeDateBox.y, timeDateBox.sizeX, timeDateBox.sizeY);
       
       fill(0);
-      text("Time/Date/Temp", timeDateBox.x+(timeDateBox.sizeX/2), timeDateBox.y+50);
+      if (language.equals("Español"))
+      {
+        text("Hora/Fecha/Temperatura", timeDateBox.x+(timeDateBox.sizeX/2), timeDateBox.y+50);
+      }
+      else
+      {
+        text("Time/Date/Temp", timeDateBox.x+(timeDateBox.sizeX/2), timeDateBox.y+50);
+      }
       line(timeDateBox.x, timeDateBox.y+60, timeDateBox.x+timeDateBox.sizeX, timeDateBox.y+60);
       
       fill(180,0);
@@ -1198,7 +1212,14 @@ void draw() {
       fill(0);
       textAlign(LEFT);
       textSize(30);
-      text("Time: ", timeToggle[0].x-140,  timeToggle[0].y+40);
+      if (language.equals("Español"))
+      {
+        text("Hora: ", timeToggle[0].x-140,  timeToggle[0].y+40);
+      }
+      else
+      {
+        text("Time: ", timeToggle[0].x-140,  timeToggle[0].y+40);
+      }
       if(timeToggle[0].clicked == 1)
         fill(255, 50, 50);
       text(timeToggle[0].name, timeToggle[0].x+10,  timeToggle[0].y+40);
@@ -1208,7 +1229,14 @@ void draw() {
       text(timeToggle[1].name, timeToggle[1].x+10,  timeToggle[1].y+40);
       
       fill(0);
-      text("Date: ", dateToggle[0].x-140,  dateToggle[0].y+40);
+      if (language.equals("Español"))
+      {
+        text("Fecha: ", dateToggle[0].x-140,  dateToggle[0].y+40)
+      }
+      else
+      {
+        text("Date: ", dateToggle[0].x-140,  dateToggle[0].y+40)
+      }
       if(dateToggle[0].clicked == 1)
         fill(255, 50, 50);
       text(dateToggle[0].name, dateToggle[0].x+10,  dateToggle[0].y+40);
@@ -1218,7 +1246,14 @@ void draw() {
       text(dateToggle[1].name, dateToggle[1].x+10,  dateToggle[1].y+40);
       
       fill(0);
-      text("Temp: ", tempToggle[0].x-140,  tempToggle[0].y+40);
+      if (language.equals("Español"))
+      {
+        text("Temperatura: ", tempToggle[0].x-140,  tempToggle[0].y+40);
+      }
+      else
+      {
+        text("Temp: ", tempToggle[0].x-140,  tempToggle[0].y+40);
+      }
       if(tempToggle[0].clicked == 1)
         fill(255, 50, 50);
       text(tempToggle[0].name, tempToggle[0].x+10,  tempToggle[0].y+40);
@@ -1243,7 +1278,14 @@ void draw() {
       rect(brightnessBox.x, brightnessBox.y, brightnessBox.sizeX, brightnessBox.sizeY);
       
       fill(0);
-      text("Brightness", brightnessBox.x+(brightnessBox.sizeX/2), brightnessBox.y+50);
+      if (language.equals("Español"))
+      {
+        text("Brillo", brightnessBox.x+(brightnessBox.sizeX/2), brightnessBox.y+50);
+      }
+      else
+      {
+        text("Brightness", brightnessBox.x+(brightnessBox.sizeX/2), brightnessBox.y+50);
+      }
       line(brightnessBox.x, brightnessBox.y+60, brightnessBox.x+brightnessBox.sizeX, brightnessBox.y+60);
       
       if(brightnessValue != 0)
@@ -1266,9 +1308,23 @@ void draw() {
 
       fill(0);
       textSize(50);
-      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      if (language.equals("Español"))
+      {
+        text("Salir", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
+      else
+      {
+        text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
 
-      text("Language", langBox.x+(langBox.sizeX/2), langBox.y+50);
+      if (language.equals("Español"))
+      {
+        text("Idioma", langBox.x+(langBox.sizeX/2), langBox.y+50);
+      }
+      else
+      {
+        text("Language", langBox.x+(langBox.sizeX/2), langBox.y+50);
+      }
       stroke(0);
       strokeWeight(4);
       line(langBox.x, langBox.y+60, langBox.x+langBox.sizeX, langBox.y+60);
@@ -1302,7 +1358,14 @@ void draw() {
       
       fill(0);
       textSize(50);
-      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      if (language.equals("Español"))
+      {
+        text("Salir", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
+      else
+      {
+        text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
       
       text("WiFi", wifiBox.x+(wifiBox.sizeX/2), wifiBox.y+50);
       stroke(0);
@@ -1346,7 +1409,14 @@ void draw() {
       textAlign(CENTER);
       fill(0);
       textSize(50);
-      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      if (language.equals("Español"))
+      {
+        text("Salir", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
+      else
+      {
+        text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
       
       fill(180);
       stroke(0);
@@ -1354,7 +1424,14 @@ void draw() {
       rect(emailBox.x, emailBox.y, emailBox.sizeX, emailBox.sizeY);
       
       fill(0);
-      text("Email", emailBox.x+(emailBox.sizeX/2), emailBox.y+50);
+      if (language.equals("Español"))
+      {
+        text("Correo", emailBox.x+(emailBox.sizeX/2), emailBox.y+50);
+      }
+      else
+      {
+        text("Email", emailBox.x+(emailBox.sizeX/2), emailBox.y+50);
+      }
 
       line(emailBox.x, emailBox.y+60, emailBox.x+emailBox.sizeX, emailBox.y+60);
       
@@ -1363,7 +1440,14 @@ void draw() {
       if(currentProfile.name.equals("Guest")){
          textAlign(CENTER);
          textSize(40);
-         text("Please create a profile first",emailBox.x+(emailBox.sizeX/2), emailBox.y+(emailBox.sizeY/2));
+               if (language.equals("Español"))
+              {
+                text("Por favor cree un perfil",emailBox.x+(emailBox.sizeX/2), emailBox.y+(emailBox.sizeY/2));
+              }
+              else
+              {
+                text("Please create a profile first",emailBox.x+(emailBox.sizeX/2), emailBox.y+(emailBox.sizeY/2));
+              }
       }
       else{
         fill(180,0);
@@ -1372,13 +1456,36 @@ void draw() {
         fill(0);
         textSize(30);
         String textVal = "Log In";
+        if (language.equals("Español"))
+        {
+          textVal = "Ingresar";
+        }
+        else
+        {
+          textVal = "Log In";
+        }
+        
         if(!currentProfile.emailLog.equals("None")){
-          textVal = "Log Off";
+                if (language.equals("Español"))
+                {
+                  textVal = "Salir";
+                }
+                else
+                {
+                  textVal = "Log Off";
+                }
         }
         text(textVal, emailButton.x+60, emailButton.y+40);
         
         textAlign(LEFT);
-        textVal = "Not Logged In";
+        if (language.equals("Español"))
+        {
+          textVal = "No registrado";
+        }
+        else
+        {
+          textVal = "Not Logged In";
+        }
         if(!currentProfile.emailLog.equals("None")){
          textVal = currentProfile.emailLog; 
         }
