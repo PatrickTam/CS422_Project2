@@ -677,9 +677,23 @@ void draw() {
 
       fill(0);
       textSize(50);
-      text("Skip", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      if (language.equals("Español"))
+      {
+        text("Omitir", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
+      else
+      {
+        text("Skip", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
 
-      text("Language", langBox.x+(langBox.sizeX/2), langBox.y+50);
+      if (language.equals("Español"))
+      {
+        text("Idioma", langBox.x+(langBox.sizeX/2), langBox.y+50);
+      }
+      else
+      {
+        text("Language", langBox.x+(langBox.sizeX/2), langBox.y+50);
+      }
       stroke(0);
       strokeWeight(4);
       line(langBox.x, langBox.y+60, langBox.x+langBox.sizeX, langBox.y+60);
@@ -699,7 +713,14 @@ void draw() {
       fill(0);
       textSize(80);
       textAlign(CENTER);
-      text("Welcome!", 2732/2, 350);
+      if (language.equals("Español"))
+      {
+        text("Bienvenidos!", 2732/2, 350);
+      }
+      else
+      {
+        text("Welcome!", 2732/2, 350);
+      }
 
       wifiIcon.resize(250,250);
       image(wifiIcon, 2732/2 - 125, 375);
@@ -714,7 +735,14 @@ void draw() {
       
       fill(0);
       textSize(50);
-      text("Skip", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      if (language.equals("Español"))
+      {
+        text("Omitir", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
+      else
+      {
+        text("Skip", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
       
       text("WiFi", wifiBox.x+(wifiBox.sizeX/2), wifiBox.y+50);
       stroke(0);
@@ -752,7 +780,14 @@ void draw() {
     fill(0);
     textSize(80);
     textAlign(CENTER);
-    text("Please Enter " + wifi + "'s Password:", 2732/2, 350);
+      if (language.equals("Español"))
+      {
+        text("Por favor entre " + wifi + "'s clave:", 2732/2, 350);
+      }
+      else
+      {
+        text("Please Enter " + wifi + "'s Password:", 2732/2, 350);
+      }
   }
   else {
     dti.drawDateTime();
@@ -923,7 +958,14 @@ void draw() {
     textAlign(RIGHT);
     textSize(40);
     fill(0);
-    text("Welcome, " + currentProfile.name + "!", settingButton.x - 30, settingButton.y+60);
+      if (language.equals("Español"))
+      {
+        text("Bienvenidos, " + currentProfile.name + "!", settingButton.x - 30, settingButton.y+60);
+      }
+      else
+      {
+        text("Welcome, " + currentProfile.name + "!", settingButton.x - 30, settingButton.y+60);
+      }
 
     if(profileSelect){
       strokeWeight(4);
@@ -932,7 +974,14 @@ void draw() {
       textAlign(CENTER);
       fill(0);
       textSize(50);
-      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      if (language.equals("Español"))
+      {
+        text("Salir", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
+      else
+      {
+        text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
       
       fill(180);
       stroke(0);
@@ -940,7 +989,14 @@ void draw() {
       rect(profileBox.x, profileBox.y, profileBox.sizeX, profileBox.sizeY);
 
       fill(0);
-      text("Profiles", profileBox.x+(profileBox.sizeX/2), profileBox.y+50);
+      if (language.equals("Español"))
+      {
+        text("Perfiles", profileBox.x+(profileBox.sizeX/2), profileBox.y+50);
+      }
+      else
+      {
+        text("Profiles", profileBox.x+(profileBox.sizeX/2), profileBox.y+50);
+      }
 
       line(profileBox.x, profileBox.y+60, profileBox.x+profileBox.sizeX, profileBox.y+60);
 
@@ -968,10 +1024,24 @@ void draw() {
         textSize(30);
         if(currentProfile.name.equals(pButton.profile.name)){
          fill(255, 0, 140); 
-         text("Delete", acutalProfileButtons[i].x+15, acutalProfileButtons[i].y+40);
+               if (language.equals("Español"))
+              {
+                text("Borrar", acutalProfileButtons[i].x+15, acutalProfileButtons[i].y+40);
+              }
+              else
+              {
+                text("Delete", acutalProfileButtons[i].x+15, acutalProfileButtons[i].y+40);
+              }
         }
         else{
-          text("Select", acutalProfileButtons[i].x+15, acutalProfileButtons[i].y+40);
+              if (language.equals("Español"))
+              {
+                text("Seleccionar", acutalProfileButtons[i].x+15, acutalProfileButtons[i].y+40);
+              }
+              else
+              {
+                text("Select", acutalProfileButtons[i].x+15, acutalProfileButtons[i].y+40);
+              }
         }
         i++;
       }
@@ -992,7 +1062,14 @@ void draw() {
       rect(socialMediaBox.x, socialMediaBox.y, socialMediaBox.sizeX, socialMediaBox.sizeY);
       
       fill(0);
-      text("Social Media", socialMediaBox.x+(socialMediaBox.sizeX/2), socialMediaBox.y+50);
+      if (language.equals("Español"))
+      {
+        text("Comunicación social", socialMediaBox.x+(socialMediaBox.sizeX/2), socialMediaBox.y+50);
+      }
+      else
+      {
+        text("Social Media", socialMediaBox.x+(socialMediaBox.sizeX/2), socialMediaBox.y+50);
+      }
 
       line(socialMediaBox.x, socialMediaBox.y+60, socialMediaBox.x+socialMediaBox.sizeX, socialMediaBox.y+60);
       
@@ -1006,7 +1083,14 @@ void draw() {
       textAlign(CENTER);
       fill(0);
       textSize(50);
-      text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      if (language.equals("Español"))
+      {
+        text("Salir", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
+      else
+      {
+        text("Exit", skipButton.x+(skipButton.sizeX/2), skipButton.y+(skipButton.sizeY/2)+20);
+      }
       
       fill(180);
       stroke(0);
@@ -1024,19 +1108,49 @@ void draw() {
       fill(0);
       textSize(30);
       String textVal = "Turn Off";
+      
+      if (language.equals("Español"))
+      {
+        textVal = "Apagar";
+      }
+      else
+      {
+        textVal = "Turn Off";
+      }
+      
       if(!blueToothOn){
-        textVal = "Turn On";
+              if (language.equals("Español"))
+              {
+                textVal = "Encender";
+              }
+              else
+              {
+                textVal = "Turn On";
+              }
       }
       text(textVal, blueToothToggle.x+60, blueToothToggle.y+40);
       
       fill(50, 255, 50);
       textAlign(LEFT);
-      textVal = "Status: ON";
+      if (language.equals("Español"))
+      {
+        textVal = "Estado: Prendido";
+      }
+      else
+      {
+        textVal = "Status: ON";
+      }
       if(!blueToothOn){
        fill(255, 50, 50);
-       textVal = "Status: OFF"; 
+        if (language.equals("Español"))
+        {
+          textVal = "Estado: Apagado"; 
+        }
+        else
+        {
+          textVal = "Status: OFF"; 
+        }
       }
-
       textSize(40);
       text(textVal, blueToothBox.x + 60, blueToothToggle.y+40);
       
