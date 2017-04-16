@@ -994,6 +994,10 @@ void draw() {
               {
               text("Correo", setting.x + 30, setting.y + 30);
               }
+              if (setting.name.equals("Logout"))
+              {
+              text("Salir Perfil", setting.x + 30, setting.y + 30);
+              }
               
           }
           else
