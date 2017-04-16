@@ -972,7 +972,7 @@ void draw() {
               }
               if (setting.name.equals("Bluetooth"))
               {
-              text("Bluetooh", setting.x + 30, setting.y + 30);
+              text("Bluetooth", setting.x + 30, setting.y + 30);
               }
               if (setting.name.equals("Time/Date/Temp"))
               {
