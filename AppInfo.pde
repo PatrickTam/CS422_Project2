@@ -13,14 +13,28 @@ void processWidgetInfo(Widget w){
       textAlign(LEFT);
       //TODO: Account for Celsius or Farenheit choice!!
       if(farenheit){
-        text(currentWeatherInfo[0][0], w.x+50, w.y+70);
-        text(currentWeatherInfo[1][0], w.x+50, w.y+110);
-        text(currentWeatherInfo[2][0], w.x+450, w.y+90);
+        if (language.equals("Español")){
+         text(currentWeatherInfoSpanish[0][0], w.x+50, w.y+70);
+         text(currentWeatherInfoSpanish[1][0], w.x+50, w.y+110);
+         text(currentWeatherInfoSpanish[2][0], w.x+450, w.y+90);
+         }
+        else{
+         text(currentWeatherInfo[0][0], w.x+50, w.y+70);
+         text(currentWeatherInfo[1][0], w.x+50, w.y+110);
+         text(currentWeatherInfo[2][0], w.x+450, w.y+90);
+        }
       }
       else{
-        text(currentWeatherInfo[0][1], w.x+50, w.y+70);
-        text(currentWeatherInfo[1][1], w.x+50, w.y+110);
-        text(currentWeatherInfo[2][1], w.x+450, w.y+90);
+        if (language.equals("Español")){
+         text(currentWeatherInfoSpanish[0][1], w.x+50, w.y+70);
+         text(currentWeatherInfoSpanish[1][1], w.x+50, w.y+110);
+         text(currentWeatherInfoSpanish[2][1], w.x+450, w.y+90);
+        }
+        else{
+         text(currentWeatherInfo[0][1], w.x+50, w.y+70);
+         text(currentWeatherInfo[1][1], w.x+50, w.y+110);
+         text(currentWeatherInfo[2][1], w.x+450, w.y+90);          
+        }
       }
       sunny.resize(120,120);
       image(sunny, w.x+300, w.y+20);
@@ -62,10 +76,22 @@ void processWidgetInfo(Widget w){
         text(dayName[dayOfWeek], w.x+100+(i*200), w.y+130);
         }
        
-        if(farenheit)
-          text(expandedWeatherInfo[i][0], w.x+110+(i*200), w.y+240);
-        else
-          text(expandedWeatherInfo[i][1], w.x+110+(i*200), w.y+240);
+        if(farenheit){
+          if (language.equals("Español")){
+             text(expandedWeatherInfoSpanish[i][0], w.x+110+(i*200), w.y+240);
+            }
+            else{
+             text(expandedWeatherInfo[i][0], w.x+110+(i*200), w.y+240);            
+            }
+          }
+          else{
+            if (language.equals("Español")){
+             text(expandedWeatherInfoSpanish[i][1], w.x+110+(i*200), w.y+240);
+            }
+            else{
+             text(expandedWeatherInfo[i][1], w.x+110+(i*200), w.y+240);
+            }
+          }
       }
       fill(0, 255, 123);
     }
@@ -181,16 +207,30 @@ void processWidgetInfo(Widget w){
      weight.resize(120,120);
      image(weight, w.x+80, w.y+20);
      
-     text("Today: 130 lbs", w.x+250, w.y+60);
-     text("Last Month: 135 lbs", w.x+250, w.y+120);
+     if (language.equals("Español")){
+      text("Hoy: 130 lbs", w.x+250, w.y+60);
+      text("Mes Pasado: 135 lbs", w.x+250, w.y+120);
+     }
+     else{
+      text("Today: 130 lbs", w.x+250, w.y+60);
+      text("Last Month: 135 lbs", w.x+250, w.y+120);       
+     }
    }
    else{
      fill(0);
      textSize(30);
      textAlign(LEFT);
      
-     text("Today:", w.x+20, w.y+200);
-     text("Avg Month:", w.x+20, w.y+260);
+     if (language.equals("Español")){     
+      text("Hoy:", w.x+20, w.y+200);
+      textSize(27);
+      text("Promedio Mes:", w.x+20, w.y+260);
+      textSize(30);
+     }
+     else{
+      text("Today:", w.x+20, w.y+200);
+      text("Avg Month:", w.x+20, w.y+260);       
+     }
      
      weight.resize(120,120);
      image(weight, w.x+400, w.y+20);
@@ -201,14 +241,21 @@ void processWidgetInfo(Widget w){
      steps.resize(120,120);
      image(steps, w.x+200, w.y+20);
      
-     text("8123 steps", w.x+200, w.y+200);
-     text("7815 steps", w.x+200, w.y+260);
+     if (language.equals("Español")){ 
+      text("8123 pasos", w.x+200, w.y+200);
+      text("7815 pasos", w.x+200, w.y+260);
+     }
+      else{
+      text("8123 steps", w.x+200, w.y+200);
+      text("7815 steps", w.x+200, w.y+260);
+     }
      
      sleep.resize(120,120);
      image(sleep, w.x+600, w.y+20);
      
-     text("7h 29m", w.x+600, w.y+200);
-     text("7h 20m", w.x+600, w.y+260);
+      text("7h 29m", w.x+600, w.y+200);
+      text("7h 20m", w.x+600, w.y+260);
+
    }
   }
   //TODO
@@ -218,15 +265,31 @@ void processWidgetInfo(Widget w){
         textSize(40);
         fill(0);
         textAlign(CENTER);
-        text("Log into Gmail first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+        
+        if (language.equals("Español")){ 
+         textSize(36);
+         text("Inicia sesión en Gmail primero en Configuración.", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+         textSize(40);
+        }
+        else{
+         text("Log into Gmail first in Settings.", w.x+(w.sizeX/2), w.y+(w.sizeY/2));          
+        }
       }
       else{
         textSize(40);
         fill(0);
         textAlign(LEFT);
-        text(calendarInfo[0], w.x+50, w.y+40);
-        text(calendarInfo[1], w.x+50, w.y+90);
-        text("...", w.x+50, w.y+130);
+        
+        if (language.equals("Español")){
+         text(calendarInfo[0], w.x+50, w.y+40);
+         text(calendarInfo[1], w.x+50, w.y+90);
+         text("...", w.x+50, w.y+130);
+        }
+        else{
+         text(calendarInfo[0], w.x+50, w.y+40);
+         text(calendarInfo[1], w.x+50, w.y+90);
+         text("...", w.x+50, w.y+130);       
+        }
       }
     }
     else{
@@ -234,7 +297,15 @@ void processWidgetInfo(Widget w){
         textSize(40);
         fill(0);
         textAlign(CENTER);
-        text("Log into Gmail first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+        
+        if (language.equals("Español")){     
+         textSize(36);
+         text("Inicia sesión en Gmail primero en Configuración.", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+         textSize(40);
+        }
+        else{
+         text("Log into Gmail first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));        
+        }
       }
       else{
         textSize(40);
@@ -402,11 +473,25 @@ void processWidgetInfo(Widget w){
       textAlign(CENTER);
       if(timerStart){
         fill(255, 50, 50);
-        text("Pause", w.x+630, w.y+90);
+        
+        if (language.equals("Español")){
+         text("Pausa", w.x+630, w.y+90);
+        }
+        else{
+         text("Pause", w.x+630, w.y+90);          
+        }
       }
       else{
         fill(50, 255, 50);
-        text("Start", w.x+630, w.y+90);
+        
+        if (language.equals("Español")){
+         textSize(42);
+         text("Empezar", w.x+630, w.y+90);
+         textSize(50);
+        }
+        else{
+         text("Start", w.x+630, w.y+90);        
+        }
       }
     }
     else{
@@ -438,17 +523,39 @@ void processWidgetInfo(Widget w){
       textAlign(CENTER);
       if(timerStart){
         fill(255, 50, 50);
-        text("Pause", w.x+630, w.y+90);
+        
+        if (language.equals("Español")){        
+         text("Pausa", w.x+630, w.y+90);
+        }
+        else{
+         text("Pause", w.x+630, w.y+90);        
+        }
       }
       else{
         fill(50, 255, 50);
-        text("Start", w.x+630, w.y+90);
+        
+        if (language.equals("Español")){ 
+         textSize(42);
+         text("Empezar", w.x+630, w.y+90);
+         textSize(50);
+        }
+        else{
+         text("Start", w.x+630, w.y+90);        
+        }
       }
       
       fill(0,0);
       rect(w.x+540, w.y+140, rectSize[0], rectSize[1], 10);
       fill(0);
-      text("Cancel", w.x+630, w.y+190);
+      
+      if (language.equals("Español")){
+       textSize(42);
+       text("Cancelar", w.x+630, w.y+190);
+       textSize(50);
+      }
+      else{
+       text("Cancel", w.x+630, w.y+190);        
+      }
       
       
     }
@@ -487,17 +594,38 @@ void processWidgetInfo(Widget w){
     textAlign(CENTER);
     if(stopwatchStart){
       fill(255, 50, 50);
-      text("Pause", w.x+460,  w.y+(w.sizeY/2)+20);
+      
+      if (language.equals("Español")){
+       text("Pausa", w.x+460,  w.y+(w.sizeY/2)+20);
+      }
+      else{
+       text("Pause", w.x+460,  w.y+(w.sizeY/2)+20);     
+      }
     }
     else{
       fill(50, 255, 50);
-      text("Start", w.x+460, w.y+(w.sizeY/2)+20);
+      if (language.equals("Español")){
+       textSize(42);
+       text("Empezar", w.x+460, w.y+(w.sizeY/2)+20);
+       textSize(50);
+      }
+      else{
+       text("Start", w.x+460, w.y+(w.sizeY/2)+20);     
+      }
     }
     
     fill(0,0);
     rect(w.x+580,  w.y+(w.sizeY/2)-40, rectSize[0], rectSize[1], 10);
     fill(0);
-    text("Clear", w.x+670,  w.y+(w.sizeY/2)+20);
+    
+    if (language.equals("Español")){
+     textSize(42);
+     text("Despeja", w.x+670,  w.y+(w.sizeY/2)+20);
+     textSize(50);
+    }
+    else{
+     text("Clear", w.x+670,  w.y+(w.sizeY/2)+20);    
+    }
     
     if(w.sizeY == 150){
     }
@@ -510,7 +638,13 @@ void processWidgetInfo(Widget w){
     textAlign(LEFT);
     textSize(50);
     if(currentProfile.noteList.size() <= currentProfile.noteIndex){
-      text("No note", w.x+60, w.y+(w.sizeY/2)+20);
+      
+      if (language.equals("Español")){
+       text("No nota", w.x+60, w.y+(w.sizeY/2)+20);
+      }
+      else{
+       text("No note", w.x+60, w.y+(w.sizeY/2)+20);      
+      }
       
       stroke(0);
       fill(0,0);
@@ -518,7 +652,15 @@ void processWidgetInfo(Widget w){
       fill(0);
       textAlign(CENTER);
       textSize(40);
-      text("Add Note", w.x+635, w.y+(w.sizeY/2)+20);
+      
+      if (language.equals("Español")){
+       textSize(32);
+       text("Agregar nota", w.x+635, w.y+(w.sizeY/2)+20);
+       textSize(40);
+      }
+      else{
+       text("Add Note", w.x+635, w.y+(w.sizeY/2)+20);      
+      }
       
       if(currentProfile.noteIndex < currentProfile.noteList.size())
         triangle(w.x+760, w.y+(w.sizeY - 10), w.x+740, w.y+(w.sizeY - 50), w.x+780, w.y+(w.sizeY - 50));
@@ -564,7 +706,12 @@ void processWidgetInfo(Widget w){
       textSize(40);
       fill(0);
       textAlign(CENTER);
-      text("Log into Gmail first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+      if (language.equals("Español")){
+       text("Inicia sesión en Gmail primero en Configuración.", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+      }
+      else{
+       text("Log into Gmail first in Settings.", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+      }
     }
     else{
       fill(0);
@@ -601,7 +748,13 @@ void processWidgetInfo(Widget w){
       textSize(40);
       fill(0);
       textAlign(CENTER);
-      text("Log into Twitter first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+      
+      if (language.equals("Español")){
+       text("Inicia sesión en Twitter primero \nen Configuración.", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+      }
+      else{
+       text("Log into Twitter first in Settings.", w.x+(w.sizeX/2), w.y+(w.sizeY/2));        
+      }
     }
     else{
       fill(0);
@@ -636,7 +789,13 @@ void processWidgetInfo(Widget w){
       textSize(40);
       fill(0);
       textAlign(CENTER);
-      text("Log into Instagram first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+      
+      if (language.equals("Español")){
+       text("Inicia sesión en Instagram primero \nen Configuración.", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+      }
+      else{
+       text("Log into Instagram first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));      
+      }
     }
     else{
       fill(0);
@@ -674,7 +833,14 @@ void processWidgetInfo(Widget w){
       textSize(40);
       fill(0);
       textAlign(CENTER);
-      text("Log into Facebook first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+      
+      if (language.equals("Español")){
+       text("Inicia sesión en Facebook primero \nen Configuración.", w.x+(w.sizeX/2), w.y+(w.sizeY/2));
+      }
+      else{
+       text("Log into Facebook first in Settings", w.x+(w.sizeX/2), w.y+(w.sizeY/2));      
+      }
+            
     }
     else{
       fill(0);
@@ -705,9 +871,14 @@ void processWidgetInfo(Widget w){
   }
 }
 
+
+
+
 //Weather Info
 String[][] currentWeatherInfo = {{"Hi: 50°F", "Hi: 10°C"}, {"Low: 32°F", "Low: 0°C"}, {"Current: 45°F", "Current: 7.2°C"}};
+String[][] currentWeatherInfoSpanish = {{"Alto: 50°F", "Alto: 10°C"}, {"Bajo: 32°F", "Bajo: 0°C"}, {"Corriente: 45°F", "Corriente: 7.2°C"}};
 String[][] expandedWeatherInfo = {{"Hi: 52°F\nLow:32°F", "Hi: 11.1°C\nLow:0°C"}, {"Hi: 54°F\nLow:34°F", "Hi: 12.2°C\nLow:1.1°C"}, {"Hi: 61°F\nLow:45°F", "Hi: 16.1°C\nLow:7.2°C"}, {"Hi: 63°F\nLow:50°F", "Hi: 17.2°C\nLow:10°C"}};
+String[][] expandedWeatherInfoSpanish = {{"Alto: 52°F\nBajo:32°F", "Alto: 11.1°C\nBajo:0°C"}, {"Alto: 54°F\nBajo:34°F", "Alto: 12.2°C\nBajo:1.1°C"}, {"Alto: 61°F\nBajo:45°F", "Alto: 16.1°C\nBajo:7.2°C"}, {"Alto: 63°F\nBajo:50°F", "Alto: 17.2°C\nBajo:10°C"}};
 PImage sunny;
 PImage cloudy;
 
@@ -800,6 +971,12 @@ String[][] emails = {
                       {"[MASSMAIL]Email 593 - massmail@uic.edu", "to: MASSMAIL_STUDENT", "Email relevant to you!"},
                       {"Bring cake! - bob@gmail.com", "to: me", "You better bring cake to my party."}
                     };
+                    
+String[][] emailsSpanish = {
+                      {"Llámame AHORA - mom@gmail.com", "A: yo", "No me has hablado en medio día. ¿estás vivo?"},
+                      {"[MASSMAIL] Correo electrónico 593 - massmail@uic.edu", "A: MASSMAIL_STUDENT", "Correo electrónico relevante para usted!"},
+                      {"Trae pastel! - bob@gmail.com", "A: yo", "You better bring cake to my party."}
+                    };
 
 int tweetIndex = 0;
 boolean twitterExist = false;
@@ -809,13 +986,27 @@ String[][] twitterInfo = {
                           {"Ethan Klein - @h3h3productions","thanks for the meme minerdigger from /r/h3h3productions,\n but sadly we will need to re-accommodate you"}
                         };
                         
+String[][] twitterInfoSpanish = {
+                          {"CNN - @CNN", "Conoce tus derechos: Esto es lo que debe hacer si su vuelo está lleno http://cnn.it/2o7yWin "},
+                          {"Bob the Builder - @Builder", "Podemos arreglarlo? Si podemos!"},
+                          {"Ethan Klein - @h3h3productions","Gracias por el meme minerdigger from /r/h3h3productions, Pero lamentablemente vamos a tener que volver a acomodar a usted"}
+                        };
+                        
 int instaIndex = 0;
 boolean instagramExist = false;
+
 String[][] instagramInfo = {
                             {"foodphotographer512", "Had a great lunch today!<3\n#blessed#yummy"},
                             {"edmluvr","Zedd concert!!\n#edm"},
                             {"treelover123","Nature at its finest.\n#peace#love#happiness"}
                            };
+                           
+String[][] instagramInfoSpanish = {
+                            {"foodphotographer512", "Tuve un gran almuerzo hoy!<3\n#bendito#sabroso"},
+                            {"edmluvr","concierto de Zedd!!\n#edm"},
+                            {"treelover123","La naturaleza en su mejor.\n#paz#amor#felicidad"}
+                           };
+                           
 PImage[] instagramImages;
 //1: http://blog.instagram.com/post/27128108925/the-scoop-on-food-photography-want-to-see-more
 //2: http://68.media.tumblr.com/211ebcb3e7761aa53eb02da02644ac55/tumblr_mrfnzdT6lI1qj08ewo1_1280.jpg
@@ -827,3 +1018,9 @@ String[][] facebookInfo = {
                             {"Billy Bob", "I love my dogs, my cats, and\nmy hamster"},
                             {"Bob Joey", "Party at my place on April 28th! Don't miss it!"}
                            };
+               
+String[][] facebookInfoSpanish = {
+              {"Bob Joe", "Yo amo la primavera! Es tan caliente ahora!"},
+              {"Billy Bob", "Yo amo a mis perros, gatos, y mi hámster."},
+              {"Bob Joey", "Fiesta en mi casa el 28 de abril! No te lo pierdas!"}
+               };    
