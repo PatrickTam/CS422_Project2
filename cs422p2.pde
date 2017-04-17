@@ -349,8 +349,8 @@ void setup() {
   //Add a new app? Put it in here or it wont show up!
   appArr = new AppButton[]{weatherIcon, musicIcon, healthIcon, calendarIcon, newsIcon, timerIcon, stopwatchIcon, noteIcon, emailIcon, twitterIcon, instagramIcon, facebookIcon};
 
-  //amanda.setAttribute("src", "amanda.mp3");
-  //sad.setAttribute("src", "sad.mp3");
+  amanda.setAttribute("src", "amanda.mp3");
+  sad.setAttribute("src", "sad.mp3");
 
   amandaCover = loadImage("amandaCover.jpg", "jpg");
   amandaCover.loadPixels();
@@ -430,13 +430,13 @@ void playWrong(){
 
 //we set the attribute again to avoid the html5 pause() error (I know this is bad)
 void playAmanda() {
-  //amanda.setAttribute("src", "amanda.mp3");
+  amanda.setAttribute("src", "amanda.mp3");
   amanda.play();
 }
 
 //we set the attribute again to avoid the html5 pause() error (I know this is bad)
 void playSad() {
-  //sad.setAttribute("src", "sad.mp3");
+  sad.setAttribute("src", "sad.mp3");
   sad.play();
 }
 
