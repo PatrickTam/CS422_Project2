@@ -8,6 +8,7 @@ String[] sdayName = {
   "Domingo", "Lunes", "Martes", "Miércoles", 
   "Jueves", "Viernes", "Sábado "
 };
+
 int w;
  
 // d = day in month

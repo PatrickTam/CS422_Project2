@@ -6,6 +6,9 @@ class DateTimeItem {
   public boolean monthDayYear;
   String[] months = {"January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December"};
+    
+  String[] smonths = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+    "Agosto", "Septiembre", "Octubure", "Noviembre", "Diciembre"};
   
   DateTimeItem(Point locTime, Point locDate) {
     this.locTime = locTime;
@@ -43,10 +46,27 @@ class DateTimeItem {
   
   private String constructDateString() {
     if(monthDayYear == true){
-      return months[month()-1] + " " + day() + ", " + year(); 
+      
+      if (language.equals("Español"))
+        {
+        return smonths[month()-1] + " " + day() + ", " + year(); 
+        }
+        else
+        {
+        return months[month()-1] + " " + day() + ", " + year(); 
+        }
+      
+      
     }
     else{
-      return day() + " " + months[month()-1] + ", " + year(); 
+      if (language.equals("Español"))
+        {
+        return day() + " " + smonths[month()-1] + ", " + year(); 
+        }
+        else
+        {
+        return day() + " " + months[month()-1] + ", " + year(); 
+        }
     }
   }
   
