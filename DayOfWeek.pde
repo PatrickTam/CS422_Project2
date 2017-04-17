@@ -3,6 +3,11 @@ String[] dayName = {
   "Sunday", "Monday", "Tuesday", "Wednesday", 
   "Thursday", "Friday", "Saturday"
 };
+
+String[] sdayName = { 
+  "Sunday", "Monday", "Tuesday", "Wednesday", 
+  "Thursday", "Friday", "Saturday"
+};
 int w;
  
 // d = day in month

@@ -53,7 +53,16 @@ void processWidgetInfo(Widget w){
         cloudy.resize(90,90);
         image(cloudy, w.x+70+(i*200), w.y+130);
         
+        
+        
+        if (language.equals("Español"))
+        {
+        text(sdayName[dayOfWeek], w.x+100+(i*200), w.y+130);
+        }
+        else
+        {
         text(dayName[dayOfWeek], w.x+100+(i*200), w.y+130);
+        }
        
         if(farenheit)
           text(expandedWeatherInfo[i][0], w.x+110+(i*200), w.y+240);
