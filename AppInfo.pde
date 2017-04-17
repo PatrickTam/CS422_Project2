@@ -953,9 +953,16 @@ String[][] newsHeadline = {{"Kim Jong-un orders 600,000 out of Pyongyang", "His 
                            {"Comedian Charlie Murphy Dies at 57", "Cosmopolitan magazine: ‘Cancer is a diet plan’", "Boy, 8, drives sister, 4, to McDonald's"}, 
                            {"Trump lifts ban on hunting hibernating bears", "Staff accidentally shoots self at NRA headquarters", "Hacker sets off 156 emergency sirens in Dallas"}};
 
-String[][] newsHeadlineSpanish = {{"Kim Jong-un ordena 600.000 de Pyongyang.", "Su nombre es Albus, no Young Dumbledore.", "Perro encontrado después de 20 minutos de estar desaparecido."}, 
-                           {"El comediante Charlie Murphy muere a los 57 años.", "Cosmopolitan magazine: 'El cáncer es un plan de dieta'", "niño de 8, Conduce a hermana, 4, a McDonald's"}, 
-                           {"Trump levanta la prohibición de cazar osos en hibernación.", "El personal se dispara accidentalmente en la sede de la NRA", "Hacker dispara 156 sirenas de emergencia en Dallas"}};
+String[][] newsHeadlineSpanish = {
+                          {"Kim Jong-un ordena 600.000 de Pyongyang.", 
+                          "Su nombre es Albus, no Young Dumbledore.", 
+                          "Perro encontrado después de 20 minutos."}, 
+                           {"Charlie Murphy muere a los 57 años.", 
+                           " El cáncer es un plan de dieta", 
+                           "Niño conduce a hermana, 4, a McDonald's"}, 
+                           {"Trump levanta la prohibición de cazar.", 
+                           "El personal se dispara", 
+                           "Hacker dispara 156 sirenas"}};
 
 String[][] cnnNewsText = {
                         //http://koreajoongangdaily.joins.com/news/article/article.aspx?aid=3032113
@@ -966,10 +973,22 @@ String[][] cnnNewsText = {
 
 String[][] cnnNewsTextSpanish = {
                         //http://koreajoongangdaily.joins.com/news/article/article.aspx?aid=3032113
-                        {"El líder norcoreano Kim Jong-un ordenó recientemente la deportación de casi 600.000 residentes de Pyongyang a los suburbios, dijo una fuente local el lunes a JoongAng Ilbo. La deportación representa una cuarta parte de la población actual de Pyongyang de 2.6 millones. No se sabe cuándo se verán obligados a moverse oa dónde."},
+                          {"El líder norcoreano Kim Jong-un ordenó recientemente la deportación",
+                           "de casi 600.000 residentes de Pyongyang a los suburbios, dijo una", 
+                          "fuente local el lunes a JoongAng Ilbo. La deportación representa,",
+                          "una cuarta parte de la población actual de Pyongyang de 2.6",
+                          "millones."},
                         //http://ew.com/movies/2017/04/12/harry-potter-dumbledore-jude-law/
-                        {"A estas alturas ya has escuchado la noticia de la 'Alohomora' de decisiones de casting- Jude Law está interpretando a un joven Albus Dumbledore en la próxima película Fantastic Beasts y Where to Find Them, que actualmente no tiene nombre ni argumento, sino dos A-list Estrellas de cine a bordo para jugar versiones juveniles de dos personajes icónicos de Harry Potter."}, 
-                        {"Un valiente perro llamado Sparks fue encontrado 20 minutos después de su desaparición de una casa local en Chicago. La familia fue muy amable que regresó tan rápidamente. Es un buen perro declaró el propietario. Sparks recibió muchas golosinas."}};
+                          {"A estas alturas ya has escuchado la noticia de la 'Alohomora' de,",
+                         "decisiones de casting- Jude Law está interpretando a un joven",
+                          "Albus Dumbledore en la próxima película Fantastic Beasts y",
+                          "Where to Find Them, que actualmente no tiene nombre ni ",
+                          "argumento, sino dos A-list Estrellas de cine"},
+                          {"Un valiente perro llamado Sparks fue encontrado 20 minutos",
+                          "después de su desaparición de una casa local en Chicago. La", 
+                          "familia fue muy amable que regresó tan rápidamente. Es un ",
+                          "buen perro declaró el propietario. Sparks recibió muchas ",
+                          "golosinas."}};
 
 String[][] reutersNewsText = {
                               //http://www.hollywoodreporter.com/news/charlie-murphy-dead-comedian-was-57-993220
@@ -981,11 +1000,22 @@ String[][] reutersNewsText = {
                               
 String[][] reutersNewsTextSpanish = {
                               //http://www.hollywoodreporter.com/news/charlie-murphy-dead-comedian-was-57-993220
-                              {"Charlie Murphy, ex estrella de Chappelle's Show y hermano mayor de Eddie Murphy ha muerto el publicista Domenick Nati le dijo a The Hollywood Reporter. El tenia 57 años. Murphy murió de leucemia el miércoles, dijo Nati."},
+                              {"Charlie Murphy, ex estrella de Chappelle's Show y hermano", 
+                              "mayor de Eddie Murphy ha muerto el publicista Domenick Nati",
+                              "le dijo a The Hollywood Reporter. El tenia 57 años. Murphy ,",
+                              "murió de leucemia el miércoles, dijo Nati."},
                               //https://www.washingtonpost.com/news/morning-mix/wp/2017/04/12/dear-cosmopolitan-magazine-cancer-is-not-a-diet-plan/
-                              {"Los lectores que hicieron clic en el enlace para averiguar sobre un sorprendente secreto de pérdida de peso fueron sorprendidos por la historia de una mujer que perdió 44 libras después de ser diagnosticado con un cáncer raro. El énfasis de la historia en adelgazar los enfureció."},
+                              {"Los lectores que hicieron clic en el enlace para averiguar",
+                              "sobre un sorprendente secreto de pérdida de peso fueron ",
+                              "sorprendidos por la historia de una mujer que perdió 44 ",
+                              "libras después de ser diagnosticado con un cáncer raro. ",
+                              "El énfasis de la historia en adelgazar los enfureció."},
                               //http://www.sfgate.com/national/article/Boy-8-drives-sister-4-to-McDonald-s-for-a-11068868.php
-                              {"Testigos en otros vehículos descubrieron al conductor menor de edad y llamaron a la policía. Informaron que obedeció las reglas de tránsito, se detuvo en las luces rojas, siguió el límite de velocidad y no recorrió una sola cubeta de basura. Después de llegar al drive-thru en el restaurante de comida rápida, el chico pagó por los cheeseburgers con dinero de su alcancía."}};
+                              {"Testigos en otros vehículos descubrieron al conductor",
+                              "menor de edad y llamaron a la policía. Informaron que ",
+                              "obedeció las reglas de tránsito, se detuvo en las luces rojas, ",
+                              "siguió el límite de velocidad y no recorrió una sola ",
+                              " cubeta de basura."}};
                               
 String[][] googleNewsText = {
                               //https://www.theweathernetwork.com/news/articles/trump-rids-ban-on-hunting-bears-and-wolves-in-alaska-refuges/81051/
@@ -998,11 +1028,22 @@ String[][] googleNewsText = {
                             
 String[][] googleNewsTextSpanish = {
                               //https://www.theweathernetwork.com/news/articles/trump-rids-ban-on-hunting-bears-and-wolves-in-alaska-refuges/81051/
-                              {"Un proyecto de ley conjunto de la Cámara de los Estados Unidos y el Senado, firmado por el Presidente. Donald Trump el lunes, revoca una regla de la era Obama que prohíbe. ", "'Control depredador' Caza en los refugios de Alaska. La prohibición protegía a los osos hibernando de ser cazados, junto con los cachorros de lobo en las guaridas."},
+                              {"Un proyecto de ley conjunto de la Cámara de los Estados ",
+                              "Unidos y el Senado, firmado por el Presidente. Donald Trump ",
+                              "el lunes, revoca una regla de la era Obama que prohíbe. ", 
+                              "'Control depredador' Caza en los refugios de Alaska"},
                               //https://www.usatoday.com/story/news/2017/04/07/employee-accidentally-shoots-hurts-self-nra-museum/100192128/
-                              {"Un empleado de un museo de Fairfax, Virginia, que representa a la organización de derechos de armas más grande de la nación, se suicidó accidentalmente Dijo la policía el viernes. El funcionario del Museo Nacional de Armas de Fuego, un sitio dirigido por la Asociación Nacional de Rifle fuera de su sede, sufrió una pequeña herida en la parte inferior del cuerpo."},
+                              {"Un empleado de un museo de Fairfax, Virginia, que representa",
+                              " a la organización de derechos de armas más grande de la nación,",
+                              " se suicidó accidentalmente Dijo la policía el viernes. El ",
+                              "funcionario del Museo Nacional de Armas de Fuego, un sitio ",
+                              "dirigido por la Asociación Nacional de Rifle"},
                               //https://www.usatoday.com/story/news/2017/04/08/hacker-triggers-all-156-emergency-sirens-dallas/100212412/
-                              {"Funcionarios de la ciudad de Dallas dijeron el sábado que un hacker es culpable de haber puesto en marcha todas las sirenas exteriores de emergencia de la ciudad, que se lamentaron durante una hora y media durante la noche. Rocky Vaz, director de la Oficina de Administración de Emergencias de la ciudad, dijo que los ingenieros determinaron que un hacker no identificado en algún lugar del área de Dallas era responsable."}
+                              {"Funcionarios de la ciudad de Dallas dijeron el sábado ",
+                              "que un hacker es culpable de haber puesto en marcha todas ",
+                              "las sirenas exteriores de emergencia de la ciudad, que se",
+                              " lamentaron durante una hora y media durante la noche. Rocky ",
+                              "Vaz, director de la Oficina de Administración de Emergencias"}
                             };
                             
                             
