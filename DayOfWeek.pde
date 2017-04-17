@@ -5,8 +5,8 @@ String[] dayName = {
 };
 
 String[] sdayName = { 
-  "Sunday", "Monday", "Tuesday", "Wednesday", 
-  "Thursday", "Friday", "Saturday"
+  "Domingo", "Lunes", "Martes", "Miércoles", 
+  "Jueves", "Viernes", "Sábado "
 };
 int w;
  
