@@ -405,27 +405,57 @@ void processWidgetInfo(Widget w){
         
         textSize(35);
         textAlign(LEFT);
-        text(newsHeadline[newsSelected][currentProfile.newsIndex], w.x+20, w.y+140);
+        
+        if (language.equals("Español")){
+         text(newsHeadlineSpanish[newsSelected][currentProfile.newsIndex], w.x+20, w.y+140);
+        }
+        else{
+         text(newsHeadline[newsSelected][currentProfile.newsIndex], w.x+20, w.y+140);
+        }
         
         textSize(25);
         
         int index = 0;
         if(newsSelected == 0){
-          for(String str : cnnNewsText[currentProfile.newsIndex]){
+          if (language.equals("Español")){
+           for(String str : cnnNewsTextSpanish[currentProfile.newsIndex]){
             text(str, w.x+20, w.y+180+(25*index));
             index++;
+            }
+          }
+          else{
+           for(String str : cnnNewsText[currentProfile.newsIndex]){
+            text(str, w.x+20, w.y+180+(25*index));
+              index++;
+            }
           }
         }
         else if(newsSelected == 1){
-          for(String str : reutersNewsText[currentProfile.newsIndex]){
+          if (language.equals("Español")){
+           for(String str : reutersNewsTextSpanish[currentProfile.newsIndex]){
             text(str, w.x+20, w.y+180+(25*index));
             index++;
+            }
+          }
+          else{
+           for(String str : reutersNewsText[currentProfile.newsIndex]){
+            text(str, w.x+20, w.y+180+(25*index));
+              index++;
+            }
           }
         }
         else if(newsSelected == 2){
-          for(String str : googleNewsText[currentProfile.newsIndex]){
+          if (language.equals("Español")){
+           for(String str : googleNewsTextSpanish[currentProfile.newsIndex]){
             text(str, w.x+20, w.y+180+(25*index));
             index++;
+            }
+          }
+          else{
+           for(String str : googleNewsText[currentProfile.newsIndex]){
+            text(str, w.x+20, w.y+180+(25*index));
+            index++;
+            }
           }
         }
       }
@@ -922,12 +952,24 @@ boolean newsExist = false;
 String[][] newsHeadline = {{"Kim Jong-un orders 600,000 out of Pyongyang", "His name is Albus, not Young Dumbledore", "Dog found after 20 minutes of being missing"}, 
                            {"Comedian Charlie Murphy Dies at 57", "Cosmopolitan magazine: ‘Cancer is a diet plan’", "Boy, 8, drives sister, 4, to McDonald's"}, 
                            {"Trump lifts ban on hunting hibernating bears", "Staff accidentally shoots self at NRA headquarters", "Hacker sets off 156 emergency sirens in Dallas"}};
+
+String[][] newsHeadlineSpanish = {{"Kim Jong-un ordena 600.000 de Pyongyang.", "Su nombre es Albus, no Young Dumbledore.", "Perro encontrado después de 20 minutos de estar desaparecido."}, 
+                           {"El comediante Charlie Murphy muere a los 57 años.", "Cosmopolitan magazine: 'El cáncer es un plan de dieta'", "niño de 8, Conduce a hermana, 4, a McDonald's"}, 
+                           {"Trump levanta la prohibición de cazar osos en hibernación.", "El personal se dispara accidentalmente en la sede de la NRA", "Hacker dispara 156 sirenas de emergencia en Dallas"}};
+
 String[][] cnnNewsText = {
                         //http://koreajoongangdaily.joins.com/news/article/article.aspx?aid=3032113
                         {"North Korean leader Kim Jong-un recently ordered the deportation of", "nearly 600,000 Pyongyang residents to the suburbs, a local source", "told the JoongAng Ilbo Monday. The deportation represents one-", "fourth of Pyongyang’s current population of 2.6 million. It ", "is not known when they will be forced to move or to where. "},
                         //http://ew.com/movies/2017/04/12/harry-potter-dumbledore-jude-law/
                         {"By now you’ve heard the news of the ‘Alohomora’ of casting", "decisions— Jude Law is playing a young Albus Dumbledore in the next", "Fantastic Beasts and Where to Find Them film, which presently has", "no name and no plot but two A-list movie stars onboard to play", "juvenile versions of two iconic characters from Harry Potter."}, 
                         {"A brave dog named Sparks was found 20 minutes after his", "disappearance from a local home in Chicago. The family was very", "gracious that he came back so quickly, \"He's a good boy\"", "stated the owner. Sparks received many treats."}};
+
+String[][] cnnNewsTextSpanish = {
+                        //http://koreajoongangdaily.joins.com/news/article/article.aspx?aid=3032113
+                        {"El líder norcoreano Kim Jong-un ordenó recientemente la deportación de casi 600.000 residentes de Pyongyang a los suburbios, dijo una fuente local el lunes a JoongAng Ilbo. La deportación representa una cuarta parte de la población actual de Pyongyang de 2.6 millones. No se sabe cuándo se verán obligados a moverse oa dónde."},
+                        //http://ew.com/movies/2017/04/12/harry-potter-dumbledore-jude-law/
+                        {"A estas alturas ya has escuchado la noticia de la 'Alohomora' de decisiones de casting- Jude Law está interpretando a un joven Albus Dumbledore en la próxima película Fantastic Beasts y Where to Find Them, que actualmente no tiene nombre ni argumento, sino dos A-list Estrellas de cine a bordo para jugar versiones juveniles de dos personajes icónicos de Harry Potter."}, 
+                        {"Un valiente perro llamado Sparks fue encontrado 20 minutos después de su desaparición de una casa local en Chicago. La familia fue muy amable que regresó tan rápidamente. Es un buen perro declaró el propietario. Sparks recibió muchas golosinas."}};
 
 String[][] reutersNewsText = {
                               //http://www.hollywoodreporter.com/news/charlie-murphy-dead-comedian-was-57-993220
@@ -937,6 +979,14 @@ String[][] reutersNewsText = {
                               //http://www.sfgate.com/national/article/Boy-8-drives-sister-4-to-McDonald-s-for-a-11068868.php
                               {"Witnesses in other vehicles spotted the underage driver", "and called police. They reported he obeyed traffic rules, stopped at", "red lights, adhered to the speed limit and didn't sideswipe a single", "garbage can. After reaching the drive-thru at the fast-food restaurant, ", "the boy paid for the cheeseburgers with money from his piggy bank."}};
                               
+String[][] reutersNewsTextSpanish = {
+                              //http://www.hollywoodreporter.com/news/charlie-murphy-dead-comedian-was-57-993220
+                              {"Charlie Murphy, ex estrella de Chappelle's Show y hermano mayor de Eddie Murphy ha muerto el publicista Domenick Nati le dijo a The Hollywood Reporter. El tenia 57 años. Murphy murió de leucemia el miércoles, dijo Nati."},
+                              //https://www.washingtonpost.com/news/morning-mix/wp/2017/04/12/dear-cosmopolitan-magazine-cancer-is-not-a-diet-plan/
+                              {"Los lectores que hicieron clic en el enlace para averiguar sobre un sorprendente secreto de pérdida de peso fueron sorprendidos por la historia de una mujer que perdió 44 libras después de ser diagnosticado con un cáncer raro. El énfasis de la historia en adelgazar los enfureció."},
+                              //http://www.sfgate.com/national/article/Boy-8-drives-sister-4-to-McDonald-s-for-a-11068868.php
+                              {"Testigos en otros vehículos descubrieron al conductor menor de edad y llamaron a la policía. Informaron que obedeció las reglas de tránsito, se detuvo en las luces rojas, siguió el límite de velocidad y no recorrió una sola cubeta de basura. Después de llegar al drive-thru en el restaurante de comida rápida, el chico pagó por los cheeseburgers con dinero de su alcancía."}};
+                              
 String[][] googleNewsText = {
                               //https://www.theweathernetwork.com/news/articles/trump-rids-ban-on-hunting-bears-and-wolves-in-alaska-refuges/81051/
                               {"A joint bill from the U.S. House and Senate, signed off by President", "Donald Trump on Monday, revokes an Obama-era rule that bans ", "'predator control' hunting on Alaska's refuges. The ban protected", "hibernating bears from being hunted, along with wolf cubs in", "dens."},
@@ -944,6 +994,15 @@ String[][] googleNewsText = {
                               {"An employee of a Fairfax, Va., museum representing the nation's", "largest gun rights organization accidentally shot himself on Friday,", "police said. The staffer at the National Firearms Museum, a site run", "by the National Rifle Association out of its headquarters, suffered", "a minor wound to the lower body."},
                               //https://www.usatoday.com/story/news/2017/04/08/hacker-triggers-all-156-emergency-sirens-dallas/100212412/
                               {"Dallas city officials said Saturday that a hacker is to blame for", "setting off all the city's 156 emergency outdoor sirens, which wailed", "for an hour and half overnight. Rocky Vaz, director of the city's Office", "of Emergency Management, said engineers determined an", "unidentified hacker somewhere in the Dallas area was responsible."}
+                            };
+                            
+String[][] googleNewsTextSpanish = {
+                              //https://www.theweathernetwork.com/news/articles/trump-rids-ban-on-hunting-bears-and-wolves-in-alaska-refuges/81051/
+                              {"Un proyecto de ley conjunto de la Cámara de los Estados Unidos y el Senado, firmado por el Presidente. Donald Trump el lunes, revoca una regla de la era Obama que prohíbe. ", "'Control depredador' Caza en los refugios de Alaska. La prohibición protegía a los osos hibernando de ser cazados, junto con los cachorros de lobo en las guaridas."},
+                              //https://www.usatoday.com/story/news/2017/04/07/employee-accidentally-shoots-hurts-self-nra-museum/100192128/
+                              {"Un empleado de un museo de Fairfax, Virginia, que representa a la organización de derechos de armas más grande de la nación, se suicidó accidentalmente Dijo la policía el viernes. El funcionario del Museo Nacional de Armas de Fuego, un sitio dirigido por la Asociación Nacional de Rifle fuera de su sede, sufrió una pequeña herida en la parte inferior del cuerpo."},
+                              //https://www.usatoday.com/story/news/2017/04/08/hacker-triggers-all-156-emergency-sirens-dallas/100212412/
+                              {"Funcionarios de la ciudad de Dallas dijeron el sábado que un hacker es culpable de haber puesto en marcha todas las sirenas exteriores de emergencia de la ciudad, que se lamentaron durante una hora y media durante la noche. Rocky Vaz, director de la Oficina de Administración de Emergencias de la ciudad, dijo que los ingenieros determinaron que un hacker no identificado en algún lugar del área de Dallas era responsable."}
                             };
                             
                             
