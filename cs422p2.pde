@@ -167,7 +167,7 @@ void setup() {
   english.setName("English");
   spanish.setName("Español");
   french.setName("Français");
-  lang4.setName("Japanese");
+  lang4.setName("Português");
   langs = new Clickable[]{english, spanish, french, lang4, skipButton};
   
   langIcon = loadImage("language.png", "png");
