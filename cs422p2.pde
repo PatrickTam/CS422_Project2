@@ -2446,7 +2446,7 @@ void mouseReleased() {
         rX = rVerts[0];
         rY = rVerts[1];
         if(pnpoly(4, rX, rY, mouseX, mouseY) == 1){
-          if(currentProfile.noteList.size() < currentProfile.noteIndex){
+          if(currentProfile.noteList.size() > currentProfile.noteIndex){
            keyboardShow = true;
            reason = "editNote";
            currentText = currentProfile.getNote();
