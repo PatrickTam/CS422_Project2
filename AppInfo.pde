@@ -281,8 +281,8 @@ void processWidgetInfo(Widget w){
         textAlign(LEFT);
         
         if (language.equals("Español")){
-         text(calendarInfo[0], w.x+50, w.y+40);
-         text(calendarInfo[1], w.x+50, w.y+90);
+         text(scalendarInfo[0], w.x+50, w.y+40);
+         text(scalendarInfo[1], w.x+50, w.y+90);
          text("...", w.x+50, w.y+130);
         }
         else{
@@ -311,10 +311,23 @@ void processWidgetInfo(Widget w){
         textSize(40);
         fill(0);
         textAlign(LEFT);
-        text(calendarInfo[0], w.x+50, w.y+40);
-        text(calendarInfo[1], w.x+50, w.y+90);
-        text(calendarInfo[2], w.x+50, w.y+140);
-        text(calendarInfo[3], w.x+50, w.y+190);
+        
+        
+        if (language.equals("Español")){
+         text(scalendarInfo[0], w.x+50, w.y+40);
+         text(scalendarInfo[1], w.x+50, w.y+90);
+         text(scalendarInfo[2], w.x+50, w.y+140);
+         text(scalendarInfo[3], w.x+50, w.y+190); 
+         text("...", w.x+50, w.y+130);
+        }
+        else{
+         text(calendarInfo[0], w.x+50, w.y+40);
+         text(calendarInfo[1], w.x+50, w.y+90);
+         text(calendarInfo[2], w.x+50, w.y+140);
+         text(calendarInfo[3], w.x+50, w.y+190);     
+        }
+        
+        
         calendarImage.resize(300,280);
         image(calendarImage, w.x+(w.sizeX - 310), w.y+10);
       }
@@ -942,6 +955,7 @@ PImage sleep;
 
 //Calendar info... for later...
 String[] calendarInfo = {"April 22 - Earth Day", "April 23 - Bob's Birthday", "April 28 - Arbor Day", "April 29 - Party WooO"};
+String[] scalendarInfo = {"Abril 22 - Earth Day", "Abril 23 - Bob's Birthday", "Abril 28 - Arbor Day", "Abril 29 - Party WooO"};
 PImage calendarImage;
 
 //News
