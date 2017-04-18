@@ -661,7 +661,7 @@ void draw() {
       }
       else
       {
-        text("Welcome!", 2732/2, 350);
+        text("Mega Mirror 5000!", 2732/2, 350);
       }
       
       langIcon.resize(250,250);
